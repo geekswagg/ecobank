@@ -34,4 +34,61 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+@font-face {
+  font-family: "Roboto-Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Regular"),
+    url("./assets/fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto-Light";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Light"),
+    url("./assets/fonts/Roboto-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Italic"),
+    url("./assets/fonts/Roboto-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Bold"),
+    url("./assets/fonts/Roboto-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto-Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Medium"),
+    url("./assets/fonts/Roboto-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Roboto-Thin";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Thin"),
+    url("./assets/fonts/Roboto-Thin.ttf") format("truetype");
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #f3f3f4;
+  color: #222428;
+  width: 100% !important;
+  font-family: 'Roboto-Regular';
+ }
