@@ -1,0 +1,7 @@
+{
+  "name": "ecobank-pwa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
