@@ -1,0 +1,16 @@
+*{
+  background: #f3f3f4;
+}
+.content{
+  height: 400px;
+  width: 352px;
+  background-size: contain;
+  margin-top: 15px;
+  margin-left: 15px;
+  background: #f3f3f4;
+  height: 100%;
+}
+
+ion-content{
+  --background: #f3f3f4;
+}

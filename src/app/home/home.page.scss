@@ -1,30 +1,5 @@
-// #container {
-//   text-align: center;
 
-//   position: absolute;
-//   left: 0;
-//   right: 0;
-//   top: 80%;
-//   transform: translateY(-80%);
-// }
 
-// #container strong {
-//   font-size: 20px;
-//   line-height: 29px;
-// }
-
-// #container p {
-//   font-size: 16px;
-//   line-height: 22px;
-
-//   color: #8c8c8c;
-
-//   margin: 0;
-// }
-
-// #container a {
-//   text-decoration: none;
-// }
 #container{
   background-image: url(../../assets/images/home-bg.png);
   background-size: cover;
@@ -39,7 +14,7 @@
 }
 
 .welcome-info{
-  padding-top: 190px;
+  padding-top: 120px;
   padding-left: 21px;
   color: #ffff;
 
@@ -82,6 +57,7 @@
 .start-btn{
   padding-left: 20px;
   padding-right: 20px;
+  margin-top: 30px;
 }
 
 .help-section{
@@ -101,3 +77,30 @@
     font-family: "Roboto-Medium";
   }
 }
+
+
+//Pulse button
+.pulseBtn {
+  background:transparent;
+  color:#fff;
+  border:1px solid #bed600;
+  padding:0.2rem 0.9rem;
+  border-radius:2rem;
+  font-size:1rem;
+  box-shadow: 0 0 0 0 rgba(190,214,0,1);
+  -moz-animation: pulse 2s infinite;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+      0% {
+          box-shadow: 0 0 0 0 rgba(190,214,0,1);
+      }
+      70% {
+          box-shadow: 0 0 0 10px rgba(190,214,0,0);
+      }
+      100% {
+          box-shadow: 0 0 0 50px rgba(190,214,0,0);
+      }
+  }

@@ -15,8 +15,56 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="body-content">
-  <div>
+  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider finite="true">
 
-  </div>
+    <ul class="uk-slider-items uk-margin-small-left uk-margin-large-right" style="margin-right: 30px !important;" data-uk-smooth-scroll>
+        <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
+            <div class="uk-panel">
+                <div class="uk-card uk-card-default uk-border-rounded">
+                  <div class="uk-card-media-top">
+                    <img src="../../assets/images/product-img.png" width="1800" height="800"  alt="">
+                  </div>
+                  <div class="uk-card-body uk-padding-small">
+                    <h3 class="uk-card-title">{{product.title}}</h3>
+                    <div *ngIf="product?.description" class="clamp">
+                      {{ product?.description | slice:0:100 }}<span *ngIf="product.description?.length">...</span>
+                      </div>
+                      <br>
+
+                      <div class="ion-float-left ion-padding-bottom">
+                        <ion-button fill="outline" color="primary" size="medium">View More ...
+                        </ion-button>
+                      </div>
+                      <div class="ion-float-right ion-padding-bottom">
+                        <ion-button fill="solid" size="medium" color="primary" [ngClass]="" (click)="selectProduct(i,product)">Apply Now
+                          <ion-icon slot="end" name="chevron-forward-outline"  color="secondary"></ion-icon>
+                        </ion-button>
+
+
+                      </div>
+
+                  </div>
+                </div>
+            </div>
+
+            <!-- <div class="uk-child-width-1-2@m" uk-grid>
+              <div>
+
+                  <div class="uk-inline">
+                    <img src="../../assets/images/product-img.png" width="1800" height="1200"  alt="">
+                      <div class="uk-overlay uk-overlay-default uk-position-bottom">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem unde non reiciendis vel saepe fugiat ducimus neque suscipit sequi ipsam quas architecto, accusamus quis eveniet adipisci quia itaque sint cupiditate.</p>
+                      </div>
+                  </div>
+
+              </div>
+              </div> -->
+
+        </li>
+
+    </ul>
+<!--
+    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-dark uk-margin"></ul> -->
+</div>
 
 </ion-content>
