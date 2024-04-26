@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'account-types',
+    loadChildren: () => import('./account-types/account-types.module').then( m => m.AccountTypesPageModule)
+  },
+  {
+    path: 'account-products',
+    loadChildren: () => import('./account-products/account-products.module').then( m => m.AccountProductsPageModule)
+  },
 ];
 
 @NgModule({

@@ -13,12 +13,19 @@
 
     <div class="step-section">
       <div class="content">
-        <!-- <img src="../../assets/images/steps.png" alt="" height="400"> -->
+        <img src="../../assets/images/description.png" alt="" height="400">
       </div>
     </div>
 
     <div class="start-btn">
-      <ion-button color="primary" expand="block" mode="md" size="large">Let's Get Started</ion-button>
+      <ion-button color="primary" expand="block" mode="md" size="large" [routerLink]="['/account-types']" routerLinkActive="router-link-active" >
+        @if(!loading) {
+          Let's Get Started
+        }
+        @if(loading){
+          <ion-spinner name="circular"></ion-spinner>
+        }
+      </ion-button>
     </div>
 
     <div class="help-section">
