@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center" >Choose Your Account</ion-title>
+  </ion-toolbar>
+  <div class="progress-bar">
+    <div class="step active"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+  </div>
+</ion-header>
+<ion-content [fullscreen]="true" class="body-content" >
+
+  <div class="indiv-section">
+    <div class="indiv-content">
+      <h3 class="acc-title">Individual Account</h3>
+      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
+      <ion-button color="primary" mode="ios" (click)="onSelectAccoutType('indiv')">Select Individual Account</ion-button>
+    </div>
+  </div>
+  <div class="joint-section">
+    <div class="indiv-content">
+      <h3 class="acc-title">Joint Account</h3>
+      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
+      <ion-button color="primary" mode="ios" (click)="onSelectAccoutType('joint')">Select Joint Account</ion-button>
+    </div>
+  </div>
+  <div class="bus-section">
+    <div class="indiv-content">
+      <h3 class="acc-title">Business Account</h3>
+      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
+      <ion-button color="primary" mode="ios" (click)="onSelectAccoutType('business')">Select Business Account</ion-button>
+    </div>
+  </div>
+</ion-content>

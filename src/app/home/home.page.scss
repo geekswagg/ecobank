@@ -63,19 +63,18 @@
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  background-color: #ffff;
-  opacity: 0.8;
+  background-color: transparent;
+  // opacity: 0.8;
   margin-top: 90px;
 
   .content{
-    background-image: url(../../assets/images/steps.png);
+    // background-image: url(../../assets/images/description.png);
     background-repeat: no-repeat;
-    height: 370px;
+    height: 400px;
     width: 352px;
-    background-size: auto;
+    background-size: contain;
     margin-top: 15px;
     margin-left: 15px;
-    // padding: 15px;
   }
 
 }
