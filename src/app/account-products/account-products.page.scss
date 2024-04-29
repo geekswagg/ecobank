@@ -1,4 +1,45 @@
 .body-content{
   --background: #f3f3f4;
   overflow: auto;
+  // height: 100vh;
+}
+
+
+
+.swiper-el{
+  height: 100vh;
+
+  .image-container{
+    position: relative;
+    z-index: 0;
+    height: 20vh !important;
+  }
+
+  .image-description {
+    padding: 10px;
+    position: absolute;
+    top: 40%; /* Positions the description box 45% from the top of its container */
+    left: 10px;
+    right: 10px;
+    color: #000000; /* Sets the text color */
+    background-color: rgba(255, 255, 255, 0.8); /* Sets the background color of the description box with 50% opacity */
+    min-width: 80%; /* Sets the minimum width of the description box */
+    z-index: 100; /* Sets the stacking order of the description box */
+    height: auto !important; /* Allows the description box to adjust its height based on content */
+    border-radius: 10px; /* Adds rounded corners to the description box */
+
+    .item-title{
+      font-size: 20px;
+      font-weight: 900px;
+      color: #005B82;
+    }
+  }
+
+
+}
+
+.skeleton-content{
+  width: 80%;
+  margin-left: 10%;
+
 }

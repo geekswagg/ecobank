@@ -1,0 +1,102 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/account-types"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center" >Requirements</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="body-content">
+  <div class="content-elements">
+   <div class="content-item">
+    <div style="display: flex; flex-direction: row;">
+      <div>
+        <h2 style="font-family: Roboto-Medium; padding-right: 10px; color: #005B82;">1</h2>
+      </div>
+      <div>
+        <img src="../../assets/images/id-img.png" alt="" height="400">
+      </div>
+    </div>
+    <span> Have a national ID/Passport</span>
+   </div>
+
+
+   <div class="my-progress">
+    <span class="step-p"></span>
+   </div>
+  </div>
+
+  <div class="content-elements">
+    <div class="content-item">
+     <div style="display: flex; flex-direction: row;">
+       <div>
+         <h2 style="font-family: Roboto-Medium; padding-right: 10px; color: #005B82;">2</h2>
+       </div>
+       <div>
+         <img src="../../assets/images/signature.png" alt="" height="400">
+       </div>
+     </div>
+     <span> Your signature on a plain piece of paper</span>
+    </div>
+
+
+    <div class="my-progress">
+     <span class="step-p"></span>
+    </div>
+   </div>
+
+   <div class="content-elements">
+    <div class="content-item">
+      <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div>
+          <div style="display: flex; flex-direction: row;">
+            <div>
+              <h2 style="font-family: Roboto-Medium; padding-right: 10px; color: #005B82;">3</h2>
+            </div>
+            <div>
+              <img src="../../assets/images/foreigner-img.png" alt="" height="400">
+            </div>
+          </div>
+        </div>
+        <div>
+          <ion-button fill="outline" size="small"><span style="color: #000;">Foreigners</span></ion-button>
+        </div>
+      </div>
+
+     <span> Valid work permit/Entry VISA/Refugee ID/Dependents Pass/Alien ID/Diplomatic ID/Resident Permit</span>
+    </div>
+
+    <div class="my-progress">
+     <span class="step-p"></span>
+    </div>
+   </div>
+   <div class="content-elements">
+    <div class="content-item">
+     <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <div style="display: flex; flex-direction: row;">
+        <div>
+          <h2 style="font-family: Roboto-Medium; padding-right: 10px; color: #005B82;">4</h2>
+        </div>
+        <div>
+          <img src="../../assets/images/Vector.png" alt="" height="400">
+        </div>
+      </div>
+      <div>
+        <ion-button fill="outline" size="small"><span style="color: #000;">Students</span></ion-button>
+      </div>
+     </div>
+     <span> Student ID for Students</span>
+    </div>
+
+
+    <div class="my-progress">
+     <span class="step-p"></span>
+    </div>
+   </div>
+
+   <div style="padding-top: 30px; margin-bottom: 20px; margin-left: 10%; margin-right: 10%;">
+    <ion-button type="submit" size="medium" (click)="gotoAuth()" expand="block"><span style="color: #000;">Proceed</span></ion-button>
+  </div>
+
+</ion-content>

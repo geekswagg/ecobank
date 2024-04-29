@@ -2,10 +2,21 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
-};
+const sbgs =  'https://uat-onboarding.stanbicbank.co.ke/rest/sbgs-onboarding/api/v1/';
+const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
+const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/getImage/";
+const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
 
+
+export const environment = {
+  production: false,
+  sbgsUrl:sbgs,
+  devOcr:devOcr,
+  imageUrl: imageUrl,
+  baseUrl: dev
+
+
+};
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

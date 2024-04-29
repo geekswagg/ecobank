@@ -1,5 +1,8 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ViewMoreComponent } from './view-more/view-more.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-products',
@@ -8,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountProductsPage implements OnInit {
 
-  constructor() { }
+  loading: boolean = false;
+
+  constructor(
+   private modalCtrl: ModalController,
+   private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.fetchAccountProducts();
+
+  }
+
+  fetchAccountProducts(){
+    this.loading = true;
+    setTimeout(()=>{
+      this.loading = false;
+    },2000)
   }
 
   products = [
@@ -23,12 +40,25 @@ export class AccountProductsPage implements OnInit {
     {
       title: 'Savings Account',
       productCode:'20',
-      description: 'This best account for all student needs',
+      description: 'Keep track of your finances with 24/7 access to you money including electronic banking.',
       logo:'assets/images/product-img.jpg',
     }
   ]
 
   selectProduct(i: number,product: any){
 
+  }
+
+  async onViewMore(){
+    const modal = await this.modalCtrl.create({
+      component: ViewMoreComponent,
+      componentProps:{},
+    });
+    await modal.present();
+  }
+
+  viewRequirements(){
+    this.modalCtrl.dismiss();
+    this.router.navigate(['requirements']);
   }
 }
