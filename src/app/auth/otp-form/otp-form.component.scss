@@ -20,3 +20,16 @@
   margin-left: 20px;
   margin-bottom: 40px;
 }
+
+.ng-otp-input input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  width: 20px;
+  border: 1px solid black;
+}
+
+ion-button{
+  height: 53px !important;
+}

@@ -19,17 +19,15 @@ import { ApiService } from 'src/app/_services/api.service';
 export class OtpFormComponent  implements OnInit {
 
   @Input() auth: Auth = {};
-  otpForm: FormGroup;
   resend: boolean = false;
 
   countDown: Subscription;
   counter = 56;
   tick = 1000;
+  smsCode: string = '';
 
 
-  get of() {
-    return this.otpForm.controls;
-  }
+
 
   constructor(
     private fb: FormBuilder,
@@ -39,9 +37,7 @@ export class OtpFormComponent  implements OnInit {
     private toastr: ToastrService,
     private modalCtrl: ModalController
   ) {
-    this.otpForm = this.fb.group({
-      smsCode: ["", [Validators.required]],
-    });
+
 
     this.countDown = timer(0, this.tick)
     .pipe(take(this.counter))
@@ -65,7 +61,7 @@ export class OtpFormComponent  implements OnInit {
       this.apiService
         .verifyOTP({
           phoneNumber: this.auth.phoneNumber,
-          smsCode: this.of['smsCode'].value,
+          smsCode: this.smsCode
         })
         .subscribe(
           {
@@ -119,6 +115,10 @@ export class OtpFormComponent  implements OnInit {
 
   resendCode(){}
 
+  back(){
+    this.modalCtrl.dismiss();
+  }
+
   transform(value: number): string {
     const minutes: number = Math.floor(value / 60);
     return (
@@ -126,6 +126,10 @@ export class OtpFormComponent  implements OnInit {
       ':' +
       ('00' + Math.floor(value - minutes * 60)).slice(-2)
     );
+  }
+
+  onOtpChange(e: any){
+    this.smsCode = e;
   }
 
 }
