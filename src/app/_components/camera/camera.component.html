@@ -1,0 +1,95 @@
+<div style="text-align:center" class="container">
+  <h3 style="color: #fff;">
+    <span class="browse" *ngIf="side === 'id_front'">
+      Position your phone on portrait mode &
+      Fit the <span><strong>FRONT</strong></span> of your <span><strong>ID</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'id_back'">
+      Position your phone on portrait mode &
+      Fit the <span><strong>BACK</strong></span> of your <span><strong>ID</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'passport'">
+      Position your phone on portrait mode &
+      Fit your <span><strong>PASSPORT</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'signature'">
+      Position your phone on portrait mode &
+      Fit your <span><strong>SIGNATURE</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'selfie'">
+      Position your phone on portrait mode &
+      Fit your <span><strong>FACE</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'birth_cert'">
+      Position your phone on portrait mode &
+      Fit your child's <span><strong>BIRTH CERTIFICATE</strong></span> within the frame
+    </span>
+    <span class="browse" *ngIf="side === 'exemption'">
+      Position your phone on portrait mode &
+      Fit your <span><strong>EXEMPTION CERTIFICATE</strong></span> within the frame
+    </span>
+  </h3>
+  <div>
+    <div style="position: relative;">
+      <webcam  class="mtn" [height]="400" [width]="400" style="border-radius: 50%;" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+      [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+      [videoOptions]="videoOptions"
+      [imageQuality]="1"
+      (cameraSwitched)="cameraWasSwitched($event)"
+      (initError)="handleInitError($event)"
+      ></webcam>
+
+      <div style="display: flex; justify-content: center;">
+        <div style="position: absolute; top: 20%;  width: 288px; height: 178px; border: 4px solid #fff; ">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div style="color: #fff;" *ngIf="errors.length > 0">
+      <p class="ion-text-center">Camera permissions Denied. Kindly allow permissions before you continue!</p>
+    </div>
+    <br/>
+    <div class="uk-flex uk-flex-center">
+      <ion-button  class="actionBtn" (click)="triggerSnapshot();" >
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+    </div>
+    <!-- <button class="actionBtn" (click)="triggerSnapshot();">Take A Snapshot</button>
+    <button class="actionBtn" (click)="toggleWebcam();">Toggle Webcam</button>
+    <br/>
+    <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>
+    <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+    <br/>
+    DeviceId: <input id="deviceId" type="text" [(ngModel)]="deviceId" style="width: 500px">
+    <button (click)="showNextWebcam(deviceId);">Activate</button>
+  </div> -->
+  <h5 style="color: #fff;" class="uk-margin-small" >
+    <span class="browse" *ngIf="side === 'exemption'" >
+      Tap this 📷 button to capture your<br> <span><strong>EXEMPTION CERTIFICATE</strong></span>
+    </span>
+    <span class="browse" *ngIf="side === 'id_front'" >
+      Tap this 📷 button to capture your<br> <span><strong>FRONT ID</strong></span>
+    </span>
+    <span class="browse" *ngIf="side === 'id_back'" >
+      Tap this 📷 button to capture your <br> <span><strong>BACK ID</strong></span>
+    </span>
+    <span class="browse" *ngIf="side === 'passport'" >
+      Tap this 📷 button to capture your <br> <span><strong>Passport</strong></span>
+    </span>
+    <span class="browse" *ngIf="side === 'signature'" >
+      Tap this 📷 button  to capture your <br> <span><strong>Signature</strong></span>
+    </span>
+    <span class="browse" *ngIf="side === 'selfie'" >
+      Tap this 📷  button to capture your <br> <span><strong>Selfie</strong></span>
+    </span>
+  </h5>
+</div>
+
+<!-- <div class="snapshot" *ngIf="webcamImage">
+  <h2>Nice one!</h2>
+  <img [src]="webcamImage.imageAsDataUrl"/>
+</div> -->
+
+

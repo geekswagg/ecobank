@@ -19,6 +19,18 @@ const routes: Routes = [
     path: 'account-products',
     loadChildren: () => import('./account-products/account-products.module').then( m => m.AccountProductsPageModule)
   },
+  {
+    path: 'requirements',
+    loadChildren: () => import('./requirements/requirements.module').then( m => m.RequirementsPageModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'onboarding',
+    loadChildren: () => import('./onboarding-individual/onboarding-individual.module').then( m => m.OnboardingIndividualModule)
+  },
 ];
 
 @NgModule({

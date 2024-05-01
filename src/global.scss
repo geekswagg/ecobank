@@ -108,7 +108,10 @@ body {
   --background: #f3f3f4 !important;
 }
 
- .progress-bar {
+ion-content{
+  --background: #f3f3f4 !important;
+}
+.progress-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,8 +124,8 @@ body {
   text-align: center;
   position: relative;
   z-index: 1;
-  margin: 0 5px; /* Add margins around each step */
-  transition: color 0.3s ease; /* Add transition for color change */
+  margin: 0 5px;
+  transition: color 0.3s ease;
 }
 
 .step::before {
@@ -134,7 +137,7 @@ body {
   height: 4px;
   background-color: #ccc;
   z-index: -1;
-  transition: background-color 0.3s ease; /* Add transition for background color change */
+  transition: background-color 0.3s ease;
 }
 
 .active {
@@ -143,4 +146,155 @@ body {
 
 .active::before {
   background-color: #bed600; /* Change color of active step line */
+}
+
+
+
+ngx-intl-tel-input input {
+  height: 44px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c7cace;
+  border-radius: 4px;
+  color: #707070 !important;
+  font-size: 18px;
+  background: transparent !important;
+
+}
+
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+  border: 1px solid #c0392b;
+}
+
+ngx-intl-tel-input input:hover {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.24);
+}
+
+ngx-intl-tel-input input:focus {
+  outline: none !important;
+  border-color: #3498db;
+  box-shadow: 0 0 0 0 #000;
+}
+
+ngx-intl-tel-input input::-webkit-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input:-ms-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input::-ms-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input::placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input[disabled] {
+  background-color: #e5eaf1;
+}
+
+.custom{
+  width: 100% !important;
+  margin-left: 50px;
+}
+
+.iti {
+  display: block !important;
+  // margin-bottom: 20px;
+  width: 100%;
+  background: transparent !important;
+}
+
+.iti .dropdown-menu.country-dropdown {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border: 1px solid #757575;
+  margin-top: -1px;
+
+}
+
+.iti .iti__country-list {
+  box-shadow: none;
+  font-size: 14px;
+  margin-left: 0;
+  width: 244px;
+  max-height: 170px;
+}
+
+.iti__flag-container.open + input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.iti .search-container input {
+  font-size: 14px;
+  border-color: #c7cace;
+  border-radius: 0;
+  background: transparent !important;
+  padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 479px) {
+  .iti .iti__country-list {
+    width: 88.3vw;
+  }
+}
+
+ion-select{
+  font-weight: 500;
+}
+
+ion-input,
+ionic-selectable,
+ion-datetime {
+  border: 1px solid #c7cace;
+  padding-left: 15px !important;
+  border-radius: 4px !important;
+  padding: 10px;
+  --padding-start: 12px;
+  color: #444444;
+  font-size: 1em !important;
+  font-weight: 500;
+}
+
+ion-item {
+  --background: none;
+
+  opacity:1;
+}
+
+
+ion-label {
+  color: #707070 !important;
+  font-size: 1em !important;
+  font-size: 100% !important;
+  font-weight: 300 !important;
+  padding-bottom: 5px !important;
+}
+
+ion-button[type=submit] {
+  color: #FCFCFC;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 150%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  height: 3rem;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.otp-input{
+  background-color: transparent !important;
+  width: 40px !important;
+  height: 40px !important;
 }

@@ -15,8 +15,81 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="body-content">
-  <div>
+  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider finite="true">
+    @if(loading){
+      <div class="ion-text-center img-skeleton">
+        <div>
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 400px; margin-left: 10%;"></ion-skeleton-text>
+        </div>
+        <div class="skeleton-content">
+          <h3>
+            <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text [animated]="true" style="width: 70%;"></ion-skeleton-text>
+          </p>
 
-  </div>
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <ion-skeleton-text [animated]="true" style="width: 70px; height: 20px;"></ion-skeleton-text>
+            </div>
+            <div>
+              <ion-skeleton-text [animated]="true" style="width: 70px; height: 20px;"></ion-skeleton-text>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    }
+    @if(!loading){
+      <ul  class="uk-slider-items uk-margin-small-left uk-margin-large-right" style="margin-right: 30px !important;" data-uk-smooth-scroll>
+        <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
+             <div class="swiper-el">
+              <div class="image-container">
+                <img [src]="product.logo" height="1800" width="900" alt="">
+              </div>
+
+                <div *ngIf="product.logo" class="image-description">
+                  <h3 class="item-title">{{product.title}}</h3>
+                  <p>{{ product?.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span></p>
+                  <ul>
+                    <li>Debit Card</li>
+                    <li>Internet Banking</li>
+                    <li>Mobile Banking</li>
+                    <li>Standing Order</li>
+                  </ul>
+
+                  <div class="uk-flex uk-flex-between">
+
+                      <div>
+                        <ion-button (click)="onViewMore()" fill="outline" color="secondary" size="medium">View More
+                        </ion-button>
+                      </div>
+                      <div>
+                       <ion-button (click)="viewRequirements()">Apply Now
+                        <!-- <ion-icon slot="end" name="chevron-forward-outline"  color="secondary"></ion-icon> -->
+                       </ion-button>
+                      </div>
+
+
+                  </div>
+                </div>
+
+             </div>
+
+
+        </li>
+
+    </ul>
+    }
+
+
+    <!-- <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-dark uk-margin-large-bottom"></ul> -->
+
+</div>
+
 
 </ion-content>

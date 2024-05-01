@@ -50,7 +50,7 @@
   height: 370px;
   background-repeat: no-repeat;
   background-size: cover !important;
-  overflow: auto;
+  position: relative;
 
 }
 
@@ -58,6 +58,7 @@
   transform: translate(0px,160px);
   padding-left: 30px !important;
   width: 80%;
+  // position: absolute;
 }
 .acc-title{
   font-size: 20px;
@@ -70,7 +71,7 @@
   height: 370px;
   background-repeat: no-repeat;
   background-size: cover !important;
-  overflow: auto;
+  position: relative;
 }
 
 .bus-section{
@@ -78,6 +79,6 @@
   height: 370px;
   background-repeat: no-repeat;
   background-size: cover !important;
-  overflow: auto;
+  position: relative;
 }
 

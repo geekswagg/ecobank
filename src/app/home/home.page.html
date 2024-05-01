@@ -8,17 +8,20 @@
       <span class="welcome-title">
         Welcome to <br> Ecobank's Digital <br> Account Opening
       </span>
-      <p class="welcome-desc">Open your new account online quickly, <br> easy, anytime and anywhere with <br> just a few steps.</p>
+      <p class="welcome-desc">Open your new account online quickly, <br> easy, anytime and anywhere with <br> just a few steps.
+        <!-- <button class="pulseBtn" (click)="viewSteps()">view steps</button> -->
+      </p>
+
     </div>
 
-    <div class="step-section">
+    <!-- <div class="step-section" >
       <div class="content">
         <img src="../../assets/images/description.png" alt="" height="400">
       </div>
-    </div>
+    </div> -->
 
     <div class="start-btn">
-      <ion-button color="primary" expand="block" mode="md" size="large" [routerLink]="['/account-types']" routerLinkActive="router-link-active" >
+      <ion-button color="primary" expand="block" mode="md" [routerLink]="['/account-types']" routerLinkActive="router-link-active" >
         @if(!loading) {
           Let's Get Started
         }
