@@ -1,3 +1,156 @@
-<p>
-  preferences works!
-</p>
+<ion-header class="ion-no-border head" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/requirements"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center title" >Your Next of Kin</ion-title>
+  </ion-toolbar>
+  <div class="progress-bar">
+    <div class="step active"></div>
+    <div class="step active"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+  </div>
+</ion-header>
+
+<ion-content class="content-body" [fullscreen]="false">
+
+<div class="form-item">
+  <form   [formGroup]="dataForm" style="">
+    <div>
+      <ion-item lines="none" mode="md">
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Prefered branch<span class="uk-text-danger" >*</span>
+        </ion-label>
+        <ionic-selectable
+          formControlName="branch"
+          [items]="fruits"
+          itemValueField="value"
+          [hasInfiniteScroll]="true"
+          placeholder="Select branch"
+          [isEnabled]="true"
+          itemTextField="text"
+          [canSearch]="true"
+          (onChange)="portChange($event)">
+        </ionic-selectable>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="none" mode="md">
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Country of residence<span class="uk-text-danger" >*</span>
+        </ion-label>
+        <ionic-selectable
+          formControlName="residence"
+          [items]="fruits"
+          itemValueField="value"
+          [hasInfiniteScroll]="true"
+          placeholder="Select country"
+          [isEnabled]="true"
+          itemTextField="text"
+          [canSearch]="true"
+          (onChange)="portChange($event)">
+        </ionic-selectable>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="none" mode="md">
+          <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Area of residence <span class="uk-text-danger" >*</span>
+          </ion-label>
+          <ion-input name="text" maxlength="35" placeholder="e.g Nairobi" type="text" formControlName="address" label="">
+          </ion-input>
+      </ion-item>
+      <div class="validation-error uk-text-danger">
+          <small class="error-message" *ngIf="f['address'].hasError('pattern') && f['address']dirty">
+              <ion-icon name="information-circle-outline"></ion-icon>ID must be a valid ID number
+              address
+          </small>
+          <small class="error-message"
+              *ngIf="f['address'].hasError('required') && f['address'].dirty">
+              <ion-icon name="information-circle-outline"></ion-icon>ID number is required
+          </small>
+      </div>
+  </div>
+     <!-- Email Address -->
+     <div>
+      <ion-item lines="none" mode="md">
+          <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Building<span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input name="building" maxlength="35" type="text" formControlName="building"  label="">
+          </ion-input>
+      </ion-item>
+      <div class="validation-error uk-text-danger">
+          <small class="error-message" *ngIf="f['building'].hasError('pattern') && f['building'].dirty">
+              <ion-icon name="information-circle-outline"></ion-icon>Email must be a valid email
+              address
+          </small>
+          <small class="error-message"
+              *ngIf="f['building'].hasError('required') && f['building'].dirty">
+              <ion-icon name="information-circle-outline"></ion-icon>Email is required
+          </small>
+      </div>
+  </div>
+
+  <div class="uk-margin-large-top ion-padding" style="font-weight: 600; font-size: 14px;">
+    <span>Switch on the services you'd like to add to your account.</span>
+  </div>
+
+  <div class="id_no uk-margin-small-top">
+    <div class="tool-section ion-padding">
+     <div class="item-left">
+      <span class="ion-text-center itm-head">Mobile Banking</span><br>
+      <span>Bank on the go with our mobile app.</span>
+     </div>
+     <div>
+      <span><strong><ion-toggle mode="ios"></ion-toggle></strong></span>
+     </div>
+    </div>
+   </div>
+
+   <div class="id_no uk-margin-small-top">
+    <div class="tool-section ion-padding">
+     <div class="item-left">
+      <span class="ion-text-center itm-head">Online Banking</span><br>
+      <span>Manage your finances anytime, anywhere on our website.</span>
+     </div>
+     <div>
+      <span><strong><ion-toggle mode="ios"></ion-toggle></strong></span>
+     </div>
+    </div>
+   </div>
+
+   <div class="id_no uk-margin-small-top">
+    <div class="tool-section ion-padding">
+     <div class="item-left">
+      <span class="ion-text-center itm-head">Debit Card</span><br>
+      <span>Shop and withdraw cash with ease using your card.</span>
+     </div>
+     <div>
+      <span><strong><ion-toggle mode="ios"></ion-toggle></strong></span>
+     </div>
+    </div>
+   </div>
+
+   <div class="id_no uk-margin-small-top">
+    <div class="tool-section ion-padding">
+     <div class="item-left">
+      <span class="ion-text-center itm-head">Cheque Book</span><br>
+      <span>Traditional, secure payments with a book of checks.</span>
+     </div>
+     <div>
+      <span><strong><ion-toggle mode="ios"></ion-toggle></strong></span>
+     </div>
+    </div>
+   </div>
+  <br>
+  <div class="p-btn">
+    <ion-button expand="block" size="medium" (click)="toNextOfKin()">
+      Proceed
+    </ion-button>
+  </div>
+
+  </form>
+
+</div>
+</ion-content>

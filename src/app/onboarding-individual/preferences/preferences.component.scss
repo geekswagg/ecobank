@@ -1,0 +1,95 @@
+.content-body{
+  width: 100%;
+  display: flex;
+  position: relative;
+  overflow: auto;
+  }
+
+  .form-item{
+    // padding-left: 10%;
+    // padding-right: 10%;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .p-btn{
+    position: relative;
+    top: 20%;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  ion-button{
+    height: 53px !important;
+  }
+
+  .checklist ion-item > input {
+    align-self: start;
+    margin-top: 0.3rem;
+    margin-right: 0.3rem;
+    background: none !important;
+    padding: 5px !important;
+  }
+
+
+  .container {
+    display: flex;
+    margin: 15px 30px;
+    // max-width: 500px;
+  }
+
+  label {
+    padding-left: 7px;
+  }
+
+  .container input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 20px;
+    border: 1px solid black; /* Add a border for visibility */
+  }
+
+  .head{
+    position: relative;
+
+    .title{
+      // position: absolute;
+      left: 0% !important;
+    }
+  }
+
+  .id_no{
+    margin-right: 15px;
+    margin-left: 15px;
+    min-height: 48px;
+    background-color: #d3cdcd;
+    border-radius: 4px;
+
+  }
+
+  .tool-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .item-left{
+
+      .itm-head{
+        font-family: "Roboto-Medium";
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+    }
+  }
+
+  ion-toggle::part(track) {
+    height: 25px;
+    width: 50px;
+
+    /* Required for iOS handle to overflow the height of the track */
+    overflow: visible;
+  }
