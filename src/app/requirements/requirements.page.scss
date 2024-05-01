@@ -1,5 +1,6 @@
 .body-content{
   // width: 90%;
+  overflow: auto !important;
 
 
 
@@ -43,5 +44,7 @@
 ion-button[type=submit]{
   height: 53px !important;
   font-weight: 500 !important;
-  font-size: 0.9rem;
+  font-size: 15px;
+  margin-left: 10%;
+  margin-right: 10%;
 }

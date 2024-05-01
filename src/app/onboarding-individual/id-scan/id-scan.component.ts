@@ -322,7 +322,9 @@ export class IdScanComponent  implements OnInit {
     }
   }
 
-  toPreference(){}
+  toPreference(){
+    this.router.navigate(['/onboarding/preferences']);
+  }
 
 
 }

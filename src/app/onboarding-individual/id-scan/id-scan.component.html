@@ -26,7 +26,7 @@
                 <img [src]="this.frontImage" width="100%" height="171" alt="Front ID" style="border: solid 3px #005B82; border-radius: 4px;">
               </div>
 
-              <div class="uk-card-footer" *ngIf="(frontImage.length === 0)">
+              <div class="uk-card-footer" *ngIf="(frontImage.length === 0)" style="background-color: #d3cdcd;">
                 <div class="uk-padding" uk-grid>
                   <div class="uk-width-3-4">
                     <a style="font-family: Roboto-Medium !important;"
@@ -75,7 +75,7 @@
             <div class="uk-card-media-top" *ngIf="backImage.length > 0">
               <img [src]="this.backImage" width="100%" alt="Back ID" style="border: solid 3px #005B82; border-radius: 4px;">
             </div>
-            <div class="uk-card-footer" *ngIf="backImage.length === 0">
+            <div class="uk-card-footer" *ngIf="backImage.length === 0" style="background-color: #d3cdcd;">
               <div class="uk-padding" uk-grid>
                 <div class="uk-width-3-4">
                   <a style="font-family: Roboto-Medium !important;"
@@ -115,7 +115,7 @@
             <div class="uk-card-media-top" *ngIf="this.signImage.length > 0">
               <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
             </div>
-            <div class="uk-card-footer" *ngIf="this.signImage.length === 0">
+            <div class="uk-card-footer" *ngIf="this.signImage.length === 0" style="background-color: #d3cdcd;">
               <div class="uk-padding" uk-grid>
                 <div class="uk-width-3-4">
                   <a style="font-family: Roboto-Medium !important;"

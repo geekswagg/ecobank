@@ -5,6 +5,10 @@ ion-button{
   font-family: "Roboto-Medium";
 }
 
+ion-content{
+  overflow: auto !important;
+}
+
 .browse {
   color: #444444;
   font-size: rem-calc(25) !important;
