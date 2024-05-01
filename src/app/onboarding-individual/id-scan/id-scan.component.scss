@@ -1,0 +1,27 @@
+ion-button{
+  height: 53px !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  font-family: "Roboto-Medium";
+}
+
+.browse {
+  color: #444444;
+  font-size: rem-calc(25) !important;
+  font-family: "Roboto-Medium";
+  margin-right: 20%;
+  margin-left: 20px;
+}
+
+.id_no{
+  display: flex !important;
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+  height: 48px;
+  background-color: #d3cdcd;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+
+}

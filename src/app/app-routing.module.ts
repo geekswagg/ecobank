@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
+  {
+    path: 'onboarding',
+    loadChildren: () => import('./onboarding-individual/onboarding-individual.module').then( m => m.OnboardingIndividualModule)
+  },
 ];
 
 @NgModule({

@@ -8,7 +8,7 @@ import {
   Occupation,
   Preferences,
   Selfie,
-} from '../_types/data-models';
+} from '../_models/data-models';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

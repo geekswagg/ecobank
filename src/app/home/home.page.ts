@@ -19,8 +19,8 @@ export class HomePage {
     const modal = await this.modalCtrl.create({
       component: ViewStepsComponent,
       componentProps:{},
-      breakpoints:[0.8, 0.8],
-      initialBreakpoint:0.8
+      // breakpoints:[0.8, 0.8],
+      // initialBreakpoint:0.8
     });
     await modal.present();
 

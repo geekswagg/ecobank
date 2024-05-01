@@ -9,6 +9,13 @@ import { ModalController } from '@ionic/angular';
 })
 export class ViewStepsComponent  implements OnInit {
 
+  timestampArray = [
+    { date: '3rd May 2020', time: '7:00 PM', title: 'Chris Serrano posted a photo on your wall.' },
+    { date: '19th May 2020', time: '3:00 PM', title: 'Mia Redwood commented on your last post.' },
+    { date: '17th June 2020', time: '7:00 PM', title: 'Lucas McAlister just sent you a message.' }
+    // Add more timestamp elements as needed
+  ];
+
   constructor(
     private modalCtrl: ModalController
   ) { }

@@ -19,6 +19,9 @@ export interface Identification {
   documentType?: string;
   idType?: string;
   frontIdBase64?: string;
+  frontIdCaptured?: any;
+  backIdCaptured?: any;
+  signCaptured?: any;
   frontIdFile?: File;
   frontIdOcrText?: string;
   ocrKey?: string;

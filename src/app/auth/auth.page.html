@@ -1,9 +1,9 @@
-<ion-header class="ion-no-border" mode="md">
+<ion-header class="ion-no-border head" mode="md">
   <ion-toolbar class="header-color">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/requirements"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center" >Contact Information</ion-title>
+    <ion-title size="large" class="ion-text-center title" >Contact Information</ion-title>
   </ion-toolbar>
   <div class="progress-bar">
     <div class="step active"></div>
@@ -17,8 +17,7 @@
 <ion-content class="content-body" [fullscreen]="true">
 
 <div class="form-item">
-  <form   [formGroup]="authForm" style="" >
-
+  <form   [formGroup]="authForm" style="">
     <div style="margin-left: 15px; margin-right: 15px !important;">
       <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input

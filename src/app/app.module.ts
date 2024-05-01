@@ -11,7 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,BrowserAnimationsModule,ToastrModule.forRoot(), IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule,BrowserAnimationsModule,ToastrModule.forRoot(), IonicModule.forRoot({innerHTMLTemplatesEnabled: true}), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

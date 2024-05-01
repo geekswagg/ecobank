@@ -16,7 +16,7 @@
 
 <ion-content [fullscreen]="true">
   <div>
-    <div style="padding-left:10px; padding-top:10px;" >
+    <div style="padding-left:10px; padding-top:30px;" >
       <h4 class="browse" style="width: 80%;">Let's
           <span style="color: #005B82;"><strong> verify </strong>
           </span>the <span style="color: #005B82;"><strong>OTP</strong>
@@ -24,14 +24,14 @@
       </h4>
     </div>
 
-    <form  style="padding: 10px;"
+    <form  style="padding: 10px; margin-top: 30%;"
      novalidate
     >
     <div style="width: 100%;">
         <!-- Email Address -->
         <div>
           <div style="display: flex; justify-content: center;">
-            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6}" class="ng-otp-input"></ng-otp-input>
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config" class="ng-otp-input"></ng-otp-input>
           </div>
             <!-- <div class="validation-error uk-text-danger">
                 <small class="error-message" *ngIf="of['smsCode'].hasError('required') && of['smsCode'].dirty">
@@ -42,21 +42,21 @@
         <br>
     </div>
     <br>
-    <!-- <p class="otp-resend">
-        <span (click)="resendCode()">Resend Code</span>
-    </p> -->
 
     <p class="otp-resend">
       <span style="color: #005B82 !important; " ><span style="color: #005B82;" *ngIf="!resend">Resend Code in: {{transform(counter)}} </span><span *ngIf="resend" (click)="resendCode()" style="cursor: pointer;">Resend OTP</span></span>
   </p>
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
-      <ion-button (click)="verifyOtp()" size="small" mode="md" [disabled]="smsCode.length < 5" routerLink="/onboarding/auth"
+      <ion-button
+      (click)="verifyOtp()" size="small" mode="md"
+       [disabled]="smsCode.length < 0"
+       routerLink="/onboarding/auth"
       expand="block"
       fill="solid"
       >
       {{ loader.loading ? '' : 'Continue'}}
-      <ion-spinner *ngIf="loader.loading" name="bubbles" color="light"></ion-spinner>
+      <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
     </ion-button>
     </div>
   </form>

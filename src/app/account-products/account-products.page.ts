@@ -32,16 +32,34 @@ export class AccountProductsPage implements OnInit {
 
   products = [
     {
-      title: 'Student Account',
+      title: 'Classic Current Account',
       productCode:'29',
       description: 'Keep track of your finances with 24/7 access to you money including electronic banking.',
-      logo:'assets/images/product-img.jpg',
+      logo:'assets/images/classic.png',
     },
     {
-      title: 'Savings Account',
+      title: 'Student Current Account',
       productCode:'20',
-      description: 'Keep track of your finances with 24/7 access to you money including electronic banking.',
-      logo:'assets/images/product-img.jpg',
+      description: "If you're studying, go direct with easy and free digital banking.",
+      logo:'assets/images/student.png',
+    },
+    {
+      title: 'Advantage Current Account',
+      productCode:'20',
+      description: 'Get ahead with investments, insurance and a salary advance added to your banking.',
+      logo:'assets/images/premium.png',
+    },
+    {
+      title: 'Premier Current Account',
+      productCode:'20',
+      description: 'Take care of your wealth with the highest level of personal service.',
+      logo:'assets/images/advantage.png',
+    },
+    {
+      title: 'Diaspora Current Account',
+      productCode:'20',
+      description: 'Manage and move your money more easily while living and working away from home.',
+      logo:'assets/images/diaspora.png',
     }
   ]
 

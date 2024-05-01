@@ -50,3 +50,12 @@ label {
   width: 20px;
   border: 1px solid black; /* Add a border for visibility */
 }
+
+.head{
+  position: relative;
+
+  .title{
+    // position: absolute;
+    left: 0% !important;
+  }
+}

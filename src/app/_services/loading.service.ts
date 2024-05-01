@@ -31,5 +31,9 @@ export class LoadingService {
   scanningCert = false;
   savingCert = false;
   creatingAccount = false;
+
+  frontCaptured = false;
+  backCaptured = false;
+  signCaptured = false;
   constructor() {}
 }

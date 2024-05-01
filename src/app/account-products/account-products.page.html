@@ -49,11 +49,11 @@
         <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
              <div class="swiper-el">
               <div class="image-container">
-                <img src="../../assets/images/product-img.png" height="1800" height="900" alt="">
+                <img [src]="product.logo" height="1800" width="900" alt="">
               </div>
 
-                <div class="image-description">
-                  <h3 class="item-title">Classic Current Account</h3>
+                <div *ngIf="product.logo" class="image-description">
+                  <h3 class="item-title">{{product.title}}</h3>
                   <p>{{ product?.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span></p>
                   <ul>
                     <li>Debit Card</li>
@@ -65,7 +65,7 @@
                   <div class="uk-flex uk-flex-between">
 
                       <div>
-                        <ion-button (click)="onViewMore()" fill="outline" color="primary" size="medium">View More
+                        <ion-button (click)="onViewMore()" fill="outline" color="secondary" size="medium">View More
                         </ion-button>
                       </div>
                       <div>
