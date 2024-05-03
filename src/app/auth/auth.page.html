@@ -40,24 +40,6 @@
       </div>
     </div>
 
-    <div>
-      <ion-item lines="none" mode="md">
-          <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">ID Number <span class="uk-text-danger" >*</span>
-          </ion-label>
-          <ion-input name="text" maxlength="35" type="text" formControlName="idNumber" label="">
-          </ion-input>
-      </ion-item>
-      <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['idNumber'].hasError('pattern') && f['idNumber']dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>ID must be a valid ID number
-              address
-          </small>
-          <small class="error-message"
-              *ngIf="f['idNumber'].hasError('required') && f['idNumber'].dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>ID number is required
-          </small>
-      </div>
-  </div>
      <!-- Email Address -->
      <div>
       <ion-item lines="none" mode="md">
@@ -90,8 +72,8 @@
   <div style="margin-left: 15px; margin-right: 15px !important;">
       <ion-checkbox slot="start" style="--background: transparent; margin-right: 0;" mode="md"></ion-checkbox>
       <ion-label style="max-width: 500px; margin-left: 10px;">Accept
-        <a href="#" (click)="$event.stopPropagation()">Terms and Conditions</a> and the
-        <a href="#" (click)="$event.stopPropagation()">Privacy Policy</a>. Please review and accept to proceed.
+        <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Terms and Conditions</a> and the
+        <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Privacy Policy</a>. Please review and accept to proceed.
       </ion-label>
   </div>
 
@@ -121,17 +103,19 @@
   </ion-button>
   </div> -->
 
+  <div class="p-btn uk-margin-xlarge-top">
+    <ion-button expand="block" size="medium" (click)="verifyUser()">
+      Proceed
+    </ion-button>
+  </div>
+
 
 
   </form>
 
 </div>
 
-<div class="p-btn">
-  <ion-button expand="block" size="medium" (click)="verifyUser()">
-    Proceed
-  </ion-button>
-</div>
+
 
 
 </ion-content>

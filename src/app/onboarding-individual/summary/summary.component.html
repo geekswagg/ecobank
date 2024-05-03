@@ -1,0 +1,200 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/onboarding/selfie"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center"></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="uk-margin-small-top">
+    <div  class="uk-margin-large-left ">
+      <div>
+        <h4 class="browse" style="width: 80%;">Please check that all the information is correctly captured before sumbitting
+        </h4>
+      </div>
+    </div>
+
+    <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <span class="ion-text-center itm-head">Identification</span><br>
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td>Account Type:</td>
+                <td><strong>Individual</strong></td>
+              </tr>
+              <tr>
+                <td>Product:</td>
+                <td><strong>Smart Current Account</strong></td>
+              </tr>
+              <tr>
+                <td>Phone Number:</td>
+                <td><strong>0700 000 00</strong>0</td>
+              </tr>
+              <tr>
+                <td>Email Address:</td>
+                <td><strong>test&#64;gmail.com</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+     <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <span class="ion-text-center itm-head">Account Preferences</span><br>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td>Branch:</td>
+                <td><strong>Harambee Avenue</strong></td>
+              </tr>
+              <tr>
+                <td>Country:</td>
+                <td><strong>Kenya</strong></td>
+              </tr>
+              <tr>
+                <td>Physical Address:</td>
+                <td><strong>Nairobi</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+     <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <span class="ion-text-center itm-head">Next of Kin</span><br>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td>Full Name:</td>
+                <td><strong>Kevin Masika</strong></td>
+              </tr>
+              <tr>
+                <td>Phone Number:</td>
+                <td><strong>0700 000 000</strong></td>
+              </tr>
+              <tr>
+                <td>Relationship:</td>
+                <td><strong>Brother</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+     <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <span class="ion-text-center itm-head">Occupation</span><br>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td>Occupation:</td>
+                <td><strong>Nurse</strong></td>
+              </tr>
+              <tr>
+                <td>Industry:</td>
+                <td><strong>Health</strong></td>
+              </tr>
+              <tr>
+                <td>Employer:</td>
+                <td><strong>Kenyatta Hospital</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+
+     <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <span class="ion-text-center itm-head">Customer Channels</span><br>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td>Mobile Banking:</td>
+                <td><strong>Yes</strong></td>
+              </tr>
+              <tr>
+                <td>Online Banking:</td>
+                <td><strong>Yes</strong></td>
+              </tr>
+              <tr>
+                <td>Debit Card:</td>
+                <td><strong>No</strong></td>
+              </tr>
+              <tr>
+                <td>Cheque Book:</td>
+                <td><strong>No</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+     <div class="ion-padding">
+      <ion-button expand="block" size="medium" (click)="createAccount()">
+        @if(!loading) {
+          Create Account
+        }
+
+        @if(loading) {
+          Sending...
+          <ion-spinner *ngIf="loading" name="circular" color="secondary"></ion-spinner>
+        }
+      </ion-button>
+     </div>
+    </div>
+  </ion-content>

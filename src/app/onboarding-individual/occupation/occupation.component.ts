@@ -115,8 +115,8 @@ export class OccupationComponent  implements OnInit {
 
   }
 
-  toOccupation(){
-    this.router.navigate(['/onboarding/occupation']);
+  toSelfie(){
+    this.router.navigate(['/onboarding/selfie']);
   }
 
 }

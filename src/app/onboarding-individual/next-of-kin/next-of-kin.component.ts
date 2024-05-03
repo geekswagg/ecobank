@@ -70,7 +70,8 @@ export class NextOfKinComponent  implements OnInit {
     this.authForm = this.fb.group({
       phone: ['', Validators.required],
       branch: ['', Validators.required],
-      recaptcha: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       idNumber: ["", [Validators.required]],
       emailAddress: [
         "",

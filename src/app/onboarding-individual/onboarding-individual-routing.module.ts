@@ -5,6 +5,9 @@ import { IdScanComponent } from './id-scan/id-scan.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { NextOfKinComponent } from './next-of-kin/next-of-kin.component';
 import { OccupationComponent } from './occupation/occupation.component';
+import { SelfieComponent } from './selfie/selfie.component';
+import { SummaryComponent } from './summary/summary.component';
+import { SuccessComponent } from './success/success.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,18 @@ const routes: Routes = [
   {
     path: 'occupation',
     component: OccupationComponent
+  },
+  {
+    path: 'selfie',
+    component: SelfieComponent
+  },
+  {
+    path: 'summary',
+    component: SummaryComponent
+  },
+  {
+    path: 'success',
+    component: SuccessComponent
   }
 ];
 

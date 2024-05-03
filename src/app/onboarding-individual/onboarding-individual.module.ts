@@ -15,6 +15,9 @@ import { OccupationComponent } from './occupation/occupation.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { TypeaheadComponent } from "../_components/typeahead/typeahead.component";
+import { SelfieComponent } from './selfie/selfie.component';
+import { SummaryComponent } from './summary/summary.component';
+import { SuccessComponent } from './success/success.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { TypeaheadComponent } from "../_components/typeahead/typeahead.component
         IdScanComponent,
         PreferencesComponent,
         NextOfKinComponent,
-        OccupationComponent
+        OccupationComponent,
+        SelfieComponent,
+        SummaryComponent,
+        SuccessComponent
     ],
     providers: [ApiService, DataStoreService],
     imports: [
