@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/onboarding/occupation"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center"></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="uk-margin-small-top">
+    <div  class="uk-margin-large-left ">
+      <div>
+        <h4 class="browse" style="width: 80%;">Let's complete the application by taking a <strong style="color: #005B82 !important; "> Selfie </strong>
+        </h4>
+      </div>
+    </div>
+
+    <div class="uk-flex uk-justify-between ion-padding">
+      <div>
+        <img src="assets/images/mask-1.png" alt="">
+      </div>
+      <div class="ion-padding">
+        <p>Please clear your face of any coverings for a nice, clear selfie.</p>
+      </div>
+    </div>
+
+    <div class="uk-flex uk-justify-between ion-padding">
+
+      <div class="ion-padding">
+        <p>Glasses off please. Let's avoid glare and make sure we can see your eyes.</p>
+      </div>
+      <div>
+        <img src="assets/images/mask.png" alt="">
+      </div>
+    </div>
+
+    <div class="uk-flex uk-justify-between ion-padding">
+      <div>
+        <img src="assets/images/selfie-ok.png" alt="">
+      </div>
+      <div class="ion-padding">
+        <p>Find a bright spot so your selfie shines!</p>
+        <div class="uk-text-center">
+          <ion-button  class="actionBtn" (click)="openCamera('selfie')" >
+            @if(loading) {
+              Wait...
+            }
+            @if(!loading) {
+             Open Camera
+            }
+            <span class="uk-margin-small-left">
+              @if(loading) {
+                <ion-spinner *ngIf="loading" name="circular" color="secondary"></ion-spinner>
+              }
+              @if(!loading) {
+                <ion-icon name="camera"></ion-icon>
+              }
+            </span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </ion-content>

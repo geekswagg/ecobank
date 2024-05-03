@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border head" mode="md">
   <ion-toolbar class="header-color">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/requirements"></ion-back-button>
+      <ion-back-button defaultHref="/onboarding/next-of-kin"></ion-back-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center title" >Occupation Details</ion-title>
   </ion-toolbar>
@@ -76,12 +76,32 @@
           </small>
       </div>
   </div>
-
-
  <br>
 
+ <div class="id_no uk-margin-small-top uk-margin-large-bottom">
+  <div class="tool-section ion-padding">
+   <div class="item-left">
+    <span class="ion-text-center itm-head">What is your monthly income range?</span><br>
+
+    <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+      <ion-radio-group>
+        <ion-radio name="radio1" value="end1" color="secondary" labelPlacement="end">0 - KES 15,000 </ion-radio> <br>
+        <ion-radio name="radio1" value="end2" color="secondary"  labelPlacement="end">KES 16,000 - KES 25,000</ion-radio> <br>
+        <ion-radio name="radio1" value="end3" color="secondary"  labelPlacement="end">KES 25,000 - KES 35,000</ion-radio> <br>
+        <ion-radio name="radio1" value="end4" color="secondary"  labelPlacement="end">KES 35,000 and Above</ion-radio>
+      </ion-radio-group> <br>
+    </div>
+   </div>
+   <div>
+    <span>
+
+    </span>
+   </div>
+  </div>
+ </div>
+
   <div class="p-btn">
-    <ion-button expand="block" size="medium" (click)="toOccupation()">
+    <ion-button expand="block" size="medium" (click)="toSelfie()">
       Proceed
     </ion-button>
   </div>

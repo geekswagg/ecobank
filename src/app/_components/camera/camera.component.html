@@ -40,8 +40,9 @@
       ></webcam>
 
       <div style="display: flex; justify-content: center;">
-        <div style="position: absolute; top: 20%;  width: 288px; height: 178px; border: 4px solid #fff; ">
-
+        <div *ngIf="side !== 'selfie'" style="position: absolute; top: 20%;  width: 288px; height: 178px; border: 4px solid #fff; ">
+        </div>
+        <div *ngIf="side === 'selfie'" style="position: absolute; top: 15%; border-radius: 500%;  width: 280px; height: 280px; border: 4px solid #fff; ">
         </div>
       </div>
 

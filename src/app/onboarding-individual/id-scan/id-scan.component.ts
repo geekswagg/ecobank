@@ -67,7 +67,6 @@ export class IdScanComponent  implements OnInit {
         }
 
         if(this.side === 'signature'){
-          console.log(side);
           this.loader.frontCaptured = true;
           this.loader.backCaptured = true;
           this.loader.signCaptured = true;
