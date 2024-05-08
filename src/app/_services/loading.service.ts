@@ -8,6 +8,11 @@ export class LoadingService {
 
   // Identification
   scanningPassport = false;
+  passportCaptured = false;
+  passportScanSuccess = false;
+  signatureScanSuccess = false;
+  frontIdScanSuccess = false;
+  backIdScanSuccess = false;
   savingPassport = false;
   savedPassport = false;
   savingSignature = false;

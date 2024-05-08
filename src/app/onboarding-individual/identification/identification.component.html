@@ -22,9 +22,9 @@
     </div>
 
     <div class="uk-margin-large-left" style="font-family: Roboto-regular !important; font-size: 14px;">
-      <ion-radio-group>
-        <ion-radio name="radio1" value="end" labelPlacement="end">Nation ID</ion-radio> <br>
-        <ion-radio style="padding-top: 10px;" name="radio1" value="end1" labelPlacement="end">Passport</ion-radio>
+      <ion-radio-group (ionChange)="selectDocument($event)">
+        <ion-radio mode="md" name="radio1" value="ID" labelPlacement="end" color="secondary">Nation ID</ion-radio> <br>
+        <ion-radio mode="md"  style="padding-top: 10px;" name="radio1" color="secondary" value="PASSPORT" labelPlacement="end">Passport</ion-radio>
       </ion-radio-group> <br>
     </div>
 
@@ -54,7 +54,7 @@
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
       (click)="toIdScan()" size="small" mode="md"
-       [disabled]="smsCode.length < 0"
+       [disabled]="seletedDoc === ''"
       expand="block"
       fill="solid"
       >

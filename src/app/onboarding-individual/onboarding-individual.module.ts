@@ -18,6 +18,7 @@ import { TypeaheadComponent } from "../_components/typeahead/typeahead.component
 import { SelfieComponent } from './selfie/selfie.component';
 import { SummaryComponent } from './summary/summary.component';
 import { SuccessComponent } from './success/success.component';
+import { SidesScanComponent } from './id-scan/sides-scan/sides-scan.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SuccessComponent } from './success/success.component';
         OccupationComponent,
         SelfieComponent,
         SummaryComponent,
-        SuccessComponent
+        SuccessComponent,
+        SidesScanComponent
     ],
     providers: [ApiService, DataStoreService],
     imports: [
