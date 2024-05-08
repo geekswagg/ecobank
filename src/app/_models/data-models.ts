@@ -21,6 +21,7 @@ export interface Identification {
   frontIdBase64?: string;
   frontIdCaptured?: any;
   backIdCaptured?: any;
+  passportCaptured?: any;
   signCaptured?: any;
   frontIdFile?: File;
   frontIdOcrText?: string;

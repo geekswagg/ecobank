@@ -118,6 +118,7 @@ export class CameraComponent  implements OnInit {
 
         case 'passport':
           this.dataStore.identification.passportBase64 = this.base64File
+          this.dataStore.identification.passportCaptured = webcamImage.imageAsDataUrl;
           this.dataStore.identification.passportFile = await this.dataUrlToFile(
             this.dataStore.identification.passportBase64
           );

@@ -8,6 +8,7 @@ import { OccupationComponent } from './occupation/occupation.component';
 import { SelfieComponent } from './selfie/selfie.component';
 import { SummaryComponent } from './summary/summary.component';
 import { SuccessComponent } from './success/success.component';
+import { SidesScanComponent } from './id-scan/sides-scan/sides-scan.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'id-scan',
     component: IdScanComponent
+  },
+  {
+    path: 'id-sides',
+    component: SidesScanComponent
   },
   {
     path: 'preferences',

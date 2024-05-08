@@ -8,6 +8,7 @@ const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/ge
 const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
 
 
+
 export const environment = {
   production: false,
   sbgsUrl:sbgs,

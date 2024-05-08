@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { CameraComponent } from 'src/app/_components/camera/camera.component';
 import { Identification } from 'src/app/_models/data-models';
@@ -10,19 +10,18 @@ import { DataStoreService } from 'src/app/_services/data-store.service';
 import { LoadingService } from 'src/app/_services/loading.service';
 
 @Component({
-  selector: 'app-id-scan',
-  templateUrl: './id-scan.component.html',
-  styleUrls: ['./id-scan.component.scss'],
+  selector: 'app-sides-scan',
+  templateUrl: './sides-scan.component.html',
+  styleUrls: ['./sides-scan.component.scss'],
 })
-export class IdScanComponent  implements OnInit {
+export class SidesScanComponent  implements OnInit {
+
 
   identification: Identification = {};
   side: string = '';
   frontImage: any = '';
   backImage: any = '';
   signImage: any = '';
-  passportImage: any = '';
-  selectedDocument: any = 'ID';
 
   constructor(
     public loader: LoadingService,
@@ -33,30 +32,9 @@ export class IdScanComponent  implements OnInit {
     private toastr: ToastrService,
     private dataStore: DataStoreService
 
-  ) { }
+  ) {}
 
-  ngOnInit() {
-    this.selectedDocument = this.dataStore.identification.documentType;
-  }
-
-  selectDocToScan(type: string): void {
-    switch (type) {
-      case "ID":
-        this.router.navigate(["/onboarding/id-sides"]);
-        break;
-      case "PASSPORT":
-        this.openCamera("passport");
-        break;
-      case "SIGNATURE":
-        this.openCamera("signature");
-        break;
-        case "SELFIE":
-          this.openCamera("selfie");
-          break;
-      default:
-        break;
-    }
-  }
+  ngOnInit() {}
 
   async openCamera(side: string) {
     this.side = side;
@@ -65,6 +43,7 @@ export class IdScanComponent  implements OnInit {
       cssClass: "my-custom-class",
       componentProps: { side },
     });
+
 
     modal.onWillDismiss().then(async (data: any) => {
       if (data.data.cancelled) {
@@ -96,16 +75,8 @@ export class IdScanComponent  implements OnInit {
           },200)
         }
 
-        if(this.side === 'passport'){
-          this.loader.passportCaptured = true;
-          localStorage.setItem("PASSPORT",this.identification.passportCaptured);
-          setTimeout(()=>{
-            this.passportImage = localStorage.getItem("PASSPORT");
-          },200)
-          this.scanPassport();
-        }
 
-        await this.scanImages();
+        // await this.scanImages();
 
       }
     });
@@ -205,7 +176,7 @@ export class IdScanComponent  implements OnInit {
   async verifyID(nationalId: any) {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
-      mode:'md',
+      mode:'ios',
       cssClass: "my-custom-class",
       header: "CONFIRM",
       message: `<h5>Please confirm that this is your National ID Number? \n
@@ -218,7 +189,6 @@ export class IdScanComponent  implements OnInit {
         {
           text: "NO",
           role: "cancel",
-
           cssClass: "secondary",
           handler: (blah) => {
             this.loader.scanningBack = false;
@@ -226,7 +196,6 @@ export class IdScanComponent  implements OnInit {
         },
         {
           text: "YES",
-          cssClass: "primary",
           handler: () => {
             // Save the front id
             this.saveBackImage({
@@ -354,132 +323,6 @@ export class IdScanComponent  implements OnInit {
   toPreference(){
     this.router.navigate(['/onboarding/preferences']);
   }
-
-
-  scanPassport() {
-    this.loader.scanningPassport = true;
-
-    try {
-      this.apiService
-        .scanBackID({
-          national_id: this.identification.passportBase64,
-          document_type: "PASSPORT",
-        })
-        .subscribe({
-          next: (res) => {
-              if (res.success) {
-                this.loader.scanningPassport = false;
-                const id = res.id.split(" ").join("");
-                this.identification.nationalId = id;
-                this.identification.ocrKey = res.key;
-                // Verify that the passport is correct
-                this.verifyPassport(this.identification.nationalId);
-              } else {
-                this.loader.scanningPassport = false;
-                this.scanningSolutions();
-              }
-            },
-          error: (err) => {
-            this.toastr.error("Error scanning passport try again.");
-            this.loader.passportScanSuccess = false;
-          }
-
-    }); // end api call
-    } catch (error) {
-      this.loader.scanningPassport = false;
-      this.scanningSolutions();
-    }
-  }
-
-  async verifyPassport(passportNumber: any) {
-    const alert = await this.alertCtrl.create({
-      backdropDismiss: false,
-      cssClass: "my-custom-class",
-      header: "CONFIRM",
-      message: `<h5>Please confirm that this is your Passport Number? \n
-                </h5> \n \n
-                <h1>${passportNumber}<h1>
-                `,
-      buttons: [
-        {
-          text: "NO",
-          role: "cancel",
-          cssClass: "secondary",
-          handler: () => {
-            this.loader.scanningPassport = false;
-          },
-        },
-        {
-          text: "YES",
-          handler: () => {
-            // Save the front id
-            this.saveImage("passport", {
-              file: this.identification.passportFile,
-              idType: "PASSPORT_ID",
-              imageType: "PASSPORT",
-              match: "",
-              nationalId: this.identification.nationalId,
-              key: this.identification.ocrKey,
-            });
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-
-    // Save image
-    async saveImage(side: any, payload:any) {
-      switch (side) {
-        case "passport":
-          this.loader.savingPassport = true;
-            this.apiService.saveImage(payload).subscribe({
-              next:(res) => {
-                if (res.successful) {
-                  this.loader.passportScanSuccess = true;
-
-                  this.loader.savingPassport = false;
-                  this.loader.savedPassport = true;
-                } else {
-                  this.loader.savingPassport = false;
-                  this.toastr.error(res.message);
-                }
-              },
-              error: (err) => {
-                this.loader.savingPassport = false;
-                this.toastr.error("Error saving passport try again.");
-              }
-            }); // end api call
-          break;
-
-        case "signature":
-          this.loader.savingSignature = true;
-          try {
-            this.apiService.saveImage(payload).subscribe({
-              next: (res) => {
-                  if (res.successful) {
-                    this.loader.savingSignature = false;
-                    this.loader.savedSignature = true;
-                    this.dataStore.identification.backSaved = true;
-                  } else {
-                    this.loader.savingSignature = false;
-                    this.toastr.error(res.message);
-                  }
-              },
-              error: (err) => {
-                this.loader.savingSignature = false;
-                this.toastr.error("Error saving signature try again.");
-              }
-            }); // end api call
-          } catch (error) {
-            this.loader.savingSignature = false;
-            this.toastr.error("Error saving signature try again.");
-          }
-          break;
-        default:
-          break;
-      }
-    }
 
 
 }
