@@ -18,7 +18,7 @@
 
 <div class="form-item">
   <form   [formGroup]="authForm" style="">
-    <div style="margin-left: 15px; margin-right: 15px !important;">
+    <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important;">
       <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input
       [cssClass]="'custom'"
@@ -104,7 +104,7 @@
   </div> -->
 
   <div class="p-btn uk-margin-xlarge-top">
-    <ion-button expand="block" size="medium" (click)="verifyUser()">
+    <ion-button mode="md" expand="block" size="medium" (click)="verifyUser()">
       Proceed
     </ion-button>
   </div>

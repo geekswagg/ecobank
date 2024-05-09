@@ -18,7 +18,7 @@
 
 <div class="form-item">
   <form   [formGroup]="dataForm" style="">
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Prefered branch<span class="uk-text-danger" >*</span>
         </ion-label>
@@ -36,11 +36,12 @@
       </ion-item>
     </div>
 
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Country of residence<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
+
           formControlName="residence"
           [items]="fruits"
           itemValueField="value"
@@ -54,7 +55,7 @@
       </ion-item>
     </div>
 
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Area of residence <span class="uk-text-danger" >*</span>
           </ion-label>
@@ -73,7 +74,7 @@
       </div>
   </div>
      <!-- Email Address -->
-     <div>
+     <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Building<span class="uk-text-danger">*</span>
           </ion-label>
@@ -92,7 +93,7 @@
       </div>
   </div>
 
-  <div class="uk-margin-large-top ion-padding" style="font-weight: 600; font-size: 14px;">
+  <div class="ion-padding" style="font-weight: 500; font-size: 15px;">
     <span>Switch on the services you'd like to add to your account.</span>
   </div>
 
@@ -145,7 +146,7 @@
    </div>
   <br>
   <div class="p-btn">
-    <ion-button expand="block" size="medium" (click)="toNextOfKin()">
+    <ion-button mode="md" expand="block" size="medium" (click)="toNextOfKin()">
       Proceed
     </ion-button>
   </div>

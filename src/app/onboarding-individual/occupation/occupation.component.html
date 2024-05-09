@@ -29,7 +29,7 @@
           [items]="fruits"
           itemValueField="value"
           [hasInfiniteScroll]="true"
-          placeholder="Select branch"
+          placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
@@ -48,7 +48,7 @@
           [items]="fruits"
           itemValueField="value"
           [hasInfiniteScroll]="true"
-          placeholder="Select branch"
+          placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
@@ -85,10 +85,10 @@
 
     <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
       <ion-radio-group>
-        <ion-radio name="radio1" value="end1" color="secondary" labelPlacement="end">0 - KES 15,000 </ion-radio> <br>
-        <ion-radio name="radio1" value="end2" color="secondary"  labelPlacement="end">KES 16,000 - KES 25,000</ion-radio> <br>
-        <ion-radio name="radio1" value="end3" color="secondary"  labelPlacement="end">KES 25,000 - KES 35,000</ion-radio> <br>
-        <ion-radio name="radio1" value="end4" color="secondary"  labelPlacement="end">KES 35,000 and Above</ion-radio>
+        <ion-radio mode="md" name="radio1" value="end1" color="secondary" labelPlacement="end">0 - KES 15,000 </ion-radio> <br>
+        <ion-radio mode="md" name="radio1" value="end2" color="secondary"  labelPlacement="end">KES 16,000 - KES 25,000</ion-radio> <br>
+        <ion-radio mode="md" name="radio1" value="end3" color="secondary"  labelPlacement="end">KES 25,000 - KES 35,000</ion-radio> <br>
+        <ion-radio mode="md" name="radio1" value="end4" color="secondary"  labelPlacement="end">KES 35,000 and Above</ion-radio>
       </ion-radio-group> <br>
     </div>
    </div>
@@ -101,7 +101,7 @@
  </div>
 
   <div class="p-btn">
-    <ion-button expand="block" size="medium" (click)="toSelfie()">
+    <ion-button expand="block" mode="md" size="medium" (click)="toSelfie()">
       Proceed
     </ion-button>
   </div>

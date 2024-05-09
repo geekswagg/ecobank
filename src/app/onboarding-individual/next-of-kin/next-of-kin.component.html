@@ -19,7 +19,7 @@
 <div class="form-item">
   <form   [formGroup]="authForm" style="">
 
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">First name <span class="uk-text-danger" >*</span>
           </ion-label>
@@ -34,7 +34,7 @@
       </div>
   </div>
      <!-- Last name -->
-     <div>
+     <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Last name <span class="uk-text-danger">*</span>
           </ion-label>
@@ -48,7 +48,7 @@
           </small>
       </div>
   </div>
-    <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
+    <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
       <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input
       [cssClass]="'custom'"
@@ -70,7 +70,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Relationship<span class="uk-text-danger" >*</span>
         </ion-label>
@@ -79,7 +79,7 @@
           [items]="fruits"
           itemValueField="value"
           [hasInfiniteScroll]="true"
-          placeholder="Select branch"
+          placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
@@ -88,7 +88,7 @@
       </ion-item>
     </div>
 
-    <div>
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Email Address <span class="uk-text-danger">*</span>
           </ion-label>
@@ -110,7 +110,7 @@
  <br>
 
   <div class="p-btn">
-    <ion-button expand="block" size="medium" (click)="toOccupation()">
+    <ion-button mode="md" expand="block" size="medium" (click)="toOccupation()">
       Proceed
     </ion-button>
   </div>

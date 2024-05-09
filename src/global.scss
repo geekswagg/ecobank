@@ -36,6 +36,9 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
+//Roboto font
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import 'animate.css/animate.min.css';
 
 @font-face {
   font-family: "Roboto-Regular";
@@ -151,17 +154,16 @@ ion-content{
 
 
 ngx-intl-tel-input input {
-  height: 44px;
-  margin-bottom: 20px;
+  height: 53px;
   padding: 10px;
   border-style: solid;
   border-width: 1px;
   border-color: #c7cace;
   border-radius: 4px;
-  color: #707070 !important;
+  color: #444444 !important;
   font-size: 18px;
+  font-weight: 500 !important;
   background: transparent !important;
-
 }
 
 ngx-intl-tel-input.ng-invalid.ng-touched input {
@@ -253,23 +255,26 @@ ion-select{
   font-weight: 500;
 }
 
+ionic-selectable{
+  padding-left: 15px !important;
+}
+
 ion-input,
 ionic-selectable,
 ion-datetime {
   border: 1px solid #c7cace;
-  padding-left: 15px !important;
   border-radius: 4px !important;
-  padding: 10px;
   --padding-start: 12px;
   color: #444444;
   font-size: 1em !important;
   font-weight: 500;
+  height: 53px !important;
 }
 
 ion-item {
   --background: none;
-
   opacity:1;
+
 }
 
 

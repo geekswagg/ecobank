@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ViewStepsComponent } from './view-steps/view-steps.component';
+import { ScrollDetail } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,25 @@ import { ViewStepsComponent } from './view-steps/view-steps.component';
 export class HomePage {
 
   loading: boolean = false;
+  scrollTop: number = 0;
+  isScrolling = false;
 
   constructor(
     private modalCtrl: ModalController
   ) {}
+
+  handleScrollStart() {
+    this.isScrolling = true;
+  }
+
+  handleScroll(ev: CustomEvent<ScrollDetail>) {
+    this.scrollTop = ev.detail.scrollTop;
+    // console.log('scroll', JSON.stringify(ev.detail));
+  }
+
+  handleScrollEnd() {
+    this.isScrolling = false;
+  }
 
   async viewSteps(){
     const modal = await this.modalCtrl.create({
