@@ -83,10 +83,13 @@
                       @if(!loader.scanningBack && !loader.savingBack){
                         Scan Back of ID
                       }
+                      @if(!loader.scanningBack && loader.savingBack){
+                        Saving Back ID...
+                      }
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningBack){
+                    @if(loader.scanningBack || loader.savingBack){
                       <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
                     @if(!loader.scanningBack){
