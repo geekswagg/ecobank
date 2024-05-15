@@ -287,7 +287,7 @@ export class SidesScanComponent  implements OnInit {
         error:(err) =>{
           this.loader.savingBack = false;
           this.loader.savedBack = false;
-          this.toastr.error("Unable to save your document again");
+          this.toastr.error("Unable to save your document. Try again");
         }
       }); // end api call
   }
