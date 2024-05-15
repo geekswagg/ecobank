@@ -101,11 +101,15 @@
         </div>
       </div>
     </div>
-    <!-- <div class="id_no uk-text-center" *ngIf="this.signImage.length > 0">
-     <div>
-      <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>34425310</strong></h4>
-     </div>
-    </div> -->
+
+    @if(this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess){
+      <div class="id_no uk-text-center">
+        <div>
+         <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>34425310</strong></h4>
+        </div>
+       </div>
+    }
+
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
