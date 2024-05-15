@@ -1,3 +1,10 @@
+.head{
+  position: relative;
+  height: auto !important;
+
+}
+
+
 .otp-resend{
   text-align: center !important;
 }
@@ -32,4 +39,8 @@
 
 ion-button{
   height: 53px !important;
+}
+
+.progress-bar{
+  background-color: #005B82 !important;
 }
