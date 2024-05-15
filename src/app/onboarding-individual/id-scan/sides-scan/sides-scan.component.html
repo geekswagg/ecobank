@@ -116,6 +116,7 @@
       (click)="toPreference()" size="small" mode="md"
       expand="block"
       fill="solid"
+      [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"
       >
       {{ loader.loading ? '' : 'Continue'}}
       <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
