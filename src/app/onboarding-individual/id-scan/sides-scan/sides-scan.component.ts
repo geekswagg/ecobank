@@ -133,8 +133,6 @@ export class SidesScanComponent  implements OnInit {
                   if (res.success) {
                     this.loader.scanningBack = false;
                     const id = res.id.split(" ").join("");
-                    this.loader.backIdScanSuccess = true;
-                    this.loader.scannedBack = true;
                     // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
                     this.identification.nationalId = id;
                     this.identification.ocrKey = res.key;
@@ -192,16 +190,19 @@ export class SidesScanComponent  implements OnInit {
         },
         {
           text: "YES",
+
           handler: () => {
+            this.loader.backIdScanSuccess = true;
+            this.loader.scannedBack = true;
             // Save the front id
-            this.saveBackImage({
-              file: this.identification.backIdFile,
-              idType: "NATIONAL_ID",
-              imageType: "ID_BACK",
-              match: "",
-              nationalId: this.identification.nationalId,
-              key: this.identification.ocrKey,
-            });
+            // this.saveBackImage({
+            //   file: this.identification.backIdFile,
+            //   idType: "NATIONAL_ID",
+            //   imageType: "ID_BACK",
+            //   match: "",
+            //   nationalId: this.identification.nationalId,
+            //   key: this.identification.ocrKey,
+            // });
           },
         },
       ],
