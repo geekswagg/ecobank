@@ -69,7 +69,7 @@
               </div>
             }
 
-            @if(((this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess) && loader.savingBack){
+            @if(((this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess) || loader.savingBack){
               <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m"  (click)="openCamera('id_back')">
                 <div class=" uk-flex uk-flex-between uk-margin-small-top">
                   <div>
