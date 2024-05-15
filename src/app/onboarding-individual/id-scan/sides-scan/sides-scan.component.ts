@@ -133,7 +133,7 @@ export class SidesScanComponent  implements OnInit {
                   if (res.success) {
                     this.loader.scanningBack = false;
                     const id = res.id.split(" ").join("");
-                    this.loader.backIdScanSuccess = false;
+                    this.loader.backIdScanSuccess = true;
                     this.loader.scannedBack = true;
                     // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
                     this.identification.nationalId = id;
