@@ -235,50 +235,38 @@ export class SidesScanComponent  implements OnInit {
     this.loader.savingFront = true;
     this.loader.scannedFront = false;
 
-    try {
-      this.apiService.saveImage(payload).subscribe(
-        (res) => {
-          if (res.successful) {
-            this.loader.savingFront = false;
-            this.loader.savedFront = true;
-            this.dataStore.identification.frontSaved = true;
-            this.router.navigate(["/onboarding/new/identification"], {
-              replaceUrl: true,
-            });
-          } else {
-            this.toastr.error(res.message);
-            this.loader.savingFront = false;
-            this.loader.savedFront = false;
-
-            this.loader.savingBack = false;
-            this.loader.savedBack = false;
-          }
-        },
-        (error) => {
-          this.toastr.error("Error saving image try again");
+    this.apiService.saveImage(payload).subscribe({
+      next: (res) => {
+        if (res.successful) {
+          this.loader.savingFront = false;
+          this.loader.savedFront = true;
+          this.dataStore.identification.frontSaved = true;
+          this.router.navigate(['/onboarding/preferences']);
+        } else {
+          this.toastr.error(res.message);
           this.loader.savingFront = false;
           this.loader.savedFront = false;
 
           this.loader.savingBack = false;
           this.loader.savedBack = false;
         }
-      ); // end api call
-    } catch (error) {
-      this.toastr.error("Error saving image try again");
-      this.loader.savingFront = false;
-      this.loader.savedFront = false;
+      },
+      error: (err) => {
+        this.toastr.error("Error saving image try again");
+        this.loader.savingFront = false;
+        this.loader.savedFront = false;
 
-      this.loader.savingBack = false;
-      this.loader.savedBack = false;
-    }
+        this.loader.savingBack = false;
+        this.loader.savedBack = false;
+      }
+    });
   }
 
   async saveBackImage(payload: any) {
     this.loader.savingBack = true;
 
-    try {
-      this.apiService.saveImage(payload).subscribe(
-        (res) => {
+      this.apiService.saveImage(payload).subscribe({
+        next:(res) =>{
           if (res.successful) {
             this.loader.savingBack = false;
             this.loader.savedBack = true;
@@ -296,17 +284,12 @@ export class SidesScanComponent  implements OnInit {
             this.toastr.error(res.message);
           }
         },
-        (error) => {
+        error:(err) =>{
           this.loader.savingBack = false;
           this.loader.savedBack = false;
           this.toastr.error("Unable to save your document again");
         }
-      ); // end api call
-    } catch (error) {
-      this.loader.savingBack = false;
-      this.loader.savedBack = false;
-      this.toastr.error("Unable to save your document again");
-    }
+      }); // end api call
   }
 
   saveNationalId(){
@@ -319,7 +302,6 @@ export class SidesScanComponent  implements OnInit {
       key: this.identification.ocrKey
     }
     this.saveBackImage(payload)
-    // this.router.navigate(['/onboarding/preferences']);
   }
 
 
