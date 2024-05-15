@@ -25,6 +25,7 @@ export class IdScanComponent  implements OnInit {
   signImage: any = '';
   passportImage: any = '';
   selectedDocument: any = 'ID';
+  docType: string = '';
 
   constructor(
     public loader: LoadingService,
@@ -40,6 +41,12 @@ export class IdScanComponent  implements OnInit {
 
   ngOnInit() {
     this.selectedDocument = this.dataStore.identification.documentType;
+    if(this.selectedDocument === 'ID'){
+      this.docType = "National ID";
+    }
+    else{
+      this.docType = "Passport";
+    }
   }
 
   selectDocToScan(type: string): void {

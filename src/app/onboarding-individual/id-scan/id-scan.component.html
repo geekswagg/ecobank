@@ -11,64 +11,49 @@
   <div class="uk-margin-small-top">
     <div  class="uk-margin-large-left ">
       <div>
-        <h4 class="browse" style="width: 80%;">Take a photo of your<strong style="color: #005B82 !important; "> {{this.selectedDocument}} </strong> &
+        <h4 class="browse" style="width: 80%;">Take a photo of your<strong style="color: #005B82 !important; "> {{this.docType}} </strong> &
           <strong style="color: #005B82 !important; "> Signature</strong>
         </h4>
       </div>
     </div>
     <div class="">
-      <!--ID-->
+      <!--NATIONAL ID-->
       @if(this.selectedDocument === 'ID'){
         <div class="ion-padding">
-        <div class="uk-container uk-container-xsmall">
-          <div class="uk-card uk-card-default uk-width-1-1" (click)="selectDocToScan('ID')"
-            *ngIf="!loader?.scanningBack && !loader?.savingBack && !loader?.savedBack">
-            <div class="uk-card-media-top" *ngIf="backImage.length > 0">
-              <img [src]="this.backImage" width="100%" alt="Back ID" style="border: solid 3px #005B82; border-radius: 4px;">
-            </div>
-            <div class="uk-card-footer" *ngIf="backImage.length === 0" style="background-color: #f5f5f5;">
-              <div class="" uk-grid>
-                <div class="uk-width-3-4">
-                  <a style="font-family: Roboto-Medium !important;"
-                    class="uk-button uk-button-text">
+          <div class="uk-container uk-container-xsmall">
+            <div class="uk-card uk-card-default uk-width-1-1" (click)="selectDocToScan('ID')">
+
+            @if(passportImage.length > 0 && !loader.scanningPassport && loader.passportScanSuccess){
+              <div class="uk-card-media-top">
+                <img [src]="this.passportImage" width="100%" alt="Passport" style="border: solid 3px #005B82; border-radius: 4px;">
+              </div>
+            }
+
+            @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
+              <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+                <div class="uk-flex uk-flex-between  uk-margin-small-top">
+                  <div>
                     <span>
-                      <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
+                      <img src="assets/images/id_front.png" height="50" width="50" alt="passport">
                     </span>
-                    <strong>Scan National ID</strong>
-                  </a>
-                </div>
-                <div class="uk-width-1-4">
-                  <span class="uk-align-right">
-                    <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
-                    <!-- @if(loader.scanningPassport){
+                    <strong>
+                     National Id
+                    </strong>
+                  </div>
+                  <div>
+                    @if(loader.scanningPassport){
                       <ion-spinner *ngIf="loader.scanningPassport" name="circular" color="secondary"></ion-spinner>
                     }
                     @if(!loader.scanningPassport){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
-                    } -->
-                  </span>
+                    }
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="uk-card uk-card-default uk-width-1-1"
-            *ngIf="loader?.scanningBack || loader?.savingBack || loader?.savedBack">
-            <div class="uk-text-center">
-              <div style="justify-content: center; display: flex; margin-bottom: 0;">
-                <span *ngIf="loader?.savedBack"><img class="uk-margin-medium-top" src="assets/icons/saved.png" alt=""></span>
-              </div>
-
-              <span *ngIf="!loader?.savedBack" class="uk-margin-medium-top" uk-spinner="ratio: 1"></span>
-              <p *ngIf="loader?.scanningBack" class="uk-margin-small-bottom browse2"><strong>Scanning Back of ID</strong>
-              </p><br>
-              <p *ngIf="loader?.savingBack" class="uk-margin-small-bottom browse2"><strong>Saving Back of ID</strong></p>
-              <br>
-              <p *ngIf="loader?.savedBack" class="uk-margin-small-bottom browse2"><strong>Back of ID Saved</strong></p>
-              <br>
+            }
             </div>
           </div>
         </div>
-      </div>
       }
 
       <!--PASSPORT-->

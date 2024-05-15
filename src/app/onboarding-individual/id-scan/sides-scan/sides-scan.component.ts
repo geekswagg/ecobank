@@ -74,9 +74,7 @@ export class SidesScanComponent  implements OnInit {
             this.signImage = localStorage.getItem("SIGN");
           },200)
         }
-
-
-        // await this.scanImages();
+        await this.scanImages();
 
       }
     });
@@ -180,8 +178,7 @@ export class SidesScanComponent  implements OnInit {
       cssClass: "my-custom-class",
       header: "CONFIRM",
       message: `<h5>Please confirm that this is your National ID Number? \n
-                Note: This number will be used to automatically fetch your KRA PIN
-                </h5> \n \n
+                </h5> \n
                 <h1>${nationalId}<h1>
                 `,
       htmlAttributes: {},

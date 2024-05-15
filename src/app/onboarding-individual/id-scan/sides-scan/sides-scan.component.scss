@@ -5,7 +5,7 @@ ion-button{
   font-family: "Roboto-Medium";
 }
 
-ion-content{
+.content{
   overflow: auto !important;
 }
 
@@ -28,4 +28,9 @@ ion-content{
   align-items: center;
   border-radius: 4px;
 
+}
+
+
+.uk-card{
+  height: 110px !important;
 }
