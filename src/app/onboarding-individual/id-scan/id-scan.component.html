@@ -27,10 +27,15 @@
               <img [src]="this.backImage" width="100%" alt="Back ID" style="border: solid 3px #005B82; border-radius: 4px;">
             </div>
             <div class="uk-card-footer" *ngIf="backImage.length === 0" style="background-color: #f5f5f5;">
-              <div class="uk-padding" uk-grid>
+              <div class="" uk-grid>
                 <div class="uk-width-3-4">
                   <a style="font-family: Roboto-Medium !important;"
-                    class="uk-button uk-button-text"><strong>Scan National ID</strong></a>
+                    class="uk-button uk-button-text">
+                    <span>
+                      <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
+                    </span>
+                    <strong>Scan National ID</strong>
+                  </a>
                 </div>
                 <div class="uk-width-1-4">
                   <span class="uk-align-right">
@@ -80,24 +85,31 @@
 
             @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
               <div class="uk-card-footer" style="background-color: #f5f5f5;">
-                <div class="uk-padding" uk-grid>
-                  <div class="uk-width-3-4 uk-flex uk-text-center">
-
+                <div class="uk-text-center ion-text-center" uk-grid>
+                  <div class="uk-width-3-4 uk-flex">
                     @if(!loader.scanningPassport && !loader.savingPassport){
                       <a style="font-family: Roboto-Medium, sans-serif !important;"
-                      class="uk-button uk-button-text"><strong>
-                        <span>
-                          <ion-icon name="camera"></ion-icon>
-                        </span>
-                        Scan Passport</strong></a>
+                      class="uk-button uk-button-text uk-margin-small-top uk-margin-small-bottom">
+                      <span>
+                        <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
+                      </span>
+                      <strong>
+                        Scan Passport
+                      </strong>
+                    </a>
                     }
                 @if(loader.scanningPassport && !loader.savingPassport){
                       <a style="font-family: Roboto-Medium, sans-serif !important;"
-                      class="uk-button uk-button-text"><strong>Scanning Passport</strong></a>
+                      class="uk-button uk-margin-small-top uk-margin-small-bottom uk-button-text">
+                      <span>
+                        <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
+                      </span>
+                      <strong>Scanning Passport</strong>
+                      </a>
                     }
                   </div>
                   <div class="uk-width-1-4">
-                    <span class="uk-align-right">
+                    <span class="uk-align-right uk-margin-small-top uk-margin-small-bottom">
                       @if(loader.scanningPassport){
                         <ion-spinner *ngIf="loader.scanningPassport" name="circular" color="secondary"></ion-spinner>
                       }
@@ -124,10 +136,15 @@
               <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
             </div>
             <div class="uk-card-footer" *ngIf="this.signImage.length === 0" style="background-color: #f3f3f3;">
-              <div class="uk-padding" uk-grid>
+              <div class="" uk-grid>
                 <div class="uk-width-3-4">
                   <a style="font-family: Roboto-Medium !important;"
-                    class="uk-button uk-button-text"><strong>Scan Signature</strong></a>
+                    class="uk-button uk-button-text">
+                    <span>
+                      <img src="assets/images/sign.png" height="50" width="50" alt="passport icon">
+                    </span>
+                    <strong>Scan Signature</strong>
+                  </a>
                 </div>
                 <div class="uk-width-1-4">
                   <span class="uk-align-right">
