@@ -92,7 +92,7 @@
                     @if(loader.scanningBack || loader.savingBack){
                       <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
-                    @if(!loader.scanningBack){
+                    @if(!loader.scanningBack && !loader.savingBack){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
                   </div>
