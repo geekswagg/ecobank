@@ -40,7 +40,7 @@ export class IdScanComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedDocument = this.dataStore.identification.documentType;
+    this.selectedDocument = this.dataStore.identification.documentType ? this.dataStore.identification.documentType: this.selectedDocument;
     if(this.selectedDocument === 'ID'){
       this.docType = "National ID";
     }
