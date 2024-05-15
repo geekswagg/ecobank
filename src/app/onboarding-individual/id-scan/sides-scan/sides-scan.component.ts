@@ -97,12 +97,11 @@ export class SidesScanComponent  implements OnInit {
                 if (res.success) {
                   this.loader.scanningFront = false;
                   this.loader.scannedFront = true;
+                  this.loader.frontIdScanSuccess = true;
                   this.identification.frontIdOcrText = res.data;
-                  this.router.navigate(["/onboarding/new/id-scan"], {
-                    replaceUrl: true,
-                  });
                 } else {
                   this.loader.scanningFront = false;
+                  this.loader.frontIdScanSuccess = false;
                   this.loader.scannedFront = false;
                   this.scanningSolutions();
                 }
@@ -110,6 +109,7 @@ export class SidesScanComponent  implements OnInit {
               (error) => {
                 this.loader.scanningFront = false;
                 this.loader.scannedFront = false;
+                this.loader.frontIdScanSuccess = false;
                 this.scanningSolutions();
               }
             ); // end api call
@@ -123,45 +123,44 @@ export class SidesScanComponent  implements OnInit {
       case "id_back":
         if (this.loader.scannedFront) {
           this.loader.scanningBack = true;
-          try {
-
             this.apiService
               .scanBackID({
                 national_id: this.identification.backIdBase64,
                 document_type: "ID",
               })
-              .subscribe(
-                (res) => {
+              .subscribe({
+                next: (res) =>{
                   if (res.success) {
                     this.loader.scanningBack = false;
                     const id = res.id.split(" ").join("");
-                    // this.identification.nationalId = parseInt(id).toString(); //TODO looks like its truncating leading zero
+                    this.loader.backIdScanSuccess = false;
+                    this.loader.scannedBack = true;
+                    // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
                     this.identification.nationalId = id;
                     this.identification.ocrKey = res.key;
-                    // Verify ID
                     this.verifyID(this.identification.nationalId);
 
                   } else {
+                    this.loader.scannedBack = false;
                     this.loader.scanningBack = false;
+                    this.loader.backIdScanSuccess = false;
                     this.scanningSolutions();
                   }
                 },
-                (error) => {
+                error: (err) =>{
+                  this.loader.scannedBack = false;
                   this.loader.scanningBack = false;
+                  this.loader.backIdScanSuccess = false;
                   this.scanningSolutions();
                 }
-              ); // end api call
-          } catch (error) {
-            this.loader.scanningBack = false;
-            this.scanningSolutions();
-          }
+              }); // end api call
+
         } else {
           this.toastr.error(
             "Please scan Front Of ID First",
             "Scanning Failed!"
           );
         }
-
         break;
       default:
         break;
