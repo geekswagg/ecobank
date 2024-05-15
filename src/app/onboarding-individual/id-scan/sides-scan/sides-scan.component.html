@@ -63,13 +63,13 @@
       <div class="ion-padding">
         <div class="uk-container uk-container-xsmall">
           <div>
-            @if(this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess){
+            @if((this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess) && !loader.savingBack){
               <div class="uk-card-media-top">
                 <img [src]="this.backImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
               </div>
             }
 
-            @if((this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess){
+            @if(((this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess) && loader.savingBack){
               <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m"  (click)="openCamera('id_back')">
                 <div class=" uk-flex uk-flex-between uk-margin-small-top">
                   <div>
