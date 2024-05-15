@@ -10,7 +10,6 @@ export class LoadingService {
   scanningPassport = false;
   passportCaptured = false;
   passportScanSuccess = false;
-  signatureScanSuccess = false;
   frontIdScanSuccess = false;
   backIdScanSuccess = false;
   savingPassport = false;
@@ -40,5 +39,10 @@ export class LoadingService {
   frontCaptured = false;
   backCaptured = false;
   signCaptured = false;
+
+  //Signature
+  scanningSignature = false;
+  signatureCaptured = false;
+  signatureScanSuccess = false;
   constructor() {}
 }
