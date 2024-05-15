@@ -84,6 +84,36 @@
             }
 
             @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
+              <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+                <div class=" uk-flex uk-flex-between">
+                  <div>
+                    <span>
+                      <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
+                    </span>
+                    <strong>
+                      @if(loader.scanningPassport && !loader.savingPassport){
+                      Scanning Passport
+                      }
+                      @if(!loader.scanningPassport && !loader.savingPassport){
+                        Scan Passport
+                      }
+
+                    </strong>
+                  </div>
+                  <div>
+                    @if(loader.scanningPassport){
+                      <ion-spinner *ngIf="loader.scanningPassport" name="circular" color="secondary"></ion-spinner>
+                    }
+                    @if(!loader.scanningPassport){
+                      <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+
+
+            <!-- @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
               <div class="uk-card-footer" style="background-color: #f5f5f5;">
                 <div class="uk-text-center ion-text-center" uk-grid>
                   <div class="uk-width-3-4 uk-flex">
@@ -94,7 +124,11 @@
                         <img src="assets/images/id-good.png" height="50" width="50" alt="passport icon">
                       </span>
                       <strong>
-                        Scan Passport
+
+
+                        <span>
+                          Scan Passport
+                        </span>
                       </strong>
                     </a>
                     }
@@ -120,7 +154,7 @@
                   </div>
                 </div>
               </div>
-            }
+            } -->
             </div>
           </div>
         </div>
