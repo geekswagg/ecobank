@@ -116,10 +116,11 @@
         (click)="saveNationalId()"
        size="small" mode="md"
       expand="block"
+      color="secondary"
       fill="solid"
       [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"
       >
-      {{ loader.loading ? '' : 'Continue'}}
+      {{ (loader.savedFront || loader.savingBack) ? '' : 'Continue'}}
       <ion-spinner *ngIf="loader.savingBack || loader.savingFront" name="circular" color="light"></ion-spinner>
     </ion-button>
     </div>
