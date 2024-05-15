@@ -120,11 +120,13 @@
       <!--SIGNATURE-->
       <div class="ion-padding">
         <div class="uk-container uk-container-xsmall">
-          <div class="uk-card uk-card-default uk-width-1-1" (click)="selectDocToScan('SIGNATURE')"
-            *ngIf="!loader?.scanningBack && !loader?.savingBack && !loader?.savedBack">
-            <div class="uk-card-media-top" *ngIf="this.signImage.length > 0">
-              <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
-            </div>
+          <div class="uk-card uk-card-default uk-width-1-1" (click)="selectDocToScan('SIGNATURE')">
+            @if(this.signImage.length > 0 && !loader.scanningSignature && loader.signatureScanSuccess){
+              <div class="uk-card-media-top">
+                <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
+              </div>
+            }
+
 
             @if((this.signImage.length <= 0 || loader.scanningSignature) || !loader.signatureScanSuccess){
               <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
@@ -143,8 +145,8 @@
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningPassport){
-                      <ion-spinner *ngIf="loader.scanningSignature" name="circular" color="secondary"></ion-spinner>
+                    @if(loader.scanningSignature){
+                      <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
                     @if(!loader.scanningSignature){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>

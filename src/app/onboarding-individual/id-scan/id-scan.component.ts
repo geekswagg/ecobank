@@ -1,4 +1,5 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -8,6 +9,7 @@ import { Identification } from 'src/app/_models/data-models';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
 import { LoadingService } from 'src/app/_services/loading.service';
+const signatureUrl = "https://ai.giktek.io/signature";
 
 @Component({
   selector: 'app-id-scan',
@@ -31,6 +33,7 @@ export class IdScanComponent  implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private toastr: ToastrService,
+    private httpClient: HttpClient,
     private dataStore: DataStoreService
 
   ) { }
@@ -87,6 +90,8 @@ export class IdScanComponent  implements OnInit {
         }
 
         if(this.side === 'signature'){
+          const formData =  new FormData();
+          formData.append("file",this.identification.signatureFile);
           this.loader.frontCaptured = true;
           this.loader.backCaptured = true;
           this.loader.signCaptured = true;
@@ -94,6 +99,7 @@ export class IdScanComponent  implements OnInit {
           setTimeout(()=>{
             this.signImage = localStorage.getItem("SIGN");
           },200)
+          this.verifySignature(formData);
         }
 
         if(this.side === 'passport'){
@@ -269,7 +275,35 @@ export class IdScanComponent  implements OnInit {
       ],
     });
     await alert.present();
+
   }
+
+    //Verify signature image before saving it
+    verifySignature(payload: any){
+      this.loader.scanningSignature = true;
+
+      this.httpClient.post(signatureUrl, payload).subscribe({
+        next: (resp: any) => {
+          this.loader.scanningSignature = false;
+          if(resp.is_signed){
+            this.saveImage("signature", {
+              file: this.identification.signatureFile,
+              idType: "",
+              imageType: "SIGNATURE",
+              match: "",
+              nationalId: "",
+            });
+          }
+          else{
+            this.toastr.error("Ensure your signature is signed on a plain white paper");
+          }
+        },
+        error: (err: any) => {
+          this.loader.scanningSignature = false;
+          this.toastr.error("An error while verifying your signature. Please try again");
+        }
+      })
+    }
 
 
   // Save image
@@ -278,8 +312,8 @@ export class IdScanComponent  implements OnInit {
     this.loader.scannedFront = false;
 
     try {
-      this.apiService.saveImage(payload).subscribe(
-        (res) => {
+      this.apiService.saveImage(payload).subscribe({
+        next: (res) => {
           if (res.successful) {
             this.loader.savingFront = false;
             this.loader.savedFront = true;
@@ -296,7 +330,7 @@ export class IdScanComponent  implements OnInit {
             this.loader.savedBack = false;
           }
         },
-        (error) => {
+        error:(err)=>{
           this.toastr.error("Error saving image try again");
           this.loader.savingFront = false;
           this.loader.savedFront = false;
@@ -304,6 +338,8 @@ export class IdScanComponent  implements OnInit {
           this.loader.savingBack = false;
           this.loader.savedBack = false;
         }
+      }
+
       ); // end api call
     } catch (error) {
       this.toastr.error("Error saving image try again");

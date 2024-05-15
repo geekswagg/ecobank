@@ -34,7 +34,7 @@ export interface Identification {
   passportFile?: File;
   passportSaved?: boolean;
   signatureBase64?: string;
-  signatureFile?: File;
+  signatureFile?: any;
   signatureSaved?: boolean;
   taxBase64?: string;
   taxFile?: File;
