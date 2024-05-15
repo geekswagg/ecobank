@@ -120,7 +120,7 @@
       [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"
       >
       {{ loader.loading ? '' : 'Continue'}}
-      <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
+      <ion-spinner *ngIf="loader.savingBack || loader.savingFront" name="circular" color="light"></ion-spinner>
     </ion-button>
     </div>
 
