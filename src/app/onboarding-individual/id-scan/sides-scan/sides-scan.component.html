@@ -113,7 +113,8 @@
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
-      (click)="toPreference()" size="small" mode="md"
+        (click)="saveNationalId()"
+       size="small" mode="md"
       expand="block"
       fill="solid"
       [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"

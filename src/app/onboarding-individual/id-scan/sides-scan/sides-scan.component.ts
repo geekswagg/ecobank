@@ -194,15 +194,7 @@ export class SidesScanComponent  implements OnInit {
           handler: () => {
             this.loader.backIdScanSuccess = true;
             this.loader.scannedBack = true;
-            // Save the front id
-            // this.saveBackImage({
-            //   file: this.identification.backIdFile,
-            //   idType: "NATIONAL_ID",
-            //   imageType: "ID_BACK",
-            //   match: "",
-            //   nationalId: this.identification.nationalId,
-            //   key: this.identification.ocrKey,
-            // });
+
           },
         },
       ],
@@ -317,8 +309,17 @@ export class SidesScanComponent  implements OnInit {
     }
   }
 
-  toPreference(){
-    this.router.navigate(['/onboarding/preferences']);
+  saveNationalId(){
+    const payload = {
+      file: this.identification.backIdFile,
+      idType: "NATIONAL_ID",
+      imageType: "ID_BACK",
+      match: "",
+      nationalId: this.identification.nationalId,
+      key: this.identification.ocrKey
+    }
+    this.saveBackImage(payload)
+    // this.router.navigate(['/onboarding/preferences']);
   }
 
 
