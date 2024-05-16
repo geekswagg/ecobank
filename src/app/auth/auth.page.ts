@@ -20,7 +20,6 @@ export class AuthPage implements OnInit {
   SearchCountryField = SearchCountryField;
 
   siteKey: string = "6LeeUt4pAAAAACcoX3NQ2Nk3hfWM2eqwu3fS3SIN";
-  // siteKey: string = "6LfVl78pAAAAAHvf_xX8CAa-sUgswZdKn81uDhxM";
   public captchaIsLoaded = false;
   public captchaSuccess = false;
   public captchaIsExpired = false;
