@@ -301,3 +301,23 @@ ion-button[type=submit] {
   width: 40px !important;
   height: 40px !important;
 }
+
+/*
+Design elements restricted to MOBILE SCREEN only
+*/
+@media only screen and (max-width: 768px) {
+  .desktop-content {
+    display: none;
+    min-width: 100vw !important;
+  }
+}
+
+/*
+Design element restricted to DESKTOP SCREEN only
+*/
+@media only screen and (min-width: 768px) {
+  .mobile-content {
+    display: none;
+    min-width: 80vw !important;
+  }
+}

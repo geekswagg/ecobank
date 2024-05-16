@@ -86,39 +86,32 @@ export class SidesScanComponent  implements OnInit {
     switch (this.side) {
       case "id_front":
         this.loader.scanningFront = true;
-
-        try {
-          this.apiService
-            .scanFrontID({
-              national_id: this.identification.frontIdBase64,
-            })
-            .subscribe(
-              (res) => {
-                if (res.success) {
-                  this.loader.scanningFront = false;
-                  this.loader.scannedFront = true;
-                  this.loader.frontIdScanSuccess = true;
-                  this.identification.frontIdOcrText = res.data;
-                } else {
-                  this.loader.scanningFront = false;
-                  this.loader.frontIdScanSuccess = false;
-                  this.loader.scannedFront = false;
-                  this.scanningSolutions();
-                }
-              },
-              (error) => {
+        this.apiService
+          .scanFrontID({
+            national_id: this.identification.frontIdBase64,
+          })
+          .subscribe({
+            next: (res) => {
+              if (res.success) {
                 this.loader.scanningFront = false;
-                this.loader.scannedFront = false;
+                this.loader.scannedFront = true;
+                this.loader.frontIdScanSuccess = true;
+                this.identification.frontIdOcrText = res.data;
+                this.toastr.success("Front ID scanned successfully");
+              } else {
+                this.loader.scanningFront = false;
                 this.loader.frontIdScanSuccess = false;
+                this.loader.scannedFront = false;
                 this.scanningSolutions();
               }
-            ); // end api call
-        } catch (error) {
-          this.loader.scanningFront = false;
-          this.loader.scannedFront = false;
-          this.scanningSolutions();
-        }
-
+            },
+            error: (err) => {
+              this.loader.scanningFront = false;
+              this.loader.scannedFront = false;
+              this.loader.frontIdScanSuccess = false;
+              this.scanningSolutions();
+            }
+          }); // end api call
         break;
       case "id_back":
         if (this.loader.scannedFront) {
