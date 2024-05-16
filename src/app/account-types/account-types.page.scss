@@ -47,17 +47,18 @@
 
 .indiv-section{
   background-image: url(../../assets/images/lady-chat-left.png);
-  height: 370px;
+  height: 410px;
   background-repeat: no-repeat;
   background-size: cover !important;
   position: relative;
+  background-attachment: scroll;
 
 }
 
 .indiv-content{
-  transform: translate(0px,160px);
+  transform: translate(0px,210px);
   padding-left: 30px !important;
-  width: 80%;
+  width: 75%;
   // position: absolute;
 }
 .acc-title{
@@ -68,18 +69,26 @@
 
 .joint-section{
   background-image: url(../../assets/images/joint-lady.png);
-  height: 370px;
+  height: 410px;
   background-repeat: no-repeat;
   background-size: cover !important;
+  background-attachment: scroll;
   position: relative;
 }
 
 .bus-section{
   background-image: url(../../assets/images/bus-lady.png);
-  height: 370px;
+  height: 450px;
   background-repeat: no-repeat;
   background-size: cover !important;
   position: relative;
+  background-attachment: scroll;
+
+  .indiv-content{
+    transform: translate(0px,220px) !important;
+    padding-left: 30px !important;
+    width: 75%;
+  }
 }
 
 ion-button{

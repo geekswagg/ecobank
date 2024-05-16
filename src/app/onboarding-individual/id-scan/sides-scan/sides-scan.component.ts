@@ -171,7 +171,7 @@ export class SidesScanComponent  implements OnInit {
   async verifyID(nationalId: any) {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
-      mode:'ios',
+      mode: 'md',
       cssClass: "my-custom-class",
       header: "CONFIRM",
       message: `<h5>Please confirm that this is your National ID Number? \n
@@ -208,6 +208,7 @@ export class SidesScanComponent  implements OnInit {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
       cssClass: "my-custom-class",
+      mode: 'md',
       header: "SCANNING FAILED",
       message: `<h6>Take note of the following concerns as your make another scanning attempt
                 </h6> \n \n

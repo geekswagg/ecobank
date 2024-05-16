@@ -262,6 +262,7 @@ export class IdScanComponent  implements OnInit {
   async scanningSolutions() {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
+      mode: 'md',
       cssClass: "my-custom-class",
       header: "SCANNING FAILED",
       message: `<h6>Take note of the following concerns as your make another scanning attempt
