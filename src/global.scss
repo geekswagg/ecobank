@@ -158,10 +158,12 @@ ngx-intl-tel-input input {
   border-width: 1px;
   border-color: #c7cace;
   border-radius: 4px;
+  vertical-align: center !important;
   color: #444444 !important;
   font-size: 18px;
   font-weight: 500 !important;
   background: transparent !important;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
 }
 
 ngx-intl-tel-input.ng-invalid.ng-touched input {
@@ -267,6 +269,8 @@ ion-datetime {
   font-size: 1em !important;
   font-weight: 500;
   height: 50px !important;
+  --vertical-align: center !important;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
 }
 
 ion-item {
