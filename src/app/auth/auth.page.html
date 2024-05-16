@@ -60,6 +60,21 @@
       </div>
   </div><br>
 
+  <div class="uk-margin-small-top">
+    <ion-item lines="none">
+     <ngx-recaptcha2 #captchaElem
+     [siteKey]="siteKey"
+     (reset)="handleReset()"
+     (expire)="handleExpire()"
+     (load)="handleLoad()"
+     (success)="handleSuccess($event)"
+     [useGlobalDomain]="false"
+     class="mb-2"
+     formControlName="recaptcha">
+     </ngx-recaptcha2>
+    </ion-item>
+ </div>
+
   <!-- <div>
      <ion-item lines="none">
       <ion-checkbox labelPlacement="end" justify="start" style="max-width: 500px !important;">Accept
@@ -69,7 +84,7 @@
     </ion-item>
   </div> -->
 
-  <div style="margin-left: 15px; margin-right: 15px !important;">
+  <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
       <ion-checkbox slot="start" style="--background: transparent; margin-right: 0;" mode="md"></ion-checkbox>
       <ion-label style="max-width: 500px; margin-left: 10px;">Accept
         <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Terms and Conditions</a> and the

@@ -19,6 +19,13 @@ export class AuthPage implements OnInit {
   CountryISO = CountryISO;
   SearchCountryField = SearchCountryField;
 
+  siteKey: string = "6LdT6lspAAAAAJF4rE4A4ZkX8ZQlkqazhAaFBlcF";
+  // siteKey: string = "6LfVl78pAAAAAHvf_xX8CAa-sUgswZdKn81uDhxM";
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaIsExpired = false;
+  public captchaResponse?: string;
+
   get f() {
     return this.authForm.controls;
   }
@@ -51,6 +58,17 @@ export class AuthPage implements OnInit {
   }
 
   checkboxChanged(){}
+
+  handleSuccess(data: any) {
+    this.captchaSuccess = true;
+    this.captchaResponse = data;
+  }
+
+  handleReset(){}
+
+  handleExpire(){}
+  handleLoad(){}
+
 
 
   async validateOtp(){

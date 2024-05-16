@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../_services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     NgxIntlTelInputModule,
     NgOtpInputModule,
     ReactiveFormsModule,
+    NgxCaptchaModule
   ],
   declarations: [AuthPage,OtpFormComponent],
   providers:[LoadingService,ApiService,ToastrService]
