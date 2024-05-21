@@ -65,9 +65,36 @@ class="mobile-content"
   <div class="bg-lady"></div>
   <div class="steps-section"></div>
 
+  <div class="home-left uk-padding">
+    <div class="">
+      <img src="assets/images/logo-white.png" alt="Logo">
+    </div>
+
+    <div class="home-title">
+      <h5>Welcome to Ecobank's <br> Digital Account Opening</h5>
+      <div>
+        <p class="welcome-desc">Open your new account online quickly, <br> easy, anytime and anywhere with <br> just a few steps.
+        </p>
+      </div>
+    </div>
+
+    <div class="btn-section uk-margin-large-top">
+      <ion-button color="primary" mode="md" [routerLink]="['/account-types']" routerLinkActive="router-link-active" >
+        @if(!loading) {
+          Let's Get Started
+        }
+        @if(loading){
+          <ion-spinner name="circular"></ion-spinner>
+        }
+      </ion-button>
+    </div>
+
+  </div>
+
 
   <!-- <div class="uk-text-center">
     <h3>Desktop content Under Development! <br> View in mobile mode</h3>
   </div> -->
 
 </div>
+<!-- <ion-footer>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptates itaque quasi, dolore hic reiciendis modi numquam architecto inventore quas, rerum vero quibusdam nisi? Ducimus excepturi cupiditate impedit mollitia blanditiis.</ion-footer> -->

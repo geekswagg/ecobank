@@ -158,15 +158,38 @@ ion-button{
     }
 
     .steps-section{
-      // position: absolute;
+      position: absolute;
       background-image: url(../../assets/images/description.png);
       z-index: 20;
-      height: 25rem;
-      margin-top: 8rem;
-      top: 50;
+      height: 425px;
+      width: 300px;
+      // margin-top: 13%;
+      // top: 5;
       margin-left: 72%;
+      // position: fixed;
       background-size: contain;
+      background-position: fixed;
       background-repeat: no-repeat;
+      transform: translateY(35%);
 
+    }
+
+    .home-title{
+      transform: translateY(50%);
+      h5{
+        font-family: "Roboto", sans-serif !important;
+        font-size: 32px !important;
+        line-height: 32px;
+        font-weight: 900;
+        color: #fff;
+      }
+      .welcome-desc{
+        color: #fff;
+        font-size: 1.3rem !important;
+      }
+    }
+
+    .btn-section{
+      transform: translateY(90%);
     }
   }
