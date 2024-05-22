@@ -137,12 +137,19 @@ ion-button{
     --animate-duration: 4s;
   }
 
+  /*===============================
+  DESKTOP CONTENT
+  ===============================*/
+
+
   .desktop-content{
     position: relative;
     background-image: url(../../assets/images/web-bg.png);
     height: 100%;
     width: 100%;
     z-index: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .bg-lady{
       position: absolute;
@@ -175,7 +182,8 @@ ion-button{
     }
 
     .home-title{
-      transform: translateY(50%);
+      // transform: translateY(50%);
+      margin-top: 30vh;
       h5{
         font-family: "Roboto", sans-serif !important;
         font-size: 32px !important;
@@ -190,7 +198,7 @@ ion-button{
     }
 
     .btn-section{
-      transform: translateY(90%);
+      // transform: translateY(90%);
     }
 
     .body-element{
