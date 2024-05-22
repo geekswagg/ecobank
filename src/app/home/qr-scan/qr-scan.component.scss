@@ -1,0 +1,54 @@
+.content-body{
+  position: relative;
+  background-color: #fff !important;
+  height: 100vh;
+  overflow: auto;
+
+  .qr-section{
+    top: 40%;
+    min-height: 10rem;
+    border-radius: 5px;
+    background-color: #f5f5f5 !important;
+    margin-top: 4rem;
+    min-width: 40%;
+
+    h5{
+      font-weight: 500;
+    }
+  }
+
+  .qr-item{
+    top: 40%;
+    margin-top: 4rem;
+    background-color: #f5f5f5 !important;
+    min-height: 10rem;
+    width: 15rem;
+    border-radius: 5px;
+    .qcode{
+      margin: auto;
+    }
+
+  }
+
+  .start-title{
+    color: #00577A;
+    font-weight: 900;
+  }
+
+  p{
+    width: 40%;
+    margin: auto;
+  }
+
+  .qr-note{
+    min-height: 4rem;
+    border: 1px solid #bed600;
+    width: 30%;
+    margin: auto;
+    border-radius: 5px;
+  }
+
+  ion-header{
+    background-color: #fff !important;
+  }
+}

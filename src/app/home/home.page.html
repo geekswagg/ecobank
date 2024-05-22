@@ -66,11 +66,13 @@ class="mobile-content"
   <div class="steps-section"></div>
 
   <div class="home-left uk-padding">
-    <div class="">
-      <img src="assets/images/logo-white.png" alt="Logo">
-    </div>
 
-    <div class="home-title">
+    <div class="body-element uk-margin-large-left">
+      <div class="">
+        <img src="assets/images/logo-white.png" alt="Logo">
+      </div>
+
+      <div class="home-title">
       <h5>Welcome to Ecobank's <br> Digital Account Opening</h5>
       <div>
         <p class="welcome-desc">Open your new account online quickly, <br> easy, anytime and anywhere with <br> just a few steps.
@@ -78,16 +80,20 @@ class="mobile-content"
       </div>
     </div>
 
-    <div class="btn-section uk-margin-large-top">
-      <ion-button color="primary" mode="md" [routerLink]="['/account-types']" routerLinkActive="router-link-active" >
+    <div class="btn-section  uk-margin-large-top">
+      <ion-button class="dektop-btn" color="primary" mode="md" (click)="gotToQRCode()" routerLinkActive="router-link-active" >
         @if(!loading) {
           Let's Get Started
+          <ion-icon name="arrow-forward-outline"></ion-icon>
         }
         @if(loading){
           <ion-spinner name="circular"></ion-spinner>
         }
       </ion-button>
     </div>
+    </div>
+
+
 
   </div>
 

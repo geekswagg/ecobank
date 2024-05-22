@@ -27,6 +27,7 @@
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^8.0.0",
+    "angularx-qrcode": "^17.0.1",
     "animate.css": "^4.1.1",
     "google-libphonenumber": "^3.2.34",
     "i": "^0.3.7",

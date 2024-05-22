@@ -192,4 +192,12 @@ ion-button{
     .btn-section{
       transform: translateY(90%);
     }
+
+    .body-element{
+      transform: translateX(5%);
+    }
+
+    .dektop-btn:hover{
+      transform: scale(1.1);
+    }
   }

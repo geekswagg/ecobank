@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { ViewStepsComponent } from './view-steps/view-steps.component';
+import { QrScanComponent } from './qr-scan/qr-scan.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -13,8 +15,9 @@ import { ViewStepsComponent } from './view-steps/view-steps.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    QRCodeModule
   ],
-  declarations: [HomePage,ViewStepsComponent]
+  declarations: [HomePage,ViewStepsComponent,QrScanComponent]
 })
 export class HomePageModule {}

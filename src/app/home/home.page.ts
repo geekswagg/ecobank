@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ViewStepsComponent } from './view-steps/view-steps.component';
 import { ScrollDetail } from '@ionic/angular';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,9 @@ export class HomePage {
   isScrolling = false;
 
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   handleScrollStart() {
@@ -40,6 +44,10 @@ export class HomePage {
     });
     await modal.present();
 
+  }
+
+  gotToQRCode(){
+    this.router.navigate(['home/qr-scan']);
   }
 
 }
