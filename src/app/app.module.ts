@@ -8,11 +8,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ToastrModule } from 'ngx-toastr';
+import { ProgressBarComponent } from "./_components/progress-bar/progress-bar.component";
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule,BrowserAnimationsModule,ToastrModule.forRoot(), IonicModule.forRoot({innerHTMLTemplatesEnabled: true}), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    bootstrap: [AppComponent],
+    imports: [BrowserModule, BrowserAnimationsModule, ToastrModule.forRoot(), IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }), AppRoutingModule, ProgressBarComponent]
 })
 export class AppModule {}

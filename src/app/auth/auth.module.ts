@@ -16,23 +16,22 @@ import { ApiService } from '../_services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ProgressBarComponent } from "../_components/progress-bar/progress-bar.component";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AuthPageRoutingModule,
-    HttpClientModule,
-
-
-
-    NgxIntlTelInputModule,
-    NgOtpInputModule,
-    ReactiveFormsModule,
-    NgxCaptchaModule
-  ],
-  declarations: [AuthPage,OtpFormComponent],
-  providers:[LoadingService,ApiService,ToastrService]
+    declarations: [AuthPage, OtpFormComponent],
+    providers: [LoadingService, ApiService, ToastrService],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AuthPageRoutingModule,
+        HttpClientModule,
+        NgxIntlTelInputModule,
+        NgOtpInputModule,
+        ReactiveFormsModule,
+        NgxCaptchaModule,
+        ProgressBarComponent
+    ]
 })
 export class AuthPageModule {}

@@ -5,6 +5,7 @@ import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { LoadingService } from '../_services/loading.service';
 import { ModalController } from '@ionic/angular';
 import { OtpFormComponent } from './otp-form/otp-form.component';
+import { ProgressService } from '../_services/progress.service';
 
 @Component({
   selector: 'app-auth',
@@ -33,6 +34,7 @@ export class AuthPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private progressService: ProgressService,
     public loader: LoadingService,
     private  modalCtrl: ModalController
   ) {
@@ -77,6 +79,27 @@ export class AuthPage implements OnInit {
       componentProps:{ auth: '' },
     });
     await modal.present();
+  }
+
+  async loadData() {
+    this.progressService.setProgress(10);
+
+    // Simulate data loading with setTimeout
+    setTimeout(() => {
+      this.progressService.setProgress(30);
+    }, 1000);
+
+    setTimeout(() => {
+      this.progressService.setProgress(60);
+    }, 2000);
+
+    setTimeout(() => {
+      this.progressService.setProgress(90);
+    }, 3000);
+
+    setTimeout(() => {
+      this.progressService.setProgress(100);
+    }, 4000);
   }
 
 }
