@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ViewStepsComponent } from './view-steps/view-steps.component';
 import { ScrollDetail } from '@ionic/angular';
@@ -15,6 +15,10 @@ export class HomePage {
   loading: boolean = false;
   scrollTop: number = 0;
   isScrolling = false;
+
+  @ViewChild('scrollTarget', { static: false }) private scrollTarget: ElementRef | undefined;
+
+
 
   constructor(
     private modalCtrl: ModalController,
@@ -48,6 +52,12 @@ export class HomePage {
 
   gotToQRCode(){
     this.router.navigate(['home/qr-scan']);
+  }
+
+  scrollToBottom() {
+    if (this.scrollTarget) {
+      this.scrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
   }
 
 }

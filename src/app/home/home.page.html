@@ -13,7 +13,7 @@ class="mobile-content"
 
    @if(scrollTop < 100 && !isScrolling){
     <div class="down-arrow">
-      <div class="arrow-icon animate__animated animate animate__bounce animate__infinite animate_slower">
+      <div (click)="scrollToBottom()" class="arrow-icon animate__animated animate animate__bounce animate__infinite animate_slower">
         <ion-icon slot="fixed" color="primary" name="chevron-down-circle-outline"></ion-icon>
       </div>
     </div>
@@ -47,7 +47,7 @@ class="mobile-content"
       </ion-button>
     </div>
 
-    <div class="help-section">
+    <div class="help-section" #scrollTarget>
       <span style="padding-top: 2px; font-size: 12px;">Need Help?</span>
       <p style="font-size: 12px !important; font-weight: 600 !important;">Call Us at (+254) 709 573 000</p>
       <div class="social">
@@ -60,6 +60,10 @@ class="mobile-content"
 
   </div>
 </ion-content>
+
+<!--=============
+  DESKTOP CONTENT
+=================-->
 
 <div class="desktop-content">
   <div class="bg-lady"></div>
