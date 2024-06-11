@@ -2,11 +2,11 @@
 
 
 
-## Getting started
+## About this Application
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This is a digital onboarding application that serve the purpose of collecting KYC details of those who wish to create bank account with Ecobank Kenya.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+The application is built on [Angular 17](https://angular.dev) using the the ionic framework.
 
 ## Add your files
 
