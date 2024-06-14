@@ -3,8 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center" >Choose Your Account</ion-title>
+    <!-- <ion-title size="large" class="ion-text-center" >Choose Your Account</ion-title> -->
   </ion-toolbar>
+</ion-header>
+<ion-content class="body-content" >
   <div class="progress-bar">
     <div class="step active"></div>
     <div class="step"></div>
@@ -12,19 +14,25 @@
     <div class="step"></div>
     <div class="step"></div>
   </div>
-</ion-header>
-<ion-content class="body-content" >
+  <div class="container mx-auto p-4 w-full">
+    <div class="font-semibold">
+      <h3>Good Morning, <br>
+        Let's begin by choosing the <strong class="text-[#005B82]">Account Category</strong>
+      </h3>
+    </div>
+  </div>
 
   <div class="indiv-section">
     <div class="indiv-content">
-      <h3 class="acc-title">Individual Account</h3>
+      <h3 class="acc-title">Personal Account</h3>
       <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
       <ion-button color="primary" mode="md" (click)="onSelectAccoutType('indiv')">Select Individual Account <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>
+
   <div class="joint-section uk-flex uk-flex-right">
     <div class="indiv-content ">
-      <h3 class="acc-title">Joint Account</h3>
+      <h3 class="acc-title">Joint/Group Account</h3>
       <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
       <ion-button color="primary" mode="md" (click)="onSelectAccoutType('joint')">Select Joint Account <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
