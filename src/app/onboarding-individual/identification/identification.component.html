@@ -3,7 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/auth" (click)="back()"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">Document Upload</ion-title>
   </ion-toolbar>
   <div class="progress-bar">
     <div class="step active"></div>
@@ -17,7 +16,7 @@
 <ion-content>
   <div>
     <div style="padding-left:10px; padding-top:30px;" >
-      <h4 class="browse" style="width: 80%;">Choose the <strong style="color: #005B82 !important; "> document </strong> you are using to create account
+      <h4 class="browse" style="width: 80%;">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
       </h4>
     </div>
 
@@ -40,12 +39,15 @@
      </div>
 
      <div uk-grid class="uk-margin-left">
-      <div class="img-orient">
-        <img src="assets/images/id-tick.png" height="63" width="92" alt="">
-        <span>
+      <div class="flex gap-4">
+        <span class="border">
+          <img src="assets/images/id-tick.png" height="63" width="92" alt="">
+        </span>
+
+        <span class="border">
           <img src="assets/images/id-half.png" height="63" width="92" alt="">
         </span>
-        <span>
+        <span class="border">
           <img src="assets/images/id-blur.png" height="63" width="92" alt="">
         </span>
       </div>
