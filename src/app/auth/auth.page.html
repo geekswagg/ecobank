@@ -5,14 +5,6 @@
     </ion-buttons>
     <ion-title size="large" class="ion-text-center title" ></ion-title>
   </ion-toolbar>
-  <!-- <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-  </div> -->
-  <!-- <app-progress-bar></app-progress-bar> -->
 </ion-header>
 
 <ion-content class="content-body">
@@ -35,7 +27,7 @@
 <div class="form-item">
   <form   [formGroup]="authForm" style="">
     <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important;">
-      <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
+      <ion-label position="stacked" class="labels" style="font-size: .86em !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input
       [cssClass]="'custom'"
       formControlName="phone"
@@ -65,7 +57,7 @@
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty">
+          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched">
               <ion-icon name="information-circle-outline"></ion-icon>Email must be a valid email
               address
           </small>
@@ -92,39 +84,15 @@
     </ion-item>
  </div>
 
-  <!-- <div>
-     <ion-item lines="none">
-      <ion-checkbox labelPlacement="end" justify="start" style="max-width: 500px !important;">Accept
-        <a href="#" (click)="$event.stopPropagation()">Terms and Conditions</a> and the
-        <a href="#" (click)="$event.stopPropagation()">Privacy Policy</a>
-      </ion-checkbox>
-    </ion-item>
-  </div> -->
 
-  <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
+  <!-- <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
       <ion-checkbox slot="start" style="--background: transparent; margin-right: 0;" mode="md"></ion-checkbox>
       <ion-label style="max-width: 500px; margin-left: 10px;">Accept
         <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Terms and Conditions</a> and the
         <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Privacy Policy</a>. Please review and accept to proceed.
       </ion-label>
-  </div>
+  </div> -->
 
-
-
-  <!-- <div style="padding-top: 5px;">
-    <ion-item lines="none">
-     <ngx-recaptcha2 #captchaElem
-     [siteKey]="siteKey"
-     (reset)="handleReset()"
-     (expire)="handleExpire()"
-     (load)="handleLoad()"
-     (success)="handleSuccess($event)"
-     [useGlobalDomain]="false"
-     class="mb-2"
-     formControlName="recaptcha">
-     </ngx-recaptcha2>
-    </ion-item>
- </div> -->
   <!-- <div style="margin-top: 30px;">
     <ion-button size="small" [disabled]="loader.loading || authForm.invalid" mode="ios" type="submit"
     expand="block"
@@ -136,7 +104,7 @@
   </div> -->
 
   <div class="p-btn uk-margin-xlarge-top">
-    <ion-button mode="md" expand="block" size="medium" (click)="verifyUser()">
+    <ion-button mode="md" expand="block" size="medium" [disabled]="this.authForm.invalid" (click)="login()">
       Proceed
     </ion-button>
   </div>

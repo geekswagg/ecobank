@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RequirementsPageRoutingModule } from './requirements-routing.module';
 
 import { RequirementsPage } from './requirements.page';
+import { TermsModalComponent } from './terms-modal/terms-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { RequirementsPage } from './requirements.page';
     IonicModule,
     RequirementsPageRoutingModule
   ],
-  declarations: [RequirementsPage]
+  declarations: [RequirementsPage, TermsModalComponent]
 })
 export class RequirementsPageModule {}

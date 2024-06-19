@@ -1,6 +1,8 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TermsModalComponent } from './terms-modal/terms-modal.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-requirements',
@@ -11,6 +13,7 @@ export class RequirementsPage implements OnInit {
 
   constructor(
     private router: Router,
+    private modalController: ModalController
 
   ) { }
 
@@ -23,6 +26,22 @@ export class RequirementsPage implements OnInit {
 
   gotoAuth(){
     this.router.navigate(['auth']);
+  }
+
+  async openTerms() {
+    const modal = await this.modalController.create({
+    component: TermsModalComponent,
+      cssClass: 'terms-modal',
+    });
+
+    modal.onWillDismiss().then((data: any) => {
+      if(data.data === true){
+        this.router.navigate(['auth']);
+        return;
+      }
+    })
+
+    return await modal.present();
   }
 
 }

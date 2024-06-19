@@ -13,6 +13,7 @@ export interface Auth {
   currency?: any;
   accountName?: string;
   existingYN?: string;
+  key?: string;
 }
 
 export interface Identification {

@@ -1,0 +1,54 @@
+import { Injectable } from '@angular/core';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import * as aesjs from "aes-js";
+import base64url from "base64url";
+
+@Injectable()
+export class JWTInterceptor implements HttpInterceptor {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    let token = localStorage.getItem('access-token'); // you probably want to store it in localStorage or something
+    if (!token) {
+      return next.handle(req);
+    }
+
+    token = this.encrypt(token);
+
+    const req1 = req.clone({
+      headers: req.headers.set('Authorization', `${token}`),
+    });
+    return next.handle(req1);
+  }
+
+
+ encrypt(msg) {
+
+    var key = "$EM8-NAYA?>#9xd2";
+    var iv = "B0l!nG-4L6TXSwB5";
+
+    var keyBytes = aesjs.utils.utf8.toBytes(key);
+    var ivBytes = aesjs.utils.utf8.toBytes(iv);
+
+    var aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes);
+    var textBytes = aesjs.utils.utf8.toBytes(msg);
+    var padded = aesjs.padding.pkcs7.pad(textBytes);
+    var encryptedBytes = aesCbc.encrypt(padded);
+
+
+    var aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes);
+    var textBytes = aesjs.utils.utf8.toBytes(msg);
+    var padded = aesjs.padding.pkcs7.pad(textBytes);
+    var encryptedBytes = aesCbc.encrypt(padded);
+
+    return base64url.encode(encryptedBytes);
+  }
+}

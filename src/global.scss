@@ -116,11 +116,11 @@ body {
 }
 
 .header-color{
-  --background: #f3f3f4 !important;
+  --background: #f3f3f4;
 }
 
 ion-content{
-  --background: #f3f3f4 !important;
+  --background: #f3f3f4;
 }
 .progress-bar {
   display: flex;
@@ -292,7 +292,7 @@ ion-label {
   color: #000 !important;
   font-size: 1em !important;
   font-size: 100% !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   padding-bottom: 5px !important;
 }
 

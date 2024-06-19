@@ -1,0 +1,108 @@
+<ion-header class="ion-no-border" mode="ios">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Terms and Conditions</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="terms-content">
+  <!-- Your terms and conditions content here -->
+  <div class="terms-text">
+    <div>
+      <h5><strong>1. Introduction</strong></h5>
+      <p>
+        1.1 By opening and using a bank account with <strong>EcoBank</strong>, you agree to comply with these Terms and Conditions.
+      </p>
+    </div>
+
+    <div>
+      <h5><strong>2. Account Opening</strong></h5>
+      <p>
+        2.1  To open an account, you must provide valid identification and any other information required by the Bank.
+      </p>
+      <p>
+        2.2 The Bank reserves the right to accept or reject any application for an account.
+      </p>
+    </div>
+
+    <div>
+      <h5><strong>3. Deposits</strong></h5>
+      <p>
+        3.1 Deposits can be made via cash, cheque, electronic transfer, or any other method accepted by the Bank.
+      </p>
+      <p>
+        3.2 The Bank is not responsible for any delays or errors in deposit processing beyond its control.
+      </p>
+    </div>
+
+    <div>
+      <h5><strong>4. Security and Confidentiality</strong></h5>
+      <p>
+        4.1 The Bank will implement reasonable security measures to protect account information.
+      </p>
+      <p>
+        4.2 The Account Holder must keep account details and passwords confidential and notify the Bank immediately in case of unauthorized access.
+      </p>
+    </div>
+
+
+    <div>
+      <h5><strong>5. Account Statements</strong></h5>
+      <p>
+        5.1 Account statements will be provided periodically in the manner agreed upon at account opening.
+      </p>
+      <p>
+        5.2 The Account Holder must review statements promptly and report any discrepancies to the Bank within 30 days.
+      </p>
+    </div>
+
+    <div>
+      <h5><strong>6. Interest and Fees</strong></h5>
+      <p>
+        6.1 Interest rates on accounts are subject to change at the Bank’s discretion and will be communicated to the Account Holder.
+      </p>
+      <p>
+        6.2 Fees for services will be deducted from the account as per the fee schedule.
+    </div>
+
+    <div>
+      <h5><strong>7. Account Maintenance</strong></h5>
+      <p>
+        7.1 Interest rates on accounts are subject to change at the Bank’s discretion and will be communicated to the Account Holder.
+      </p>
+      <p>
+        7.2 Fees for services will be deducted from the account as per the fee schedule.
+    </div>
+
+    <div>
+      <h5><strong>8. Amendments</strong></h5>
+      <p>
+        8.1  The Bank reserves the right to amend these Terms at any time, and such amendments will be communicated to the Account Holder.
+      </p>
+      <p>
+        8.2  Continued use of the account after such amendments constitutes acceptance of the new Terms.
+    </div>
+
+    <div>
+      <h5><strong>9. Governing Law</strong></h5>
+      <p>
+        9.1  These Terms are governed by and construed in accordance with the laws of Kenya.
+      </p>
+      <p>
+        9.2  Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts of Kenya.
+    </div>
+
+    <ion-item lines="none" style="background: #c0e6f0; border-radius: 5px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
+      <ion-label class="uk-text-primary" style="font-weight: 500;">Accept Terms and Conditions</ion-label>
+      <ion-checkbox [(ngModel)]="termsAccepted" labelPlacement="end" (ionChange)="checkboxChanged()"></ion-checkbox>
+    </ion-item>
+    <!-- <ion-item lines="none" style="background: #0033aa; margin-top: 3px;">
+      <ion-label style="color: #fff !important; font-weight: 500;">Accept Privacy Policy</ion-label>
+      <ion-checkbox [(ngModel)]="termsAccepted" (ionChange)="checkboxChanged()"></ion-checkbox>
+    </ion-item> -->
+  </div>
+
+
+</ion-content>

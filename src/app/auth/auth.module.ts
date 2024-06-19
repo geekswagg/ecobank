@@ -17,10 +17,11 @@ import { ToastrService } from 'ngx-toastr';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ProgressBarComponent } from "../_components/progress-bar/progress-bar.component";
+import { DataStoreService } from '../_services/data-store.service';
 
 @NgModule({
     declarations: [AuthPage, OtpFormComponent],
-    providers: [LoadingService, ApiService, ToastrService],
+    providers: [LoadingService, ApiService,DataStoreService, ToastrService],
     imports: [
         CommonModule,
         FormsModule,

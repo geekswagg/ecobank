@@ -9,35 +9,29 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  sbgUrl = environment.sbgsUrl;
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
   // Get Account Types
   getAccountTypes(): Observable<any> {
-    return this.http.get(this.sbgUrl + 'accountType');
+    return this.http.get(this.baseUrl + 'accountType');
   }
 
 
   // Auth service
   login(payload: any): Observable<any> {
-    const header1= {'Content-Type':'application/json',};
-    return this.http.post(this.baseUrl + 'auth', payload,{
-      headers: header1,
-      observe: 'response',
-      responseType: 'json'
-  });
+    return this.http.post(this.baseUrl + 'auth', payload);
   }
 
   // Verify OTP
   verifyOTP(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'otp', payload);
+    return this.http.post(this.baseUrl + 'otp', payload);
   }
 
   // Verify OTP
   verifyID(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'auth', payload);
+    return this.http.post(this.baseUrl + 'auth', payload);
   }
 
 
@@ -63,7 +57,7 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.sbgUrl + 'image', formData);
+    return this.http.post(this.baseUrl + 'image', formData);
   }
 
 
@@ -72,7 +66,7 @@ export class ApiService {
 
   // Save Preferences
   savePreferences(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'preferences/sbgs-preference', payload);
+    return this.http.post(this.baseUrl + 'preferences/sbgs-preference', payload);
   }
 
   // Get branches
@@ -117,12 +111,12 @@ export class ApiService {
 
   // Save Occupation
   saveOccupation(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'occupation/sbgs-occupation', payload);
+    return this.http.post(this.baseUrl + 'occupation/sbgs-occupation', payload);
   }
 
   // Save Existing to bank Preferences
   saveExistingToBankPreference(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'preferences/existing-tobank-preference', payload);
+    return this.http.post(this.baseUrl + 'preferences/existing-tobank-preference', payload);
   }
 
 
@@ -135,12 +129,12 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.sbgUrl + 'selfie', formData);
+    return this.http.post(this.baseUrl + 'selfie', formData);
   }
 
   // Create Account
   createAccount(): Observable<any> {
-    return this.http.post(this.sbgUrl + 'confirmation', {});
+    return this.http.post(this.baseUrl + 'confirmation', {});
   }
 
   // Create Joint Account
@@ -173,7 +167,7 @@ export class ApiService {
 
   // Get Summary of user account
   getSummary(): Observable<any> {
-    return this.http.get(this.sbgUrl + 'selfie');
+    return this.http.get(this.baseUrl + 'selfie');
   }
 
   // Notification account details
