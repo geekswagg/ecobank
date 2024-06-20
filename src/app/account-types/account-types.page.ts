@@ -2,6 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAccountType } from '../_models/types';
+import { LoadingService } from '../_services/loading.service';
+import { MainAccountDetails, ObjectMainAccountDetails } from '../_models/business-model';
+import { ApiService } from '../_services/api.service';
 
 @Component({
   selector: 'app-account-types',
@@ -10,9 +13,15 @@ import { IAccountType } from '../_models/types';
 })
 export class AccountTypesPage implements OnInit {
 
-  constructor(private router: Router) { }
+  productDetails: ObjectMainAccountDetails[] = [];
+  constructor(
+    private router: Router,
+    private loader: LoadingService,
+    public apiService: ApiService,
+  ) { }
 
   ngOnInit() {
+    this.getMainAccountDetails();
   }
 
   onSelectAccoutType(accoutType: any) {
@@ -32,6 +41,54 @@ export class AccountTypesPage implements OnInit {
     } else {
         return "Hello";
     }
-}
+  }
+
+    /** Fetch all account details */
+  getMainAccountDetails(): void {
+    this.loader.loading = true;
+      this.apiService.getMainAccountDetails().subscribe({
+        next: (res: MainAccountDetails) => {
+                  this.loader.loading = false;
+
+        localStorage.setItem('all-main-accounts', JSON.stringify(res.object));
+
+        localStorage.setItem('individual-account', JSON.stringify(res.object[0]));
+
+        if (res.successful) {
+          this.productDetails = res.object;
+        }
+        },
+        error:(err) => {
+          this.loader.loading = false;
+        }
+      })
+  }
+
+   /** Navigation  */
+   selectProduct(product : ObjectMainAccountDetails) {
+    const accountToOpen = localStorage.getItem('individual-account');
+    const jointAccounts = localStorage.getItem('all-main-accounts');
+
+    localStorage.setItem('account-to-open', JSON.stringify(product));
+    switch (product.shortDescription){
+      case 'Individual Account':
+        if(accountToOpen !== null) localStorage.setItem('account-to-open', accountToOpen);
+        this.router.navigateByUrl('home');
+        break;
+        case 'Joint Account':
+          const myJoint = localStorage.getItem('all-main-accounts');
+          if( myJoint !== null){
+            const jointData = JSON.parse(myJoint)[1]
+            localStorage.setItem('account-to-open', JSON.stringify(jointData));
+            this.router.navigateByUrl('home');
+          }
+        break;
+        case 'Business Banking':
+          this.router.navigateByUrl('onboarding-business/account-options');
+        break;
+
+    }
+  }
+
 
 }

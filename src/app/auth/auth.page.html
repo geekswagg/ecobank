@@ -93,21 +93,22 @@
       </ion-label>
   </div> -->
 
-  <!-- <div style="margin-top: 30px;">
-    <ion-button size="small" [disabled]="loader.loading || authForm.invalid" mode="ios" type="submit"
+  <div style="margin-top: 30px;">
+    <ion-button size="medium" [disabled]="loader.loading || authForm.invalid" mode="md" type="submit"
+    (click)="login()"
     expand="block"
     fill="solid"
-    shape="round">
+  >
     {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="bubbles" color="light"></ion-spinner>
+    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
   </ion-button>
-  </div> -->
+  </div>
 
-  <div class="p-btn uk-margin-xlarge-top">
+  <!-- <div class="p-btn uk-margin-xlarge-top">
     <ion-button mode="md" expand="block" size="medium" [disabled]="this.authForm.invalid" (click)="login()">
       Proceed
     </ion-button>
-  </div>
+  </div> -->
 
 
 
