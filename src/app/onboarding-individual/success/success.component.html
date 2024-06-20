@@ -5,7 +5,7 @@
 
     <!-- Your existing content -->
     <div class="logo-img" style="position: relative; z-index: 2;">
-      <img src="../../assets/images/logo-white.png" alt="Logo" height="83" width="167"/>
+      <img src="assets/images/logo-white.png" alt="Logo" height="83" width="167"/>
     </div>
 
     <div class="welcome-info uk-text-center" style="position: relative; z-index: 2;">
@@ -13,6 +13,17 @@
         Success! <br> Your application has been sent.
       </span>
       <p class="welcome-desc">Review time. The sms and email will have account details and how to transact.</p>
+    </div>
+
+    <div class="flex justify-between mx-auto w-[60%] text-[#fff]">
+      <div class="flex flex-col items-center">
+        <span><ion-icon name="share"></ion-icon></span>
+        <span>Review</span>
+      </div>
+      <div class="flex flex-col items-center" (click)="share()">
+        <span><ion-icon name="share-social"></ion-icon></span>
+        <span>Share</span>
+      </div>
     </div>
 
     <div class="start-btn uk-margin-xlarge-top">
