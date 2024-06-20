@@ -53,7 +53,7 @@
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Email Address <span class="uk-text-danger">*</span>
           </ion-label>
-          <ion-input name="email" maxlength="35" type="email" formControlName="emailAddress"  label="">
+          <ion-input name="email" maxlength="35" type="email" [ngClass]="{'invalid-border': f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched}" formControlName="emailAddress"  label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">

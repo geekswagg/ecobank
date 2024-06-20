@@ -39,7 +39,8 @@
     <div style="width: 100%;">
         <!-- Email Address -->
         <div>
-          <div style="display: flex; justify-content: center;">
+          <div style="display: flex; justify-content: center; flex-direction: column;" class="items-center">
+            <ion-label>Enter the OTP here<span class="uk-text-danger">*</span></ion-label>
             <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config" class="ng-otp-input"></ng-otp-input>
           </div>
             <!-- <div class="validation-error uk-text-danger">
