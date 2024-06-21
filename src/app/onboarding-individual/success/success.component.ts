@@ -26,14 +26,14 @@ export class SuccessComponent  implements OnInit {
   async share() {
 
     const urlPrefix = environment.production
-      ? 'https://twaa.io/'
-      : 'https://staging.twaa.io/'
+      ? 'https://digitalonboard.ecobank.com/pwa'
+      : 'https://digitalonboard.ecobank.com/pwa'
     let postURL = '';
 
 
-    let validSocialImageURL = "https://twaa.s3.fr-par.scw.cloud/twaalogoemail.png";
+    let validSocialImageURL = "https://www.techafricanews.com/wp-content/uploads/2020/04/ecobank.jpg";
 
-    const post = stripOffHtmlTags("test");
+    const post = stripOffHtmlTags("Open your Bank Account with us: ");
     this._dymanicLinkSrv.generateShortAndPreviewLinks(
       urlPrefix + postURL,
       (await validSocialImageURL),
