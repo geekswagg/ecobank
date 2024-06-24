@@ -95,7 +95,7 @@ export class AuthPage implements OnInit {
 
   // Login
   login() {
-    // this.loader.loading = true;
+    this.loader.loading = true;
     const {phone,emailAddress,recaptcha} = this.authForm.value;
 
      // Get the form values
@@ -110,7 +110,7 @@ export class AuthPage implements OnInit {
       this.dataStore.auth.multipleAccountsAllowed ?? "N";
      this.auth.currency = this.dataStore.auth.currency ?? "KES";
      this.auth.name = this.dataStore.auth.name ?? "Smart Direct";
-     this.auth.key = encrypt(phone);
+     this.auth.key = encrypt(phone.e164Number.replace("+", ""));
 
      trimPayload(this.auth);
      // Save Payload to service
@@ -118,19 +118,22 @@ export class AuthPage implements OnInit {
      // Set cookies
      localStorage.setItem("auth", JSON.stringify(this.auth));
      // Send payload
-
-     this.validateOtp();
-    //  this.apiService.login(this.auth).subscribe({
-    //     next:(res) => {
-    //       this.loader.loading = false;
-    //     },
-    //     error:(err) => {
-    //        this.loader.loading = false;
-    //     }
-    //    });
-
-
-
+     this.apiService.login(this.auth).subscribe({
+        next:(res) => {
+          this.loader.loading = false;
+          if (res.successful) {
+            this.toastr.success(res.message);
+            this.validateOtp();
+          }
+          else{
+            this.toastr.error(res.message);
+          }
+        },
+        error:(err) => {
+           this.loader.loading = false;
+           this.toastr.error("Request error try again");
+        }
+       });
  }
 
 }

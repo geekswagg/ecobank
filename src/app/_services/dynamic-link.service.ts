@@ -47,6 +47,7 @@ export class DynamicLinkService {
     });
   }
 
+
   private createLink(body: ShortLinkRequestBody): Observable<ShortLinkResponse> {
     const path = `/v1/shortLinks?key=${environment.firebaseConfig.apiKey}`;
     return this.post(path, body);

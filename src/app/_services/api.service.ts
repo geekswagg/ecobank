@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
+import { MainAccountDetails } from '../_models/business-model';
 
 
 @Injectable({
@@ -12,6 +13,11 @@ export class ApiService {
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
+
+    /** fetch MainAccountDetails *GET*  request*/
+    getMainAccountDetails(): Observable<MainAccountDetails> {
+      return this.http.get<MainAccountDetails>(this.baseUrl + 'fetchParentAccounts');
+    }
 
   // Get Account Types
   getAccountTypes(): Observable<any> {
