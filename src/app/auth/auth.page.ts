@@ -110,7 +110,7 @@ export class AuthPage implements OnInit {
       this.dataStore.auth.multipleAccountsAllowed ?? "N";
      this.auth.currency = this.dataStore.auth.currency ?? "KES";
      this.auth.name = this.dataStore.auth.name ?? "Smart Direct";
-     this.auth.key = encrypt(phone);
+     this.auth.key = encrypt(phone.e164Number.replace("+", ""));
 
      trimPayload(this.auth);
      // Save Payload to service
