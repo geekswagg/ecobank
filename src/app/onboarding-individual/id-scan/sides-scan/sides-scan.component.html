@@ -11,9 +11,9 @@
   <div class="uk-margin-small-top">
     <div  class="uk-margin-large-left ">
       <div>
-        <h4 class="browse" style="width: 80%;">Now take a photo of the<strong style="color: #005B82 !important; "> Front </strong> &
+        <h3 class="browse" style="width: 90%;">Now take a photo of the<strong style="color: #005B82 !important; "> Front </strong> &
           <strong style="color: #005B82 !important; "> Back</strong> of your National ID
-        </h4>
+        </h3>
       </div>
     </div>
     <div class="">
@@ -49,6 +49,9 @@
                     }
                     @if(!loader.scanningFront){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
+                    }
+                    @if(loader.savedFront){
+                        <ion-icon class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
                     }
                   </div>
                 </div>
@@ -95,6 +98,9 @@
                     @if(!loader.scanningBack && !loader.savingBack){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
+                    @if(loader.savedBack){
+                      <ion-icon class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
+                    }
                   </div>
                 </div>
               </div>
@@ -108,13 +114,13 @@
     @if(this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess){
       <div class="id_no uk-text-center">
         <div>
-         <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>34425310</strong></h4>
+         <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>{{idNumber}}</strong></h4>
         </div>
        </div>
     }
 
 
-    <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
+    <!-- <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
         (click)="saveNationalId()"
        size="small" mode="md"
@@ -125,7 +131,7 @@
       {{ (loader.savedFront || loader.savingBack) ? '' : 'Continue'}}
       <ion-spinner *ngIf="loader.savingBack || loader.savingFront" name="circular"  color="secondary"></ion-spinner>
     </ion-button>
-    </div>
+    </div> -->
 
   </div>
 </ion-content>

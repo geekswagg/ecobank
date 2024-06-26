@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AccountProductsPageRoutingModule } from './account-products-routing.module';
 
 import { AccountProductsPage } from './account-products.page';
+import { ApiService } from '../_services/api.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AccountProductsPage } from './account-products.page';
     IonicModule,
     AccountProductsPageRoutingModule
   ],
-  declarations: [AccountProductsPage]
+  declarations: [AccountProductsPage],
+  providers: [ApiService]
 })
 export class AccountProductsPageModule {}

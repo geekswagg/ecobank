@@ -4,7 +4,8 @@
 const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
 const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/getImage/";
 const dev = 'https://digitalonboard.ecobank.com/self-onboarding/api/v1/';
-
+const dev1 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v1/';
+const dev2 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v2/';
 
 
 export const environment = {
@@ -12,7 +13,8 @@ export const environment = {
   devOcr:devOcr,
   imageUrl: imageUrl,
   baseUrl: dev,
-
+  businessUrlV1: dev1,
+  businessUrlV2: dev2,
   firebaseConfig: {
     apiKey: "AIzaSyDhQsvEFSsVfMyfisdyin4dUraiBx1By3A",
     authDomain: "twaa-84f76.firebaseapp.com",

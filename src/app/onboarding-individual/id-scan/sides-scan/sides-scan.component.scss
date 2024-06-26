@@ -13,8 +13,8 @@ ion-button{
   color: #444444;
   font-size: rem-calc(25) !important;
   font-family: "Roboto-Medium";
-  margin-right: 20%;
-  margin-left: 20px;
+  // margin-right: 20%;
+  // margin-left: 20px;
 }
 
 .id_no{
@@ -33,4 +33,8 @@ ion-button{
 
 .uk-card{
   height: 110px !important;
+}
+
+.iconSize {
+  font-size: 32px;
 }

@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/_models/types';
+import { ApiService } from 'src/app/_services/api.service';
 import { LoadingService } from 'src/app/_services/loading.service';
 import { OtpFormComponent } from 'src/app/auth/otp-form/otp-form.component';
 
@@ -27,6 +29,9 @@ export class NextOfKinComponent  implements OnInit {
 
   selectedFruitsText: any = '0 Items';
   selectedFruits: string[] = [];
+
+  relationships = [];
+  preferencePayload: any = {};
 
   fruits: Item[] = [
     { text: 'Apple', value: 'apple' },
@@ -65,22 +70,20 @@ export class NextOfKinComponent  implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     public loader: LoadingService,
-    private  modalCtrl: ModalController
+    private  modalCtrl: ModalController,
+    private apiService: ApiService,
+    private toastr: ToastrService
   ) {
     this.authForm = this.fb.group({
       phone: ['', Validators.required],
-      branch: ['', Validators.required],
+      relationship: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      idNumber: ["", [Validators.required]],
-      emailAddress: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-        ],
-      ],
+
     });
+    this.preferencePayload = JSON.parse(sessionStorage.getItem('preference') as string);
+    this.relationships = JSON.parse(localStorage.getItem("relationships") as string);
+
   }
 
   ngOnInit() {
@@ -118,8 +121,40 @@ export class NextOfKinComponent  implements OnInit {
 
   }
 
-  toOccupation(){
-    this.router.navigate(['/onboarding/occupation']);
+  relationshipChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }){
+
+  }
+
+  savePreference(){
+    this.loader.loading = true;
+    const {phone, relationship, firstName, lastName,emailAddress} = this.authForm.value;
+    const payload = {
+      ...this.preferencePayload,
+      nameOfNextofKin: firstName+' '+lastName,
+      relationshipWithNextOfKin:relationship,
+      phoneNumberOfnextOfKin: phone.e164Number.replace("+", ""),
+    }
+
+    this.apiService.savePreferences(payload).subscribe({
+      next: (res) => {
+        if (res.successful) {
+          this.loader.loading = false;
+          this.router.navigate(['/onboarding/occupation']);
+          localStorage.removeItem('invited');
+        } else {
+          this.loader.loading = false;
+          this.toastr.error(res.message);
+        }
+      },
+      error: (err) => {
+        this.loader.loading = false;
+        this.toastr.error("Error saving preferences details try again");
+      }
+    }
+    ); // end api call
   }
 
 }
