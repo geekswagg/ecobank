@@ -57,62 +57,61 @@ export class OtpFormComponent  implements OnInit {
 
    // Verify Sms Code then redirect to the correct step if the user had dropped off at some point
    verifyOtp() {
-    this.modalCtrl.dismiss();
-    this.router.navigate(['/onboarding/identification']);
-    // this.loader.loading = true;
-    //   this.apiService
-    //     .verifyOTP({
-    //       phoneNumber: this.auth.phoneNumber,
-    //       smsCode: this.smsCode
-    //     })
-    //     .subscribe(
-    //       {
-    //         next: (res) => {
-    //         if (res.successful) {
-    //           this.loader.loading = false;
-    //           this.modalCtrl.dismiss();
-    //             switch (res.stepCode){
-    //               case 100:
-    //                 this.router.navigate(["/onboarding/account-options"]);
-    //                 break;
-    //               case 101:
-    //                 this.router.navigate(["/onboarding/account-options"]);
-    //                 break;
-    //               case 102:
-    //                 this.router.navigate(["/onboarding/account-options"]);
-    //                 break;
-    //               case 103:
-    //                 this.router.navigate(["/onboarding/account-options"]);
-    //                 break;
-    //               case 104:
-    //                 this.router.navigate(["/onboarding/account-options"]);
-    //                 break;
-    //               case 105:
-    //                 this.router.navigate(["/onboarding/preferences"]);
-    //                 break;
-    //               case 106:
-    //                 this.router.navigate(["/onboarding/occupation"]);
-    //                 break;
-    //               case 107:
-    //                 this.router.navigate(["/liveliness/new-selfie"]);
-    //                 break;
-    //               case 108:
-    //                 this.router.navigate(["/onboarding/summary"]);
-    //                 break;
-    //               default:
-    //                 break;
-    //             }
 
-    //         } else {
-    //           this.loader.loading = false;
-    //           this.toastr.error(res.message);
-    //         }
-    //       },
-    //       error:(error) => {
-    //         this.loader.loading = false;
-    //         this.toastr.error("Request error try again.");
-    //       }}
-    //     );
+    this.loader.loading = true;
+      this.apiService
+        .verifyOTP({
+          phoneNumber: this.auth.phoneNumber,
+          smsCode: this.smsCode
+        })
+        .subscribe(
+          {
+            next: (res) => {
+            if (res.successful) {
+              this.loader.loading = false;
+              this.modalCtrl.dismiss();
+                switch (res.stepCode){
+                  case 100:
+                    this.router.navigate(['/onboarding/identification']);
+                    break;
+                  case 101:
+                    this.router.navigate(['/onboarding/identification']);
+                    break;
+                  case 102:
+                    this.router.navigate(['/onboarding/identification']);
+                    break;
+                  case 103:
+                    this.router.navigate(['/onboarding/identification']);
+                    break;
+                  case 104:
+                    this.router.navigate(['/onboarding/identification']);
+                    break;
+                  case 105:
+                    this.router.navigate(["/onboarding/preferences"]);
+                    break;
+                  case 106:
+                    this.router.navigate(["/onboarding/occupation"]);
+                    break;
+                  case 107:
+                    this.router.navigate(["/liveliness/new-selfie"]);
+                    break;
+                  case 108:
+                    this.router.navigate(["/onboarding/summary"]);
+                    break;
+                  default:
+                    break;
+                }
+
+            } else {
+              this.loader.loading = false;
+              this.toastr.error(res.message);
+            }
+          },
+          error:(error) => {
+            this.loader.loading = false;
+            this.toastr.error("Request error try again.");
+          }}
+        );
 
     }
 

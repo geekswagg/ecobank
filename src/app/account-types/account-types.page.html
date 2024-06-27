@@ -24,24 +24,24 @@
 
   <div class="indiv-section">
     <div class="indiv-content">
-      <h3 class="acc-title">Personal Account</h3>
-      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType('indiv')">Select Individual Account <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      <h3 class="acc-title">{{productDetails[0].shortDescription}}</h3>
+      <p>{{productDetails[0].longDescription}}</p>
+      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">Select +{{productDetails[0].shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>
 
   <div class="joint-section uk-flex uk-flex-right">
     <div class="indiv-content ">
-      <h3 class="acc-title">Joint/Group Account</h3>
-      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType('joint')">Select Joint Account <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      <h3 class="acc-title">{{productDetails[1].shortDescription}}</h3>
+      <p>{{productDetails[1].longDescription}}</p>
+      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">Select +{{productDetails[1].shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>
   <div class="bus-section">
     <div class="indiv-content">
-      <h3 class="acc-title">Business Account</h3>
-      <p>Start your own account quickly and easily. Keep your money safe and get to it whenever you need. Perfect for all your everyday needs.</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType('business')">Select Business Account <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      <h3 class="acc-title">{{productDetails[2].shortDescription}}t</h3>
+      <p>{{productDetails[2].longDescription}}</p>
+      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(2)">Select +{{productDetails[2].shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>
 </ion-content>

@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border head" mode="md">
   <ion-toolbar class="header-color">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/requirements"></ion-back-button>
+      <ion-back-button defaultHref="/onboarding/preferences"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -24,7 +24,6 @@
 
 <div class="form-item">
   <form   [formGroup]="authForm" style="">
-
     <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">First name <span class="uk-text-danger" >*</span>
@@ -38,9 +37,9 @@
               <ion-icon name="information-circle-outline"></ion-icon>First name is required
           </small>
       </div>
-  </div>
+    </div>
      <!-- Last name -->
-     <div class="uk-margin-small-bottom">
+    <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Last name <span class="uk-text-danger">*</span>
           </ion-label>
@@ -53,7 +52,7 @@
               <ion-icon name="information-circle-outline"></ion-icon>Last name is required
           </small>
       </div>
-  </div>
+    </div>
     <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
       <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input
@@ -81,44 +80,30 @@
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Relationship<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
-          formControlName="branch"
-          [items]="fruits"
-          itemValueField="value"
+          formControlName="relationship"
+          [items]="relationships"
+          itemValueField="relationCode"
           [hasInfiniteScroll]="true"
           placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
-          (onChange)="portChange($event)">
+          (onChange)="relationshipChange($event)">
         </ionic-selectable>
       </ion-item>
     </div>
 
-    <div class="uk-margin-small-bottom">
-      <ion-item lines="none" mode="md">
-          <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Email Address <span class="uk-text-danger">*</span>
-          </ion-label>
-          <ion-input name="email" maxlength="35" type="email" formControlName="emailAddress"  label="">
-          </ion-input>
-      </ion-item>
-      <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>Email must be a valid email
-              address
-          </small>
-          <small class="error-message"
-              *ngIf="f['emailAddress'].hasError('required') && f['emailAddress'].dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>Email is required
-          </small>
-      </div>
-  </div>
-
  <br>
-
-  <div class="p-btn">
-    <ion-button mode="md" expand="block" size="medium" (click)="toOccupation()">
-      Proceed
-    </ion-button>
+  <div style="margin-top: 30px;" class="p-4">
+    <ion-button class="text-[#000]" size="medium" mode="md"
+    (click)="savePreference()"
+    expand="block"
+    fill="solid"
+    [disabled]="!authForm.valid"
+    >
+    {{ loader.loading ? '' : 'Continue'}}
+    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+  </ion-button>
   </div>
 
 

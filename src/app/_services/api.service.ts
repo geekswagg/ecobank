@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
-import { MainAccountDetails } from '../_models/business-model';
+import { MainAccountDetails, ResAccountProducts } from '../_models/business-model';
 
 
 @Injectable({
@@ -14,14 +14,19 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-    /** fetch MainAccountDetails *GET*  request*/
-    getMainAccountDetails(): Observable<MainAccountDetails> {
-      return this.http.get<MainAccountDetails>(this.baseUrl + 'fetchParentAccounts');
-    }
+  /** fetch MainAccountDetails *GET*  request*/
+  getMainAccountDetails(): Observable<MainAccountDetails> {
+    return this.http.get<MainAccountDetails>(environment.businessUrlV1 + 'fetchParentAccounts');
+  }
 
   // Get Account Types
   getAccountTypes(): Observable<any> {
     return this.http.get(this.baseUrl + 'accountType');
+  }
+
+   // Get account type bundle product
+   getAccountTypeBundleProduct(tagId: string): Observable<ResAccountProducts> {
+    return this.http.get<any>(environment.businessUrlV2 + 'bundleProduct?accountTag=' + tagId);
   }
 
 
@@ -182,10 +187,27 @@ export class ApiService {
   }
 
 
+  // Save selfie for business of foreign directors
+  saveImageForeignBIZ(payload: any): Observable<any> {
 
+  const formData = new FormData();
+  for (const key in payload) {
+    if (payload) {
+      formData.append(key, payload[key]);
+    }
+  }
+  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData);
+}
 
-
-
-
+  // Save Images  TODO: HACK FOR BIZ
+  saveImageBIZ(payload: any): Observable<any> {
+    const formData = new FormData();
+    for (const key in payload) {
+      if (payload) {
+        formData.append(key, payload[key]);
+      }
+    }
+    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData);
+  }
 
 }

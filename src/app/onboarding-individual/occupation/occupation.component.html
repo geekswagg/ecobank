@@ -26,23 +26,21 @@
   </div>
 
 <div>
-  <form   [formGroup]="authForm" style="">
-
-
+  <form   [formGroup]="occupationForm" style="">
     <div>
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Occupation<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
-          formControlName="branch"
-          [items]="fruits"
-          itemValueField="value"
+          formControlName="occupation"
+          [items]="occupations"
+          itemValueField="occupationCode"
           [hasInfiniteScroll]="true"
           placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
-          (onChange)="portChange($event)">
+          (onChange)="selectionChange($event.value, 'occupation')">
         </ionic-selectable>
       </ion-item>
     </div>
@@ -53,15 +51,15 @@
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Industry<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
-          formControlName="branch"
-          [items]="fruits"
-          itemValueField="value"
+          formControlName="industry"
+          [items]="filteredIndustry"
+          itemValueField="industryCode"
           [hasInfiniteScroll]="true"
           placeholder="Select"
           [isEnabled]="true"
           itemTextField="text"
           [canSearch]="true"
-          (onChange)="portChange($event)">
+          (onChange)="selectionChange($event.value, 'industry')">
         </ionic-selectable>
       </ion-item>
     </div>
@@ -71,17 +69,13 @@
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Employer name <span class="uk-text-danger" >*</span>
           </ion-label>
-          <ion-input name="text" maxlength="35" type="text" formControlName="idNumber" label="">
+          <ion-input name="text" maxlength="35" type="text" formControlName="employerName" label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['idNumber'].hasError('pattern') && f['idNumber']dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>ID must be a valid ID number
-              address
-          </small>
           <small class="error-message"
-              *ngIf="f['idNumber'].hasError('required') && f['idNumber'].dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>ID number is required
+              *ngIf="f['employerName'].hasError('required') && f['employerName'].dirty">
+              <ion-icon name="information-circle-outline"></ion-icon>Your employer name is required
           </small>
       </div>
   </div>
@@ -94,10 +88,9 @@
 
     <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
       <ion-radio-group>
-        <ion-radio mode="md" name="radio1" value="end1" color="secondary" labelPlacement="end">0 - KES 15,000 </ion-radio> <br>
-        <ion-radio mode="md" name="radio1" value="end2" color="secondary"  labelPlacement="end">KES 16,000 - KES 25,000</ion-radio> <br>
-        <ion-radio mode="md" name="radio1" value="end3" color="secondary"  labelPlacement="end">KES 25,000 - KES 35,000</ion-radio> <br>
-        <ion-radio mode="md" name="radio1" value="end4" color="secondary"  labelPlacement="end">KES 35,000 and Above</ion-radio>
+        @for(income of incomes; track income){
+          <ion-radio (click)="changeIncome(income.incomeRangeCode)" mode="md" [name]="income.incomeRangeCode" [value]="income.incomeRangeCode" color="secondary" labelPlacement="end">{{income.incomeRangeName}}</ion-radio> <br />
+        }
       </ion-radio-group> <br>
     </div>
    </div>
@@ -109,13 +102,17 @@
   </div>
  </div>
 
-  <div class="p-btn">
-    <ion-button expand="block" mode="md" size="medium" (click)="toSelfie()">
-      Proceed
-    </ion-button>
+  <div style="margin-top: 30px;" class="p-4">
+    <ion-button class="text-[#000]" size="medium" mode="md"
+    (click)="saveOccupation()"
+    expand="block"
+    fill="solid"
+    [disabled]="!occupationForm.valid"
+    >
+    {{ loader.loading ? '' : 'Continue'}}
+    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+  </ion-button>
   </div>
-
-
 
   </form>
 

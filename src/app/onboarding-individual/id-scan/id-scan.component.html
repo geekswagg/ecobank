@@ -41,11 +41,11 @@
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningPassport){
-                      <ion-spinner *ngIf="loader.scanningPassport" name="circular" color="secondary"></ion-spinner>
-                    }
-                    @if(!loader.scanningPassport){
+                    @if(!loader.savedBack && !loader.savedFront){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
+                    }
+                    @if(loader.savedBack && loader.savedFront){
+                      <ion-icon class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
                     }
                   </div>
                 </div>
@@ -82,7 +82,9 @@
                       @if(!loader.scanningPassport && !loader.savingPassport){
                         Scan Passport
                       }
-
+                      @if(loader.savedPassport){
+                        Passport saved
+                      }
                     </strong>
                   </div>
                   <div>
@@ -91,6 +93,9 @@
                     }
                     @if(!loader.scanningPassport){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
+                    }
+                    @if(loader.savedPassport){
+                      <ion-icon class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
                     }
                   </div>
                 </div>
@@ -127,6 +132,9 @@
                       @if(!loader.scanningSignature && !loader.savingSignature){
                         Scan Signature
                       }
+                      @if(loader.savedSignature){
+                        Saved Signature
+                      }
                     </strong>
                   </div>
                   <div>
@@ -136,6 +144,9 @@
                     @if(!loader.scanningSignature){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
+                    @if(loader.savedSignature){
+                      <ion-icon class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
+                    }
                   </div>
                 </div>
               </div>
@@ -144,11 +155,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="id_no uk-text-center" *ngIf="this.signImage.length > 0">
-     <div>
-      <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>34425310</strong></h4>
-     </div>
     </div>
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">

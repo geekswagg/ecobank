@@ -22,6 +22,7 @@ export class SidesScanComponent  implements OnInit {
   frontImage: any = '';
   backImage: any = '';
   signImage: any = '';
+  idNumber: string = '';
 
   constructor(
     public loader: LoadingService,
@@ -129,6 +130,7 @@ export class SidesScanComponent  implements OnInit {
                     // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
                     this.identification.nationalId = id;
                     this.identification.ocrKey = res.key;
+                    this.idNumber = id;
                     this.verifyID(this.identification.nationalId);
 
                   } else {
@@ -188,6 +190,10 @@ export class SidesScanComponent  implements OnInit {
             this.loader.backIdScanSuccess = true;
             this.loader.scannedBack = true;
 
+            setTimeout(() =>{
+              this.saveNationalId();
+            },500)
+
           },
         },
       ],
@@ -235,7 +241,7 @@ export class SidesScanComponent  implements OnInit {
           this.loader.savingFront = false;
           this.loader.savedFront = true;
           this.dataStore.identification.frontSaved = true;
-          this.router.navigate(['/onboarding/preferences']);
+          this.router.navigate(['/onboarding/id-scan']);
         } else {
           this.toastr.error(res.message);
           this.loader.savingFront = false;

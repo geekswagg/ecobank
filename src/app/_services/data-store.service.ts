@@ -72,7 +72,7 @@ export class DataStoreService {
 
   public incomes = [];
 
-  public joint = {
+  public joint: any ={
     accountMembers: [],
   };
 

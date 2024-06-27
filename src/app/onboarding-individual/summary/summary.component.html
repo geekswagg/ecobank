@@ -193,13 +193,13 @@
 
      <div class="ion-padding">
       <ion-button expand="block" mode="md" size="medium" (click)="createAccount()">
-        @if(!loading) {
+        @if(!loader.loading) {
           Create Account
         }
 
-        @if(loading) {
+        @if(loader.loading) {
           Sending...
-          <ion-spinner *ngIf="loading" name="circular" color="secondary"></ion-spinner>
+          <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
         }
       </ion-button>
      </div>
