@@ -33,50 +33,6 @@ export class AccountProductsPage implements OnInit {
         productCode:'29',
         description: 'Keep track of your finances with 24/7 access to you money including electronic banking.',
         logo:'assets/images/classic.png',
-      },
-      {
-        title: 'Student Current Account',
-        productCode:'20',
-        description: "If you're studying, go direct with easy and free digital banking.",
-        logo:'assets/images/student.png',
-        currency:{
-          kes: false,
-          usd: false,
-          eur: false,
-        }
-      },
-      {
-        title: 'Advantage Current Account',
-        productCode:'20',
-        description: 'Get ahead with investments, insurance and a salary advance added to your banking.',
-        logo:'assets/images/premium.png',
-        currency:{
-          kes: false,
-          usd: false,
-          eur: false,
-        }
-      },
-      {
-        title: 'Premier Current Account',
-        productCode:'20',
-        description: 'Take care of your wealth with the highest level of personal service.',
-        logo:'assets/images/advantage.png',
-        currency:{
-          kes: false,
-          usd: false,
-          eur: false,
-        }
-      },
-      {
-        title: 'Diaspora Current Account',
-        productCode:'20',
-        description: 'Manage and move your money more easily while living and working away from home.',
-        logo:'assets/images/diaspora.png',
-        currency:{
-          kes: false,
-          usd: false,
-          eur: false,
-        }
       }
     ]
    }
@@ -91,7 +47,7 @@ export class AccountProductsPage implements OnInit {
     getAccountTypes() {
       this.loader.loading = true;
       const accountToOpen : ObjectMainAccountDetails = JSON.parse(localStorage.getItem('account-to-open') as string);
-      switch(accountToOpen.shortDescription) {
+      switch(accountToOpen?.shortDescription) {
         case 'Joint Account':
           this.intro_txt  = 'this Joint Account';
           break;

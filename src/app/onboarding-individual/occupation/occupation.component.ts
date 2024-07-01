@@ -47,6 +47,21 @@ export class OccupationComponent  implements OnInit {
     return this.occupationForm.controls;
   }
 
+  occupationSample= [
+    {
+      occupationCode:"11",
+      occupationName:"Salaried Employee-BANK"
+    }
+  ];
+
+  industrySample = [
+    {
+      industryCode: "1408",
+      industryDescription:"Public Administration Civil Servant and Defence",
+      occupationCode: "11"
+    }
+  ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -62,9 +77,9 @@ export class OccupationComponent  implements OnInit {
       employerName: ["", [Validators.required]],
     });
 
-    this.occupations = JSON.parse(localStorage.getItem("occupations") as string);
+    this.occupations = JSON.parse(localStorage.getItem("occupations") as string) ?? this.occupationSample;
     this.incomes = JSON.parse(localStorage.getItem("incomes") as string);
-    this.industries = JSON.parse(localStorage.getItem("industries") as string);
+    this.industries = JSON.parse(localStorage.getItem("industries") as string) ?? this.industrySample;
   }
 
   ngOnInit() {
@@ -119,9 +134,9 @@ export class OccupationComponent  implements OnInit {
     const {occupation, industry, employerName} = this.occupationForm.value;
     const payload = {
       employerName: employerName,
-      industry: industry,
+      industry: industry?.industryCode,
       monthlyIncome: this.selectedIncome,
-      occupation: occupation
+      occupation: occupation?.occupationCode
     }
     sessionStorage.setItem('occupation', JSON.stringify(payload));
     this.apiService.saveOccupation(payload).subscribe({

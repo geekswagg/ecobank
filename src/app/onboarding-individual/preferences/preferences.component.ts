@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/_models/types';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
@@ -41,33 +42,18 @@ export class PreferencesComponent  implements OnInit {
   enableChequebook: boolean = false;
   enableOnlineBanking: boolean = false;
 
-  fruits: Item[] = [
-    { text: 'Apple', value: 'apple' },
-    { text: 'Apricot', value: 'apricot' },
-    { text: 'Banana', value: 'banana' },
-    { text: 'Blackberry', value: 'blackberry' },
-    { text: 'Blueberry', value: 'blueberry' },
-    { text: 'Cherry', value: 'cherry' },
-    { text: 'Cranberry', value: 'cranberry' },
-    { text: 'Grape', value: 'grape' },
-    { text: 'Grapefruit', value: 'grapefruit' },
-    { text: 'Guava', value: 'guava' },
-    { text: 'Jackfruit', value: 'jackfruit' },
-    { text: 'Lime', value: 'lime' },
-    { text: 'Mango', value: 'mango' },
-    { text: 'Nectarine', value: 'nectarine' },
-    { text: 'Orange', value: 'orange' },
-    { text: 'Papaya', value: 'papaya' },
-    { text: 'Passionfruit', value: 'passionfruit' },
-    { text: 'Peach', value: 'peach' },
-    { text: 'Pear', value: 'pear' },
-    { text: 'Plantain', value: 'plantain' },
-    { text: 'Plum', value: 'plum' },
-    { text: 'Pineapple', value: 'pineapple' },
-    { text: 'Pomegranate', value: 'pomegranate' },
-    { text: 'Raspberry', value: 'raspberry' },
-    { text: 'Strawberry', value: 'strawberry' },
-  ];
+  branchesSample = [{
+    branchCode:"KE0010019",
+    branchEmail: "CSB_Buruburu@mail.standardbank.com",
+    branchId:"40",
+    branchName:"Buruburu"
+  }];
+
+  countrySample = [{
+    countryCode:"KE",
+    countryId:"92",
+    countryName:"Kenya"
+  }]
 
   get f() {
     return this.dataForm.controls;
@@ -80,7 +66,7 @@ export class PreferencesComponent  implements OnInit {
     private router: Router,
     private  modalCtrl: ModalController,
     private dataStore: DataStoreService,
-
+    private toastr: ToastrService,
     private apiServie: ApiService  ) {
     this.dataForm = this.fb.group({
       residence: ['', Validators.required],
@@ -97,8 +83,8 @@ export class PreferencesComponent  implements OnInit {
       ...JSON.parse(localStorage.getItem("nextofkin") as string),
     };
     this.auth = JSON.parse(localStorage.getItem("auth") as string);
-    this.branches = JSON.parse(localStorage.getItem("branches") as string);
-    this.countries = JSON.parse(localStorage.getItem("countries") as string);
+    this.branches = JSON.parse(localStorage.getItem("branches") as string) ?? this.branchesSample;
+    this.countries = JSON.parse(localStorage.getItem("countries") as string) ?? this.countrySample;
 
     if (this.auth?.accountType === '29' || this.auth?.accountType === '32'){
       this.showDebitCard = true;
@@ -143,19 +129,22 @@ export class PreferencesComponent  implements OnInit {
   }
 
   toNextOfKin(){
-    const {residence, branch, address, building} = this.dataForm.value;
-
-
-    const preference = {
-      residence: residence.countryCode ?? "",
-      branch: branch?.branchCode ?? "",
-      physicalAddress: `${address}#${building}`,
-      orderDebitCard: this.enableDebitCard,
-      onlineBankingYN: this.enableOnlineBanking,
-      chequeBookYN: this.enableChequebook
-    }
-    sessionStorage.setItem('preference', JSON.stringify(preference));
-    this.router.navigate(['/onboarding/next-of-kin'])
+    this.loader.loading = true;
+    setTimeout(()=>{
+      this.loader.loading = false;
+      const {residence, branch, address, building} = this.dataForm.value;
+      const preference = {
+        residence: residence.countryCode ?? "",
+        branch: branch?.branchCode ?? "",
+        physicalAddress: `${address}#${building}`,
+        orderDebitCard: this.enableDebitCard,
+        onlineBankingYN: this.enableOnlineBanking,
+        chequeBookYN: this.enableChequebook
+      }
+      sessionStorage.setItem('preference', JSON.stringify(preference));
+      this.toastr.success("Preference details saved");
+      this.router.navigate(['/onboarding/next-of-kin'])
+    },300)
   }
 
   formatSSN() {

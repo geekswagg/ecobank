@@ -77,7 +77,7 @@ export class ApiService {
 
   // Save Preferences
   savePreferences(payload: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'preferences/sbgs-preference', payload);
+    return this.http.post(this.baseUrl + 'preferences', payload);
   }
 
   // Get branches
@@ -122,12 +122,7 @@ export class ApiService {
 
   // Save Occupation
   saveOccupation(payload: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'occupation/sbgs-occupation', payload);
-  }
-
-  // Save Existing to bank Preferences
-  saveExistingToBankPreference(payload: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'preferences/existing-tobank-preference', payload);
+    return this.http.post(this.baseUrl + 'occupation', payload);
   }
 
 
