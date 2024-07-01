@@ -26,9 +26,6 @@ export class OtpFormComponent  implements OnInit {
   tick = 1000;
   smsCode: string = '';
 
-
-
-
   constructor(
     private fb: FormBuilder,
     public loader: LoadingService,
@@ -37,8 +34,6 @@ export class OtpFormComponent  implements OnInit {
     private toastr: ToastrService,
     private modalCtrl: ModalController
   ) {
-
-
     this.countDown = timer(0, this.tick)
     .pipe(take(this.counter))
     .subscribe(() => {
