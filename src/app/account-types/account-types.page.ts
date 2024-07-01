@@ -65,7 +65,7 @@ export class AccountTypesPage implements OnInit {
     const accountToOpen = localStorage.getItem('individual-account');
 
     localStorage.setItem('account-to-open', JSON.stringify(this.productDetails[i]));
-    switch (this.productDetails[i].shortDescription){
+    switch (this.productDetails[i]?.shortDescription){
       case 'Individual Account':
         if(accountToOpen !== null) localStorage.setItem('account-to-open', accountToOpen);
         this.router.navigate(['account-products']);
