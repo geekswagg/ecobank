@@ -88,7 +88,7 @@ export class AuthPage implements OnInit {
   async validateOtp(){
     const modal = await this.modalCtrl.create({
       component: OtpFormComponent,
-      componentProps:{ auth: '' },
+      componentProps:{ auth: this.dataStore.auth},
     });
     await modal.present();
   }
@@ -118,6 +118,7 @@ export class AuthPage implements OnInit {
      // Set cookies
      localStorage.setItem("auth", JSON.stringify(this.auth));
      // Send payload
+
      this.apiService.login(this.auth).subscribe({
         next:(res) => {
           this.loader.loading = false;
