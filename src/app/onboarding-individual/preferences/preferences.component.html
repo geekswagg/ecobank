@@ -36,7 +36,7 @@
           [hasInfiniteScroll]="true"
           placeholder="Select branch"
           [isEnabled]="true"
-          itemTextField="text"
+          itemTextField="branchName"
           [canSearch]="true"
           (onChange)="branchChange($event)">
         </ionic-selectable>
@@ -54,7 +54,7 @@
           [hasInfiniteScroll]="true"
           placeholder="Select country"
           [isEnabled]="true"
-          itemTextField="text"
+          itemTextField="countryName"
           [canSearch]="true"
           (onChange)="countryChange($event)">
         </ionic-selectable>
@@ -176,10 +176,16 @@
     </div>
    </div>
   <br>
-  <div class="p-btn">
-    <ion-button mode="md" expand="block" size="medium" [disabled]="!dataForm.valid" (click)="toNextOfKin()">
-      Proceed
-    </ion-button>
+  <div style="margin-top: 30px;" class="p-4">
+    <ion-button class="text-[#000]" size="medium" mode="md"
+    (click)="toNextOfKin()"
+    expand="block"
+    fill="solid"
+    [disabled]="!dataForm.valid"
+    >
+    {{ loader.loading ? '' : 'Continue'}}
+    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+  </ion-button>
   </div>
 
   </form>
