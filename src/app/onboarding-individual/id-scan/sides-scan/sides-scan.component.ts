@@ -224,6 +224,7 @@ export class SidesScanComponent  implements OnInit {
             // Save the front id
           },
         },
+
       ],
     });
     await alert.present();
@@ -270,6 +271,7 @@ export class SidesScanComponent  implements OnInit {
           if (res.successful) {
             this.loader.savingBack = false;
             this.loader.savedBack = true;
+            this.loader.savingIdFailed = false;
             this.dataStore.identification.backSaved = true;
             this.saveFrontImage({
               file: this.identification.frontIdFile,
@@ -279,6 +281,7 @@ export class SidesScanComponent  implements OnInit {
               nationalId: "",
             });
           } else {
+            this.loader.savingIdFailed = true;
             this.loader.savingBack = false;
             this.loader.savedBack = false;
             this.toastr.error(res.message);
@@ -286,6 +289,7 @@ export class SidesScanComponent  implements OnInit {
         },
         error:(err) =>{
           this.loader.savingBack = false;
+          this.loader.savingIdFailed = true;
           this.loader.savedBack = false;
           this.toastr.error("Unable to save your document. Try again");
         }

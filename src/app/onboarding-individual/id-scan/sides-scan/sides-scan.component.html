@@ -119,19 +119,21 @@
        </div>
     }
 
+    @if(loader.savingIdFailed){
+      <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
+        <ion-button
+          (click)="saveNationalId()"
+         size="small" mode="md"
+        expand="block"
+        fill="solid"
+        [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"
+        >
+        {{ (loader.savedFront || loader.savingBack) ? '' : 'Continue'}}
+        <ion-spinner *ngIf="loader.savingBack || loader.savingFront" name="circular"  color="secondary"></ion-spinner>
+      </ion-button>
+      </div>
+    }
 
-    <!-- <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
-      <ion-button
-        (click)="saveNationalId()"
-       size="small" mode="md"
-      expand="block"
-      fill="solid"
-      [disabled]="(this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess"
-      >
-      {{ (loader.savedFront || loader.savingBack) ? '' : 'Continue'}}
-      <ion-spinner *ngIf="loader.savingBack || loader.savingFront" name="circular"  color="secondary"></ion-spinner>
-    </ion-button>
-    </div> -->
 
   </div>
 </ion-content>
