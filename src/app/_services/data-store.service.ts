@@ -48,7 +48,10 @@ export class DataStoreService {
 
   public auth: Auth = {};
 
-  public identification: Identification = {};
+  public identification: Identification = {
+    frontId:{},
+    backId:{}
+  };
 
   public preferences: Preferences = {};
 

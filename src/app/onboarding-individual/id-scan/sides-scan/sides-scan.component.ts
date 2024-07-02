@@ -17,12 +17,19 @@ import { LoadingService } from 'src/app/_services/loading.service';
 export class SidesScanComponent  implements OnInit {
 
 
-  identification: Identification = {};
+  identification: Identification = {
+    frontId:{},
+    backId:{}
+  };
   side: string = '';
   frontImage: any = '';
   backImage: any = '';
   signImage: any = '';
   idNumber: string = '';
+  frontIdToSave: Identification = {
+    frontId:{},
+    backId:{}
+  };
 
   constructor(
     public loader: LoadingService,
@@ -33,7 +40,9 @@ export class SidesScanComponent  implements OnInit {
     private toastr: ToastrService,
     private dataStore: DataStoreService
 
-  ) {}
+  ) {
+    this.frontIdToSave = JSON.parse(localStorage.getItem('FRONTID') as string);
+  }
 
   ngOnInit() {}
 
@@ -52,7 +61,7 @@ export class SidesScanComponent  implements OnInit {
         this.identification = await data.data.data;
         if(this.side === 'id_front'){
           this.loader.frontCaptured = true;
-          localStorage.setItem("FRONT",this.identification.frontIdCaptured);
+          localStorage.setItem("FRONT",this.identification?.frontId.frontIdCaptured);
           setTimeout(()=>{
             this.frontImage = localStorage.getItem("FRONT")
           },200)
@@ -60,7 +69,7 @@ export class SidesScanComponent  implements OnInit {
         if(this.side === 'id_back'){
           this.loader.backCaptured = true;
           this.loader.frontCaptured = true;
-          localStorage.setItem("BACK",this.identification.backIdCaptured);
+          localStorage.setItem("BACK",this.identification?.backId.backIdCaptured);
           setTimeout(()=>{
             this.backImage = localStorage.getItem("BACK");
           },200)
@@ -70,7 +79,7 @@ export class SidesScanComponent  implements OnInit {
           this.loader.frontCaptured = true;
           this.loader.backCaptured = true;
           this.loader.signCaptured = true;
-          localStorage.setItem("SIGN",this.identification.signCaptured);
+          localStorage.setItem("SIGN",this.identification?.signCaptured);
           setTimeout(()=>{
             this.signImage = localStorage.getItem("SIGN");
           },200)
@@ -89,7 +98,7 @@ export class SidesScanComponent  implements OnInit {
         this.loader.scanningFront = true;
         this.apiService
           .scanFrontID({
-            national_id: this.identification.frontIdBase64,
+            national_id: this.identification?.frontId.frontIdBase64,
           })
           .subscribe({
             next: (res) => {
@@ -97,7 +106,7 @@ export class SidesScanComponent  implements OnInit {
                 this.loader.scanningFront = false;
                 this.loader.scannedFront = true;
                 this.loader.frontIdScanSuccess = true;
-                this.identification.frontIdOcrText = res.data;
+                this.identification.frontId.frontIdOcrText = res.data;
                 this.toastr.success("Front ID scanned successfully");
               } else {
                 this.loader.scanningFront = false;
@@ -119,7 +128,7 @@ export class SidesScanComponent  implements OnInit {
           this.loader.scanningBack = true;
             this.apiService
               .scanBackID({
-                national_id: this.identification.backIdBase64,
+                national_id: this.identification?.backId.backIdBase64,
                 document_type: "ID",
               })
               .subscribe({
@@ -274,10 +283,10 @@ export class SidesScanComponent  implements OnInit {
             this.loader.savingIdFailed = false;
             this.dataStore.identification.backSaved = true;
             this.saveFrontImage({
-              file: this.identification.frontIdFile,
+              file: this.frontIdToSave.frontId?.frontIdFile,
               idType: "NATIONAL_ID",
               imageType: "ID_FRONT",
-              match: this.identification.frontIdOcrText,
+              match: this.frontIdToSave.frontId?.frontIdOcrText,
               nationalId: "",
             });
           } else {
@@ -298,7 +307,7 @@ export class SidesScanComponent  implements OnInit {
 
   saveNationalId(){
     const payload = {
-      file: this.identification.backIdFile,
+      file: this.identification?.backId.backIdFile,
       idType: "NATIONAL_ID",
       imageType: "ID_BACK",
       match: "",
