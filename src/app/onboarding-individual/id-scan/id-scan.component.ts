@@ -18,7 +18,10 @@ const signatureUrl = "https://ai.giktek.io/signature";
 })
 export class IdScanComponent  implements OnInit {
 
-  identification: Identification = {};
+  identification: Identification = {
+    frontId:{},
+    backId:{}
+  };
   side: string = '';
   frontImage: any = '';
   backImage: any = '';
@@ -82,7 +85,7 @@ export class IdScanComponent  implements OnInit {
         this.identification = await data.data.data;
         if(this.side === 'id_front'){
           this.loader.frontCaptured = true;
-          localStorage.setItem("FRONT",this.identification.frontIdCaptured);
+          localStorage.setItem("FRONT",this.identification.frontId?.frontIdCaptured);
           setTimeout(()=>{
             this.frontImage = localStorage.getItem("FRONT")
           },200)
@@ -90,7 +93,7 @@ export class IdScanComponent  implements OnInit {
         if(this.side === 'id_back'){
           this.loader.backCaptured = true;
           this.loader.frontCaptured = true;
-          localStorage.setItem("BACK",this.identification.backIdCaptured);
+          localStorage.setItem("BACK",this.identification.backId?.backIdCaptured);
           setTimeout(()=>{
             this.backImage = localStorage.getItem("BACK");
           },200)
@@ -134,14 +137,14 @@ export class IdScanComponent  implements OnInit {
         try {
           this.apiService
             .scanFrontID({
-              national_id: this.identification.frontIdBase64,
+              national_id: this.identification?.frontId.frontIdBase64,
             })
             .subscribe(
               (res) => {
                 if (res.success) {
                   this.loader.scanningFront = false;
                   this.loader.scannedFront = true;
-                  this.identification.frontIdOcrText = res.data;
+                  this.identification.frontId.frontIdOcrText = res.data;
                   this.router.navigate(["/onboarding/new/id-scan"], {
                     replaceUrl: true,
                   });
@@ -171,7 +174,7 @@ export class IdScanComponent  implements OnInit {
 
             this.apiService
               .scanBackID({
-                national_id: this.identification.backIdBase64,
+                national_id: this.identification.backId?.backIdBase64,
                 document_type: "ID",
               })
               .subscribe(
@@ -243,7 +246,7 @@ export class IdScanComponent  implements OnInit {
           handler: () => {
             // Save the front id
             this.saveBackImage({
-              file: this.identification.backIdFile,
+              file: this.identification.backId?.backIdFile,
               idType: "NATIONAL_ID",
               imageType: "ID_BACK",
               match: "",
@@ -370,10 +373,10 @@ export class IdScanComponent  implements OnInit {
             this.loader.savedBack = true;
             this.dataStore.identification.backSaved = true;
             this.saveFrontImage({
-              file: this.identification.frontIdFile,
+              file: this.identification.frontId?.frontIdFile,
               idType: "NATIONAL_ID",
               imageType: "ID_FRONT",
-              match: this.identification.frontIdOcrText,
+              match: this.identification.frontId?.frontIdOcrText,
               nationalId: "",
             });
           } else {

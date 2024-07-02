@@ -19,17 +19,22 @@ export interface Auth {
 export interface Identification {
   documentType?: string;
   idType?: string;
-  frontIdBase64?: string;
-  frontIdCaptured?: any;
-  backIdCaptured?: any;
   passportCaptured?: any;
   signCaptured?: any;
-  frontIdFile?: File;
-  frontIdOcrText?: string;
+  backId: {
+    backIdBase64?: string;
+    backIdFile?: File;
+    backIdCaptured?: any;
+  };
+  frontId: {
+    frontIdBase64?: string;
+    frontIdCaptured?: any;
+    frontIdFile?: File;
+    frontIdOcrText?: string;
+  };
   ocrKey?: string;
   frontSaved?: boolean;
-  backIdBase64?: string;
-  backIdFile?: File;
+
   backSaved?: boolean;
   passportBase64?: string;
   passportFile?: File;

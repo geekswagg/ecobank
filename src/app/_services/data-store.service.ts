@@ -48,7 +48,21 @@ export class DataStoreService {
 
   public auth: Auth = {};
 
-  public identification: Identification = {};
+  public identification: Identification = {
+    frontId:{},
+    backId:{}
+  };
+
+  private frontPayloadSubject = new BehaviorSubject<any | null>(null);
+  frontPayload$ = this.frontPayloadSubject.asObservable();
+
+  setFrontPayload(payload: any) {
+    this.frontPayloadSubject.next(payload);
+  }
+
+  getFrontPayload(): any | null {
+    return this.frontPayloadSubject.value;
+  }
 
   public preferences: Preferences = {};
 

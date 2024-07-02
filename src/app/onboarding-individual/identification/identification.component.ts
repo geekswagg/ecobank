@@ -17,7 +17,10 @@ import { LoadingService } from 'src/app/_services/loading.service';
 })
 export class IdentificationComponent  implements OnInit {
   @Input() auth: Auth = {};
-  identification: Identification = {};
+  identification: Identification = {
+    frontId:{},
+    backId:{}
+  };
   seletedDoc: string = '';
 
   constructor(
