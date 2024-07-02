@@ -57,18 +57,14 @@
         <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
              <div class="swiper-el">
               <div class="image-container">
-                <img src="assets/images/classic.png" height="1800" width="900" alt="">
+                <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="">
               </div>
 
-                <div *ngIf="product.logo" class="image-description">
-                  <h3 class="item-title">{{product?.title}}</h3>
-                  <p>{{ product?.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span></p>
-                  <ul>
-                    <li>Debit Card</li>
-                    <li>Internet Banking</li>
-                    <li>Mobile Banking</li>
-                    <li>Standing Order</li>
-                  </ul>
+                <div *ngIf="product?.policyImageName" class="image-description">
+                  <h3 class="item-title">{{product?.name}}</h3>
+                  <p>{{ product?.policyDecription | slice:0:100 }}<span *ngIf="product.policyDecription.length > 100">...</span></p>
+                  <div *ngIf="product?.targetMarket" class="clamp"><span
+                    [innerHtml]="product?.targetMarket"></span></div>
 
                   <div class="uk-flex uk-flex-between">
                       <div>

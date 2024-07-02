@@ -7,6 +7,7 @@ import { ObjectMainAccountDetails } from '../_models/business-model';
 import { LoadingService } from '../_services/loading.service';
 import { ApiService } from '../_services/api.service';
 import { DataStoreService } from '../_services/data-store.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-account-products',
@@ -19,6 +20,7 @@ export class AccountProductsPage implements OnInit {
   intro_txt: string = '';
 
   products: any = [];
+  imageUrl: string = environment.imageUrl
 
   constructor(
    private modalCtrl: ModalController,
@@ -29,10 +31,51 @@ export class AccountProductsPage implements OnInit {
   ) {
     this.products = [
       {
-        title: 'Classic Current Account',
-        productCode:'29',
-        description: 'Keep track of your finances with 24/7 access to you money including electronic banking.',
-        logo:'assets/images/classic.png',
+        accountType
+        :
+        "1002",
+        benefits
+        :
+        "<ul><li>Retrenchment Cover of up to Kes 450,000*.This is available to salaried clients</li><li>Life Cover of 6 months gross income/salary capped at Kes 900,000*</li><li>Funeral Cover of up Kes 100,000*</li><li>Ability to make payments locally and internationally via our digital channels</li><li>Access to Silver debit and credit card with no joining fees</li><li>Access to monthly cash advance via mobile banking</li><li>Free salary credit</li><li>Free Internet Banking access from anywhere in the world</li><li>Free e-statements</li>*Terms and conditions apply</ul><div><h5><span class=\"quote\">Do you require more information about the Smart Direct Account? SMS SMART to 22208 and we will call you back.&#160;</span></h5></div>",
+        bundleCode
+        :
+        "",
+        bundleId
+        :
+        "28",
+        features
+        :
+        "<ul><li>Access to multiple current accounts in different currencies for the bundle fee</li><li>Available to salaried individuals</li><li>No minimum operating balance</li><li>Ability to deposit funds via M-Pesa</li><li>Pay as you transact for all transactions with an instant ledger fee of Kes 40 for non-self-service transactions i.e. transactions done at the branch</li></ul>",
+        id
+        :
+        "28",
+        initialBalance
+        :
+        "Kes 1000",
+        monthlyFee
+        :
+        "Kes 200",
+        multipleAccountsAllowed
+        :
+        "N",
+        name
+        :
+        "Smart Direct",
+        openningBalance
+        :
+        "Kes 1000",
+        policyDecription
+        :
+        "For a nominal fee of Kes 200 per month, enjoy transactional banking which will enable you to make payments by cheques, bank transfers, debit card payments, drafts or online transfers and only pay when you transact.&#160;<br>",
+        policyImageName
+        :
+        "POLICY_IMAGES/SmartDirect20210721114947.jpeg",
+        policyTitle
+        :
+        "Smart Direct",
+        targetMarket
+        :
+        "<ul><li>Preferable for salaried individuals earning between Kes 15,000 and Kes 150,000</li><li>Must be a Kenyan Citizen</li><li>Must be 18 years and above in age</li><li>Must have a valid KRA PIN</li></ul>"
       }
     ]
    }
