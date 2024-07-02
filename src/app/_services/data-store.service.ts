@@ -53,6 +53,17 @@ export class DataStoreService {
     backId:{}
   };
 
+  private frontPayloadSubject = new BehaviorSubject<any | null>(null);
+  frontPayload$ = this.frontPayloadSubject.asObservable();
+
+  setFrontPayload(payload: any) {
+    this.frontPayloadSubject.next(payload);
+  }
+
+  getFrontPayload(): any | null {
+    return this.frontPayloadSubject.value;
+  }
+
   public preferences: Preferences = {};
 
   public occupation: Occupation = {};

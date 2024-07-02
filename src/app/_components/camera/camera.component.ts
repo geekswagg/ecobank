@@ -105,6 +105,9 @@ export class CameraComponent  implements OnInit {
             data: this.dataStore.identification,
           });
 
+          this.dataStore.identification = this.dataStore.identification;
+
+
           setTimeout(()=>{localStorage.setItem('FRONTID',JSON.stringify(this.dataStore.identification));},500)
           break;
         case 'id_back':
@@ -115,8 +118,9 @@ export class CameraComponent  implements OnInit {
           );
           this.modalCtrl.dismiss({
             cancelled: false,
-            data: {...this.dataStore.identification, ...this.dataStore.identification}
+            data: this.dataStore.identification
           });
+          this.dataStore.identification = {...this.dataStore.identification};
           break;
 
         case 'passport':

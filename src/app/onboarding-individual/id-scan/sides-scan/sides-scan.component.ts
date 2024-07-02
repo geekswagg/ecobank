@@ -31,6 +31,10 @@ export class SidesScanComponent  implements OnInit {
     backId:{}
   };
 
+  frontPayload: any;
+
+  frontIdTemp = {};
+
   constructor(
     public loader: LoadingService,
     private modalCtrl: ModalController,
@@ -60,6 +64,14 @@ export class SidesScanComponent  implements OnInit {
       } else {
         this.identification = await data.data.data;
         if(this.side === 'id_front'){
+          const payload = {
+            file:this.identification.frontId.frontIdFile,
+            idType: "NATIONAL_ID",
+            imageType: "ID_FRONT",
+            match: "",
+            nationalId: "",
+          }
+          this.dataStore.setFrontPayload(payload);
           this.loader.frontCaptured = true;
           localStorage.setItem("FRONT",this.identification?.frontId.frontIdCaptured);
           setTimeout(()=>{
@@ -245,7 +257,7 @@ export class SidesScanComponent  implements OnInit {
     this.loader.savingFront = true;
     this.loader.scannedFront = false;
 
-    this.apiService.saveImage(payload).subscribe({
+    this.apiService.saveImage(this.frontPayload).subscribe({
       next: (res) => {
         if (res.successful) {
           this.loader.savingFront = false;
@@ -282,12 +294,11 @@ export class SidesScanComponent  implements OnInit {
             this.loader.savedBack = true;
             this.loader.savingIdFailed = false;
             this.dataStore.identification.backSaved = true;
-            this.saveFrontImage({
-              file: this.frontIdToSave.frontId?.frontIdFile,
-              idType: "NATIONAL_ID",
-              imageType: "ID_FRONT",
-              match: this.frontIdToSave.frontId?.frontIdOcrText,
-              nationalId: "",
+            this.dataStore.frontPayload$.subscribe(payload => {
+              if (payload) {
+                // console.log('Front Payload:', payload);
+                this.saveFrontImage(payload);
+              }
             });
           } else {
             this.loader.savingIdFailed = true;
