@@ -18,7 +18,7 @@
   <div class="container mx-auto p-4 w-full">
     <div>
       <h3 class="font-medium">
-        Now proceed to select the <strong class="text-[#005B82]">Account Product</strong> you wish to open
+        Now proceed to select the <strong class="text-[#005B82]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
       </h3>
     </div>
   </div>
@@ -57,6 +57,7 @@
         <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
              <div class="swiper-el">
               <div class="image-container">
+                <!-- <img ngSrc="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="" priority> -->
                 <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="">
               </div>
 

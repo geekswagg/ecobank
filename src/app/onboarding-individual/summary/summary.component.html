@@ -25,26 +25,29 @@
 
     <div class="id_no uk-margin-small-bottom">
       <div class="tool-section ion-padding">
-       <div class="item-left">
-        <span class="ion-text-center itm-head">Identification</span><br>
+       <div class="item-center">
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head">Identification</span>
+          <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
+        </div>
         <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
                 <td>Account Type:</td>
-                <td><strong>Individual</strong></td>
+                <td><strong>{{summary?.accountType}}</strong></td>
               </tr>
               <tr>
-                <td>Product:</td>
-                <td><strong>Smart Current Account</strong></td>
+                <td>National ID:</td>
+                <td><strong>{{summary?.nationalId}}</strong></td>
               </tr>
               <tr>
                 <td>Phone Number:</td>
-                <td><strong>0700 000 00</strong>0</td>
+                <td><strong>{{summary?.phoneNumber}}</strong>0</td>
               </tr>
               <tr>
                 <td>Email Address:</td>
-                <td><strong>test&#64;gmail.com</strong></td>
+                <td><strong>{{summary?.emailAddress}}</strong></td>
               </tr>
             </tbody>
           </table>
@@ -60,19 +63,22 @@
 
      <div class="id_no uk-margin-small-top uk-margin-small-bottom">
       <div class="tool-section ion-padding">
-       <div class="item-left">
-        <span class="ion-text-center itm-head">Account Preferences</span><br>
+       <div class="item-center">
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head">Account Preferences</span>
+          <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
+        </div>
 
         <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
                 <td>Branch:</td>
-                <td><strong>Harambee Avenue</strong></td>
+                <td><strong>{{summary?.branch}}</strong></td>
               </tr>
               <tr>
                 <td>Country:</td>
-                <td><strong>Kenya</strong></td>
+                <td><strong>{{summary?.residence}}</strong></td>
               </tr>
               <tr>
                 <td>Physical Address:</td>

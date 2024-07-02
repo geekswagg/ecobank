@@ -59,6 +59,7 @@
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
+      type="submit"
       (click)="verifyOtp()" size="small" mode="md"
        [disabled]="smsCode.length < 6"
        routerLink="/onboarding/auth"

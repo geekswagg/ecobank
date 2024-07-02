@@ -101,3 +101,21 @@ export interface JointPrincipal {
   memberType?: String;
   customerNumber?: String;
 }
+
+export interface AccountProduct{
+  accountType: string;
+  benefits: string;
+  bundleCode?: string;
+  bundleId: string;
+  features?: string;
+  id: string;
+  initialBalance?: string;
+  monthlyFee?: string;
+  multipleAccountsAllowed?: string;
+  name: string;
+  openningBalance: string;
+  policyDecription: string;
+  policyImageName?: string;
+  policyTitle: string;
+  targetMarket?: string;
+}
