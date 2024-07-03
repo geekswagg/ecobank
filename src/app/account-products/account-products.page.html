@@ -58,7 +58,22 @@
              <div class="swiper-el">
               <div class="image-container">
                 <!-- <img ngSrc="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="" priority> -->
-                <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="">
+                <!-- <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt=""> -->
+                @if(i === 0){
+                  <img src="assets/images/classic.png" height="1800" width="900" alt="">
+                }
+                @if(i === 1){
+                  <img src="assets/images/premium.png" height="1800" width="900" alt="">
+                }
+                @if(i === 2){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
+                @if(i === 3){
+                  <img src="assets/images/diaspora.png" height="1800" width="900" alt="">
+                }
+                @if(i === 4){
+                  <img src="assets/images/classic.png" height="1800" width="900" alt="">
+                }
               </div>
 
                 <div *ngIf="product?.policyImageName" class="image-description">
