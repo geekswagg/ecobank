@@ -83,22 +83,22 @@ class="mobile-content"
         <div class="home-title mt-32">
         <h5 class="gradient-text">Welcome to Ecobank's <br> <span class="gradient-text">Digital Account Opening</span></h5>
         <div>
-          <p class="welcome-desc">Open your new account online quickly, easy, anytime and <br> anywhere  with just a few steps.
-           Join us now by creating your: <br> <strong class="text-[#bed600] font-black">Digital Account Opening</strong>
+          <p class="welcome-desc">Open your new account online quickly, easy, anytime and <br> anywhere  in just a few steps.
+           Join us now by creating your: <br>
+           <ngx-typed-js
+            [strings]="[
+              'Individual Account',
+                'Joint Account',
+                'Business Account',
+               ]"
+            [loop]="true"
+            [typeSpeed]="60"
+            [shuffle]="true"
+          >
+          <span class="home-text08 typing text-[#bed600] font-black"></span>
+          </ngx-typed-js>
           </p>
-          <!-- <ngx-typed-js
-                            [strings]="[
-                              'Zeraki brings the best high school teachers home </br>'+
-                                'and empowers students to excel in exams and beyond.',
-                                'Taking the burden away from daily administrationtasks',
-                                'A fast and easily accessible system that </br> can be used on the go',
-                                'Intuitive analytics that knows exactly </br> what you are looking for']"
-                            [loop]="true"
-                            [typeSpeed]="40"
-                            [shuffle]="true"
-                          >
-                          <span class="home-text08 typing"></span>
-                          </ngx-typed-js> -->
+
         </div>
       </div>
 
