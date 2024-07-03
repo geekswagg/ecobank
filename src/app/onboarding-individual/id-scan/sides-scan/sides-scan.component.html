@@ -21,13 +21,13 @@
         <div class="ion-padding">
           <div class="uk-container uk-container-xsmall">
             <div>
-              @if(frontImage.length > 0 && !loader.scanningFront && loader.frontIdScanSuccess){
+              @if(frontImage.length > 0 && !loader.scanningFront && loader.frontIdScanSuccess && !loader.savingFront && !loader.savedFront){
                 <div class="uk-card-media-top">
                   <img [src]="this.frontImage" width="100%" alt="Passport" style="border: solid 3px #005B82; border-radius: 4px;" priority>
                 </div>
               }
 
-            @if((frontImage.length <= 0 || !loader.scannedFront) && !loader.frontIdScanSuccess){
+            @if(( !loader.scannedFront && !loader.frontIdScanSuccess) || loader.savingFront){
               <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m" (click)="openCamera('id_front')">
                 <div class="uk-flex uk-flex-between  uk-margin-small-top">
                   <div class="flex gap-4">
@@ -41,13 +41,16 @@
                         @if(!loader.scanningFront && !loader.savingFront){
                           Scan Front of ID
                         }
+                        @if(loader.savingFront){
+                          Saving Front of ID
+                        }
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningFront){
+                    @if(loader.scanningFront || loader.savingFront){
                       <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
-                    @if(!loader.scanningFront){
+                    @if(!loader.scanningFront && !loader.savingFront){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
                     @if(loader.savedFront){
@@ -66,13 +69,13 @@
       <div class="ion-padding">
         <div class="uk-container uk-container-xsmall">
           <div>
-            @if((this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess) && !loader.savingBack){
+            @if((this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess) && !loader.savingBack && !loader.savedBack){
               <div class="uk-card-media-top">
                 <img [src]="this.backImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
               </div>
             }
 
-            @if(((this.backImage.length <= 0 || !loader.scannedBack) && !loader.backIdScanSuccess) || loader.savingBack){
+            @if(( !loader.scannedBack && !loader.backIdScanSuccess) || loader.savingBack){
               <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m"  (click)="openCamera('id_back')">
                 <div class=" uk-flex uk-flex-between uk-margin-small-top">
                   <div class="flex gap-4">
@@ -111,13 +114,13 @@
       </div>
     </div>
 
-    @if(this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess){
+    <!-- @if(this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess){
       <div class="id_no uk-text-center">
         <div>
          <h4 class="ion-text-center uk-margin-small-top">ID Number: <strong>{{idNumber}}</strong></h4>
         </div>
        </div>
-    }
+    } -->
 
     @if(loader.savingIdFailed){
       <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
