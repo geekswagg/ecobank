@@ -1,3 +1,6 @@
+<!--=============
+  MOBILE SCREENS CONTENT
+=================-->
 <ion-content
 [fullscreen]="true"
 [scrollEvents]="true"
@@ -11,7 +14,7 @@ class="mobile-content"
       <img src="assets/images/logo-white.png" alt="Logo" height="83" width="167"/>
     </div>
 
-   @if(scrollTop < 100 && !isScrolling){
+   @if(scrollTop < 150 && !isScrolling){
     <div class="down-arrow">
       <div (click)="scrollToBottom()" class="arrow-icon animate__animated animate animate__bounce animate__infinite animate_slower">
         <ion-icon slot="fixed" color="primary" name="chevron-down-circle-outline"></ion-icon>
@@ -62,43 +65,64 @@ class="mobile-content"
 </ion-content>
 
 <!--=============
-  DESKTOP CONTENT
+  DESKTOP SCREENS CONTENT
 =================-->
 
 <div class="desktop-content">
   <div class="bg-lady"></div>
-  <div class="steps-section"></div>
+  <!-- <div class="steps-section"></div> -->
 
-  <div class="home-left uk-padding">
+  <div class="flex flex-row center  gap-x-80 justify-center mx-auto">
+    <div class="home-left">
 
-    <div class="body-element uk-margin-large-left">
-      <div class="">
-        <img src="assets/images/logo-white.png" alt="Logo">
+      <div class="body-element">
+        <div class="relative p-4">
+          <img ngSrc="assets/images/logo-white.png" width="150" height="90" alt="Logo">
+        </div>
+
+        <div class="home-title mt-32">
+        <h5 class="gradient-text">Welcome to Ecobank's <br> <span class="gradient-text">Digital Account Opening</span></h5>
+        <div>
+          <p class="welcome-desc">Open your new account online quickly, easy, anytime and <br> anywhere  in just a few steps.
+           Join us now by creating your: <br>
+           <ngx-typed-js
+            [strings]="[
+              'Individual Account',
+                'Joint Account',
+                'Business Account',
+               ]"
+            [loop]="true"
+            [typeSpeed]="60"
+            [shuffle]="true"
+          >
+          <span class="home-text08 typing text-[#bed600] font-black"></span>
+          </ngx-typed-js>
+          </p>
+
+        </div>
       </div>
 
-      <div class="home-title">
-      <h5>Welcome to Ecobank's <br> Digital Account Opening</h5>
-      <div>
-        <p class="welcome-desc">Open your new account online quickly, <br> easy, anytime and anywhere with <br> just a few steps.
-        </p>
+      <div class="btn-section  uk-margin-small-top">
+        <ion-button class="dektop-btn" color="primary" mode="md" (click)="gotToQRCode()" routerLinkActive="router-link-active" >
+          @if(!loading) {
+            Let's Get Started
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          }
+          @if(loading){
+            <ion-spinner name="circular"></ion-spinner>
+          }
+        </ion-button>
       </div>
+      </div>
+
+
+
     </div>
-
-    <div class="btn-section  uk-margin-small-top">
-      <ion-button class="dektop-btn" color="primary" mode="md" (click)="gotToQRCode()" routerLinkActive="router-link-active" >
-        @if(!loading) {
-          Let's Get Started
-          <ion-icon name="arrow-forward-outline"></ion-icon>
-        }
-        @if(loading){
-          <ion-spinner name="circular"></ion-spinner>
-        }
-      </ion-button>
+    <div class="mt-40">
+      <img ngSrc="../../assets/images/description.png"
+      ngSrcset="200w, 400w, 600w, 800w, 1000w, 1200w, 1600w, 2000w, 3000w"
+       width="300" height="425" m alt="" priority>
     </div>
-    </div>
-
-
-
   </div>
 
 
