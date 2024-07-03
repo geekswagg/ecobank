@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <div class="uk-margin-small-top">
     <div  class="uk-margin-large-left ">
       <div>
@@ -76,9 +76,12 @@
                       <img src="assets/images/id-good.png" height="50" width="50" alt="passport">
                     </span>
                     <strong>
-                      @if(loader.scanningPassport && !loader.savingPassport){
+                      @if(loader.scanningPassport){
                       Scanning Passport
                       }
+                      @if(loader.savingPassport){
+                        Saving Passport
+                        }
                       @if(!loader.scanningPassport && !loader.savingPassport){
                         Scan Passport
                       }
@@ -88,10 +91,10 @@
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningPassport){
-                      <ion-spinner *ngIf="loader.scanningPassport" name="circular" color="secondary"></ion-spinner>
+                    @if(loader.scanningPassport || loader.savingPassport ){
+                      <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
-                    @if(!loader.scanningPassport){
+                    @if(!loader.scanningPassport && !loader.savingPassport){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
                     @if(loader.savedPassport){
@@ -129,7 +132,10 @@
                       @if(loader.scanningSignature && !loader.savingSignature){
                       Scanning Signature
                       }
-                      @if(!loader.scanningSignature && !loader.savingSignature){
+                      @if(loader.savingSignature){
+                        Saving Signature
+                        }
+                      @if(!loader.scanningSignature && !loader.savingSignature && !loader.savedSignature){
                         Scan Signature
                       }
                       @if(loader.savedSignature){
@@ -138,10 +144,10 @@
                     </strong>
                   </div>
                   <div>
-                    @if(loader.scanningSignature){
+                    @if(loader.scanningSignature || loader.savingSignature){
                       <ion-spinner name="circular" color="secondary"></ion-spinner>
                     }
-                    @if(!loader.scanningSignature){
+                    @if(!loader.scanningSignature && !loader.savedSignature && !loader.savingSignature){
                       <ion-icon class="iconSize" name="chevron-forward-outline"></ion-icon>
                     }
                     @if(loader.savedSignature){

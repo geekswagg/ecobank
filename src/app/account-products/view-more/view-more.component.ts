@@ -1,7 +1,8 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule, ModalController } from '@ionic/angular';
+import { AccountProduct } from 'src/app/_models/data-models';
 
 @Component({
   selector: 'app-view-more',
@@ -12,12 +13,23 @@ import { IonicModule, ModalController } from '@ionic/angular';
 })
 export class ViewMoreComponent  implements OnInit {
 
+  @Input() data: AccountProduct = {
+    accountType: '',
+    benefits: '',
+    bundleId: '',
+    id: '',
+    name: '',
+    openningBalance: '',
+    policyDecription: '',
+    policyTitle: ''
+  };
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   close(){
     this.modalCtrl.dismiss();

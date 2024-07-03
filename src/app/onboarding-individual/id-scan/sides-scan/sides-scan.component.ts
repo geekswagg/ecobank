@@ -26,14 +26,6 @@ export class SidesScanComponent  implements OnInit {
   backImage: any = '';
   signImage: any = '';
   idNumber: string = '';
-  frontIdToSave: Identification = {
-    frontId:{},
-    backId:{}
-  };
-
-  frontPayload: any;
-
-  frontIdTemp = {};
 
   constructor(
     public loader: LoadingService,
@@ -44,9 +36,7 @@ export class SidesScanComponent  implements OnInit {
     private toastr: ToastrService,
     private dataStore: DataStoreService
 
-  ) {
-    this.frontIdToSave = JSON.parse(localStorage.getItem('FRONTID') as string);
-  }
+  ) {}
 
   ngOnInit() {}
 
@@ -64,15 +54,9 @@ export class SidesScanComponent  implements OnInit {
       } else {
         this.identification = await data.data.data;
         if(this.side === 'id_front'){
-          const payload = {
-            file:this.identification.frontId.frontIdFile,
-            idType: "NATIONAL_ID",
-            imageType: "ID_FRONT",
-            match: "",
-            nationalId: "",
-          }
-          this.dataStore.setFrontPayload(payload);
           this.loader.frontCaptured = true;
+          this.dataStore.identification.frontId.frontIdFile = this.identification.frontId.frontIdFile;
+          this.dataStore.identification.frontId.frontIdOcrText = this.identification.frontId.frontIdOcrText;
           localStorage.setItem("FRONT",this.identification?.frontId.frontIdCaptured);
           setTimeout(()=>{
             this.frontImage = localStorage.getItem("FRONT")
@@ -119,7 +103,7 @@ export class SidesScanComponent  implements OnInit {
                 this.loader.scannedFront = true;
                 this.loader.frontIdScanSuccess = true;
                 this.identification.frontId.frontIdOcrText = res.data;
-                this.toastr.success("Front ID scanned successfully");
+                this.toastr.success("Front ID scanned");
               } else {
                 this.loader.scanningFront = false;
                 this.loader.frontIdScanSuccess = false;
@@ -257,7 +241,8 @@ export class SidesScanComponent  implements OnInit {
     this.loader.savingFront = true;
     this.loader.scannedFront = false;
 
-    this.apiService.saveImage(this.frontPayload).subscribe({
+    console.log("Saving front.....")
+    this.apiService.saveImage(payload).subscribe({
       next: (res) => {
         if (res.successful) {
           this.loader.savingFront = false;
@@ -294,12 +279,18 @@ export class SidesScanComponent  implements OnInit {
             this.loader.savedBack = true;
             this.loader.savingIdFailed = false;
             this.dataStore.identification.backSaved = true;
-            this.dataStore.frontPayload$.subscribe(payload => {
-              if (payload) {
-                // console.log('Front Payload:', payload);
-                this.saveFrontImage(payload);
-              }
+
+            console.log(this.dataStore.identification)
+            //Now save the front image
+            this.saveFrontImage({
+              file: this.dataStore.identification.frontId?.frontIdFile ?? "",
+              idType: "NATIONAL_ID",
+              imageType: "ID_FRONT",
+              match: this.dataStore.identification.frontId?.frontIdOcrText ?? "",
+              nationalId: "",
             });
+
+
           } else {
             this.loader.savingIdFailed = true;
             this.loader.savingBack = false;

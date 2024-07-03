@@ -8,29 +8,46 @@
 </ion-header>
 
 <ion-content class="terms-content">
-  <h4 class="uk-text-center uk-margin-small-top title">Classic Current Account</h4>
+  <h4 class="uk-text-center uk-margin-small-top title">{{data.name}}</h4>
 
   <div class="terms-text uk-text-center">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi ipsa cupiditate nam error? Aut hic harum aliquid velit. Quis alias ex molestiae qui nesciunt debitis odio similique cupiditate? Optio, cumque.
+    {{data?.policyDecription}}
   </div>
 
-  <div class="features uk-text-center">
-    <h5>Features</h5>
+  <div class="features">
+    <h5 class="uk-text-center text-[#005B82]">Features</h5>
 
     <div class="uk-margin-small-right uk-margin-small-left">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati praesentium voluptatem atque magnam quidem nulla possimus assumenda
-      </p>
+     <span [innerHTML]="data.features"></span>
     </div>
   </div>
 
-  <div class="features uk-text-center">
-    <h5>Benefits</h5>
+  <div class="features">
+    <h5 class="browse uk-text-center text-[#005B82]">Opening Balance</h5>
+    <div class="uk-text-center description" [innerHtml]="data.openningBalance"></div>
+  </div>
+
+  <div class="features">
+    <h5  class="uk-text-center text-[#005B82]">Monthly Fees</h5>
+    <div class="uk-text-center description" [innerHtml]="data.monthlyFee"></div>
+
+  </div>
+
+
+
+  <div class="features">
+    <h5 class="uk-text-center text-[#005B82]">Target Market</h5>
 
     <div class="uk-margin-small-right uk-margin-small-left">
-      <p >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati praesentium voluptatem atque magnam quidem nulla possimus assumenda
-      </p>
+     <span [innerHTML]="data.targetMarket"></span>
+    </div>
+  </div>
+
+  <div class="features">
+    <h5 class="uk-text-center text-[#005B82]" >Benefits</h5>
+
+    <div class="uk-margin-small-right uk-margin-small-left">
+      <span [innerHTML]="data.benefits"></span>
     </div>
 
   </div>

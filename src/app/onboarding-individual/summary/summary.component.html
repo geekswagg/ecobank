@@ -25,7 +25,7 @@
 
     <div class="id_no uk-margin-small-bottom">
       <div class="tool-section ion-padding">
-       <div class="item-center">
+       <div class="item-left">
         <div class="flex justify-between">
           <span class="ion-text-center itm-head">Identification</span>
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
@@ -63,7 +63,7 @@
 
      <div class="id_no uk-margin-small-top uk-margin-small-bottom">
       <div class="tool-section ion-padding">
-       <div class="item-center">
+       <div class="item-left">
         <div class="flex justify-between">
           <span class="ion-text-center itm-head">Account Preferences</span>
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
@@ -82,7 +82,7 @@
               </tr>
               <tr>
                 <td>Physical Address:</td>
-                <td><strong>Nairobi</strong></td>
+                <td><strong>{{summary?.physicalAddrress}}</strong></td>
               </tr>
             </tbody>
           </table>
@@ -99,22 +99,25 @@
      <div class="id_no uk-margin-small-top uk-margin-small-bottom">
       <div class="tool-section ion-padding">
        <div class="item-left">
-        <span class="ion-text-center itm-head">Next of Kin</span><br>
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head">Next of Kin</span>
+          <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
+        </div>
 
         <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
                 <td>Full Name:</td>
-                <td><strong>Kevin Masika</strong></td>
+                <td><strong>{{summary?.nameOfNextOfKin}}</strong></td>
               </tr>
               <tr>
                 <td>Phone Number:</td>
-                <td><strong>0700 000 000</strong></td>
+                <td><strong>{{summary?.phoneNumberOfNextOfKin}}</strong></td>
               </tr>
               <tr>
                 <td>Relationship:</td>
-                <td><strong>Brother</strong></td>
+                <td><strong>{{summary?.relationshipWithNextOfKin}}</strong></td>
               </tr>
             </tbody>
           </table>
@@ -131,22 +134,24 @@
      <div class="id_no uk-margin-small-top uk-margin-small-bottom">
       <div class="tool-section ion-padding">
        <div class="item-left">
-        <span class="ion-text-center itm-head">Occupation</span><br>
-
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head">Occupation</span>
+          <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
+        </div>
         <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
                 <td>Occupation:</td>
-                <td><strong>Nurse</strong></td>
+                <td><strong>{{summary?.occupation}}</strong></td>
               </tr>
               <tr>
                 <td>Industry:</td>
-                <td><strong>Health</strong></td>
+                <td><strong>{{summary?.industry}}</strong></td>
               </tr>
               <tr>
                 <td>Employer:</td>
-                <td><strong>Kenyatta Hospital</strong></td>
+                <td><strong>{{summary?.employer ?? "-"}}</strong></td>
               </tr>
             </tbody>
           </table>
@@ -164,7 +169,10 @@
      <div class="id_no uk-margin-small-top uk-margin-small-bottom">
       <div class="tool-section ion-padding">
        <div class="item-left">
-        <span class="ion-text-center itm-head">Customer Channels</span><br>
+        <div class="flex justify-between w-full">
+          <span class=" itm-head">Customer Channels</span>
+          <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
+        </div>
 
         <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
@@ -197,7 +205,7 @@
       </div>
      </div>
 
-     <div class="ion-padding">
+     <div>
       <ion-button type="submit" expand="block" mode="md" size="medium" (click)="createAccount()">
         @if(!loader.loading) {
           Create Account
