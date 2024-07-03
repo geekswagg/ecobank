@@ -1,3 +1,10 @@
+ion-toolbar{
+  --background: #fff !important;
+}
+ion-content{
+  --background: #fff !important;
+}
+
 .id_no{
   margin-right: 15px;
   margin-left: 15px;
@@ -20,7 +27,7 @@
   justify-content: space-between;
 
   .item-left{
-
+    width: 100%;
     .itm-head{
       font-family: "Roboto-Medium";
       font-size: 15px;

@@ -5,10 +5,17 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/_models/types';
+import { ApiService } from 'src/app/_services/api.service';
 import { LoadingService } from 'src/app/_services/loading.service';
 import { OtpFormComponent } from 'src/app/auth/otp-form/otp-form.component';
 
+interface Employer {
+  companyId: string;
+  companyName: string;
+  companyCode: string;
+}
 @Component({
   selector: 'app-occupation',
   templateUrl: './occupation.component.html',
@@ -17,7 +24,7 @@ import { OtpFormComponent } from 'src/app/auth/otp-form/otp-form.component';
 export class OccupationComponent  implements OnInit {
 
 
-  authForm: FormGroup;
+  occupationForm: FormGroup;
   termsAccepted: boolean = false;
 
   CountryISO = CountryISO;
@@ -26,74 +33,59 @@ export class OccupationComponent  implements OnInit {
   selectedFruitsText: any = '0 Items';
   selectedFruits: string[] = [];
 
-  fruits: Item[] = [
-    { text: 'Apple', value: 'apple' },
-    { text: 'Apricot', value: 'apricot' },
-    { text: 'Banana', value: 'banana' },
-    { text: 'Blackberry', value: 'blackberry' },
-    { text: 'Blueberry', value: 'blueberry' },
-    { text: 'Cherry', value: 'cherry' },
-    { text: 'Cranberry', value: 'cranberry' },
-    { text: 'Grape', value: 'grape' },
-    { text: 'Grapefruit', value: 'grapefruit' },
-    { text: 'Guava', value: 'guava' },
-    { text: 'Jackfruit', value: 'jackfruit' },
-    { text: 'Lime', value: 'lime' },
-    { text: 'Mango', value: 'mango' },
-    { text: 'Nectarine', value: 'nectarine' },
-    { text: 'Orange', value: 'orange' },
-    { text: 'Papaya', value: 'papaya' },
-    { text: 'Passionfruit', value: 'passionfruit' },
-    { text: 'Peach', value: 'peach' },
-    { text: 'Pear', value: 'pear' },
-    { text: 'Plantain', value: 'plantain' },
-    { text: 'Plum', value: 'plum' },
-    { text: 'Pineapple', value: 'pineapple' },
-    { text: 'Pomegranate', value: 'pomegranate' },
-    { text: 'Raspberry', value: 'raspberry' },
-    { text: 'Strawberry', value: 'strawberry' },
-  ];
+  occupations = [];
+  industries = [];
+  incomes: any = [];
+  filteredIndustry = [];
+  showOther: boolean = false;
+  otherValid: boolean = false;
+  selectedIncome: string = '';
+
+  employers: Employer[] = [];
 
   get f() {
-    return this.authForm.controls;
+    return this.occupationForm.controls;
   }
+
+  occupationSample= [
+    {
+      occupationCode:"11",
+      occupationName:"Salaried Employee-BANK"
+    }
+  ];
+
+  industrySample = [
+    {
+      industryCode: "1408",
+      industryDescription:"Public Administration Civil Servant and Defence",
+      occupationCode: "11"
+    }
+  ];
 
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private toastr: ToastrService,
+    private apiService: ApiService,
     public loader: LoadingService,
     private  modalCtrl: ModalController
   ) {
-    this.authForm = this.fb.group({
-      phone: ['', Validators.required],
-      branch: ['', Validators.required],
-      recaptcha: ['', Validators.required],
-      idNumber: ["", [Validators.required]],
-      emailAddress: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-        ],
-      ],
+    this.occupationForm = this.fb.group({
+      occupation: ['', Validators.required],
+      industry: ['', Validators.required],
+      employerName: ["", [Validators.required]],
     });
+
+    this.occupations = JSON.parse(localStorage.getItem("occupations") as string) ?? this.occupationSample;
+    this.incomes = JSON.parse(localStorage.getItem("incomes") as string);
+    this.industries = JSON.parse(localStorage.getItem("industries") as string) ?? this.industrySample;
   }
 
   ngOnInit() {
   }
 
-  verifyUser(){
-    this.validateOtp();
-  }
-  private formatData(data: any) {
-    // if (data.length === 1) {
-    //   const fruit = this.fruits.find((fruit) => fruit.value === data[0]);
-    //   return fruit?.text;
-    // }
 
-    return `${data.length} items`;
-  }
 
   checkboxChanged(){}
 
@@ -108,15 +100,73 @@ export class OccupationComponent  implements OnInit {
   }
 
 
-  portChange(event: {
-    component: IonicSelectableComponent,
-    value: any
-  }) {
-
+  changeIncome(income: string){
+    this.selectedIncome = income;
   }
 
-  toSelfie(){
-    this.router.navigate(['/onboarding/selfie']);
+  selectionChange(val: any, type: string) {
+    switch (type) {
+      case "occupation":
+        this.filteredIndustry = this.industries.filter((value: any) => {
+          return (
+            value.occupationCode === this.f['occupation'].value.occupationCode
+          );
+        });
+        this.occupationForm.controls['industry'].patchValue("");
+        break;
+      case "employer":
+        if (val.companyCode === "GS9999") {
+          this.showOther = true;
+          this.otherValid = false;
+        } else {
+          this.otherValid = true;
+          this.showOther = false;
+          this.occupationForm.controls['otherDescription'].patchValue("");
+        }
+        break;
+      default:
+        break;
+    }
   }
+
+  saveOccupation(){
+    this.loader.loading = true;
+    const {occupation, industry, employerName} = this.occupationForm.value;
+    const payload = {
+      employerName: employerName,
+      industry: industry?.industryCode,
+      monthlyIncome: this.selectedIncome,
+      occupation: occupation?.occupationCode
+    }
+    sessionStorage.setItem('occupation', JSON.stringify(payload));
+    this.apiService.saveOccupation(payload).subscribe({
+      next:(res) => {
+        if (res.successful) {
+          this.loader.loading = false;
+          this.router.navigate(['/onboarding/selfie']);
+        } else {
+          this.loader.loading = false;
+          this.toastr.error(res.message);
+        }
+      },
+      error:(error) => {
+        this.loader.loading = false;
+        this.toastr.error("An error occurred. Please try again");
+      }
+  });
+  }
+
+    // Capitalize Employers  *** changes to sentence case
+    capitalizeEmployers() {
+      const employers: any = JSON.parse(localStorage.getItem("employers") as string);
+      employers.forEach((element: any) => {
+        const data = {
+          companyId: element.companyId,
+          companyName: element.companyName.toUpperCase(),
+          companyCode: element.companyCode,
+        };
+        this.employers.push(data);
+      });
+    }
 
 }

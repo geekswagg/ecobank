@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/account-types"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center" >Individual Account</ion-title>
+    <!-- <ion-title size="large" class="ion-text-center" >Individual Account</ion-title> -->
   </ion-toolbar>
   <!-- <div class="progress-bar">
     <div class="step active"></div>
@@ -15,6 +15,14 @@
 </ion-header>
 
 <ion-content class="body-content">
+  <div class="container mx-auto p-4 w-full">
+    <div>
+      <h3 class="font-medium">
+        Now proceed to select the <strong class="text-[#005B82]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
+      </h3>
+    </div>
+  </div>
+
   <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider finite="true">
     @if(loading){
       <div class="ion-text-center img-skeleton">
@@ -49,32 +57,41 @@
         <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
              <div class="swiper-el">
               <div class="image-container">
-                <img [src]="product.logo" height="1800" width="900" alt="">
+                <!-- <img ngSrc="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="" priority> -->
+                <!-- <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt=""> -->
+                @if(i === 0){
+                  <img src="assets/images/classic.png" height="1800" width="900" alt="">
+                }
+                @if(i === 1){
+                  <img src="assets/images/premium.png" height="1800" width="900" alt="">
+                }
+                @if(i === 2){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
+                @if(i === 3){
+                  <img src="assets/images/diaspora.png" height="1800" width="900" alt="">
+                }
+                @if(i === 4){
+                  <img src="assets/images/classic.png" height="1800" width="900" alt="">
+                }
               </div>
 
-                <div *ngIf="product.logo" class="image-description">
-                  <h3 class="item-title">{{product.title}}</h3>
-                  <p>{{ product?.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span></p>
-                  <ul>
-                    <li>Debit Card</li>
-                    <li>Internet Banking</li>
-                    <li>Mobile Banking</li>
-                    <li>Standing Order</li>
-                  </ul>
+                <div *ngIf="product?.policyImageName" class="image-description">
+                  <h3 class="item-title">{{product?.name}}</h3>
+                  <p>{{ product?.policyDecription | slice:0:100 }}<span *ngIf="product.policyDecription.length > 100">...</span></p>
+                  <div *ngIf="product?.targetMarket" class="clamp"><span
+                    [innerHtml]="product?.targetMarket"></span></div>
 
                   <div class="uk-flex uk-flex-between">
-
                       <div>
-                        <ion-button mode="md" (click)="onViewMore()" fill="outline" color="secondary" size="medium">View More
+                        <ion-button mode="md" (click)="onViewMore(i)" fill="outline" color="secondary" size="medium">View More
                         </ion-button>
                       </div>
                       <div>
-                       <ion-button mode="md" (click)="viewRequirements()">Apply Now
+                       <ion-button mode="md" (click)="selectProduct(i)">Apply Now
                         <!-- <ion-icon slot="end" name="chevron-forward-outline"  color="secondary"></ion-icon> -->
                        </ion-button>
                       </div>
-
-
                   </div>
                 </div>
 
@@ -85,7 +102,6 @@
 
     </ul>
     }
-
 
     <!-- <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-dark uk-margin-large-bottom"></ul> -->
 

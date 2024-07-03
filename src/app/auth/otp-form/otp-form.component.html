@@ -3,8 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/auth" (click)="back()"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">OTP Verification</ion-title>
   </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+
   <div class="progress-bar">
     <div class="step active"></div>
     <div class="step active"></div>
@@ -12,17 +17,21 @@
     <div class="step"></div>
     <div class="step"></div>
   </div>
-</ion-header>
+  <div class="container mx-auto p-4 w-full">
+    <div class="font-semibold">
+      <h4 class="font-medium">A code has been sent this phone number <span class="text-[#005B82]">{{auth.phoneNumber}}</span> and email<span class="text-[#005B82]"> {{auth.emailAddress}}</span>
+      </h4>
+    </div>
+  </div>
 
-<ion-content>
   <div>
-    <div style="padding-left:10px; padding-top:30px;" >
+    <!-- <div style="padding-left:10px; padding-top:30px;" >
       <h4 class="browse" style="width: 80%;">Let's
           <span style="color: #005B82;"><strong> verify </strong>
           </span>the <span style="color: #005B82;"><strong>OTP</strong>
           </span> sent to your phone number <span style="color: #005B82;">0700000000</span> and email <span style="color: #005B82;">test&#64;gmail.com</span>
       </h4>
-    </div>
+    </div> -->
 
     <form  style="padding: 10px; margin-top: 30%;"
      novalidate
@@ -30,7 +39,8 @@
     <div style="width: 100%;">
         <!-- Email Address -->
         <div>
-          <div style="display: flex; justify-content: center;">
+          <div style="display: flex; justify-content: center; flex-direction: column;" class="items-center">
+            <ion-label>Enter the OTP here<span class="uk-text-danger">*</span></ion-label>
             <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config" class="ng-otp-input"></ng-otp-input>
           </div>
             <!-- <div class="validation-error uk-text-danger">
@@ -49,8 +59,9 @@
 
     <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
       <ion-button
+      type="submit"
       (click)="verifyOtp()" size="small" mode="md"
-       [disabled]="smsCode.length < 0"
+       [disabled]="smsCode.length < 6"
        routerLink="/onboarding/auth"
       expand="block"
       fill="solid"

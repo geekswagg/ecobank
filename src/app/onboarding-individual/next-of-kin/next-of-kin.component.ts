@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/_models/types';
+import { ApiService } from 'src/app/_services/api.service';
 import { LoadingService } from 'src/app/_services/loading.service';
 import { OtpFormComponent } from 'src/app/auth/otp-form/otp-form.component';
 
@@ -28,33 +30,13 @@ export class NextOfKinComponent  implements OnInit {
   selectedFruitsText: any = '0 Items';
   selectedFruits: string[] = [];
 
-  fruits: Item[] = [
-    { text: 'Apple', value: 'apple' },
-    { text: 'Apricot', value: 'apricot' },
-    { text: 'Banana', value: 'banana' },
-    { text: 'Blackberry', value: 'blackberry' },
-    { text: 'Blueberry', value: 'blueberry' },
-    { text: 'Cherry', value: 'cherry' },
-    { text: 'Cranberry', value: 'cranberry' },
-    { text: 'Grape', value: 'grape' },
-    { text: 'Grapefruit', value: 'grapefruit' },
-    { text: 'Guava', value: 'guava' },
-    { text: 'Jackfruit', value: 'jackfruit' },
-    { text: 'Lime', value: 'lime' },
-    { text: 'Mango', value: 'mango' },
-    { text: 'Nectarine', value: 'nectarine' },
-    { text: 'Orange', value: 'orange' },
-    { text: 'Papaya', value: 'papaya' },
-    { text: 'Passionfruit', value: 'passionfruit' },
-    { text: 'Peach', value: 'peach' },
-    { text: 'Pear', value: 'pear' },
-    { text: 'Plantain', value: 'plantain' },
-    { text: 'Plum', value: 'plum' },
-    { text: 'Pineapple', value: 'pineapple' },
-    { text: 'Pomegranate', value: 'pomegranate' },
-    { text: 'Raspberry', value: 'raspberry' },
-    { text: 'Strawberry', value: 'strawberry' },
-  ];
+  relationships = [];
+  preferencePayload: any = {};
+
+  rShipSample = [{
+    relationCode:"12",
+    relationDescription:"Father"
+  }];
 
   get f() {
     return this.authForm.controls;
@@ -65,22 +47,20 @@ export class NextOfKinComponent  implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     public loader: LoadingService,
-    private  modalCtrl: ModalController
+    private  modalCtrl: ModalController,
+    private apiService: ApiService,
+    private toastr: ToastrService
   ) {
     this.authForm = this.fb.group({
       phone: ['', Validators.required],
-      branch: ['', Validators.required],
+      relationship: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      idNumber: ["", [Validators.required]],
-      emailAddress: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-        ],
-      ],
+
     });
+    this.preferencePayload = JSON.parse(sessionStorage.getItem('preference') as string);
+    this.relationships = JSON.parse(localStorage.getItem("relationships") as string) ?? this.rShipSample;
+
   }
 
   ngOnInit() {
@@ -118,8 +98,40 @@ export class NextOfKinComponent  implements OnInit {
 
   }
 
-  toOccupation(){
-    this.router.navigate(['/onboarding/occupation']);
+  relationshipChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }){
+
+  }
+
+  savePreference(){
+    this.loader.loading = true;
+    const {phone, relationship, firstName, lastName,emailAddress} = this.authForm.value;
+    const payload = {
+      ...this.preferencePayload,
+      nameOfNextofKin: firstName+' '+lastName,
+      relationshipWithNextOfKin:relationship.relationCode,
+      phoneNumberOfnextOfKin: phone.e164Number.replace("+", ""),
+    }
+
+    this.apiService.savePreferences(payload).subscribe({
+      next: (res) => {
+        if (res.successful) {
+          this.loader.loading = false;
+          this.router.navigate(['/onboarding/occupation']);
+          localStorage.removeItem('invited');
+        } else {
+          this.loader.loading = false;
+          this.toastr.error(res.message);
+        }
+      },
+      error: (err) => {
+        this.loader.loading = false;
+        this.toastr.error("Error saving preferences details try again");
+      }
+    }
+    ); // end api call
   }
 
 }

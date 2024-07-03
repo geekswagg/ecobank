@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { OnboardingIndividualRoutingModule } from './onboarding-individual-routing.module';
 import { IonicModule } from '@ionic/angular';
@@ -39,6 +39,8 @@ import { SidesScanComponent } from './id-scan/sides-scan/sides-scan.component';
         OnboardingIndividualRoutingModule,
         IonicModule,
         FormsModule,
+
+        NgOptimizedImage,
         ReactiveFormsModule,
         HttpClientModule,
         NgxIntlTelInputModule,

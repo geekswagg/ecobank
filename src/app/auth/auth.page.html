@@ -3,8 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/requirements"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center title" >Contact Information</ion-title>
+    <ion-title size="large" class="ion-text-center title" ></ion-title>
   </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-body">
+
   <div class="progress-bar">
     <div class="step active"></div>
     <div class="step active"></div>
@@ -12,14 +16,18 @@
     <div class="step"></div>
     <div class="step"></div>
   </div>
-</ion-header>
-
-<ion-content class="content-body">
+  <div class="container mx-auto p-4 w-full">
+    <div class="font-semibold">
+      <h3 class="font-medium">Great, <br>
+        Now let's verify your <span class="text-[#005B82]">phone number</span> and <span class="text-[#005B82]">email</span> to continue
+      </h3>
+    </div>
+  </div>
 
 <div class="form-item">
   <form   [formGroup]="authForm" style="">
     <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important;">
-      <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
+      <ion-label position="stacked" class="labels" style="font-size: .86em !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
       <ngx-intl-tel-input
       [cssClass]="'custom'"
       formControlName="phone"
@@ -45,11 +53,11 @@
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Email Address <span class="uk-text-danger">*</span>
           </ion-label>
-          <ion-input name="email" maxlength="35" type="email" formControlName="emailAddress"  label="">
+          <ion-input name="email" maxlength="35" type="email" [ngClass]="{'invalid-border': f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched}" formControlName="emailAddress"  label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty">
+          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched">
               <ion-icon name="information-circle-outline"></ion-icon>Email must be a valid email
               address
           </small>
@@ -75,55 +83,30 @@
      </ngx-recaptcha2>
     </ion-item>
  </div>
-
-  <!-- <div>
-     <ion-item lines="none">
-      <ion-checkbox labelPlacement="end" justify="start" style="max-width: 500px !important;">Accept
-        <a href="#" (click)="$event.stopPropagation()">Terms and Conditions</a> and the
-        <a href="#" (click)="$event.stopPropagation()">Privacy Policy</a>
-      </ion-checkbox>
-    </ion-item>
-  </div> -->
-
-  <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
+  <!-- <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
       <ion-checkbox slot="start" style="--background: transparent; margin-right: 0;" mode="md"></ion-checkbox>
       <ion-label style="max-width: 500px; margin-left: 10px;">Accept
         <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Terms and Conditions</a> and the
         <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Privacy Policy</a>. Please review and accept to proceed.
       </ion-label>
-  </div>
-
-
-
-  <!-- <div style="padding-top: 5px;">
-    <ion-item lines="none">
-     <ngx-recaptcha2 #captchaElem
-     [siteKey]="siteKey"
-     (reset)="handleReset()"
-     (expire)="handleExpire()"
-     (load)="handleLoad()"
-     (success)="handleSuccess($event)"
-     [useGlobalDomain]="false"
-     class="mb-2"
-     formControlName="recaptcha">
-     </ngx-recaptcha2>
-    </ion-item>
- </div> -->
-  <!-- <div style="margin-top: 30px;">
-    <ion-button size="small" [disabled]="loader.loading || authForm.invalid" mode="ios" type="submit"
-    expand="block"
-    fill="solid"
-    shape="round">
-    {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="bubbles" color="light"></ion-spinner>
-  </ion-button>
   </div> -->
 
-  <div class="p-btn uk-margin-xlarge-top">
-    <ion-button mode="md" expand="block" size="medium" (click)="verifyUser()">
+  <div style="margin-top: 30px;">
+    <ion-button size="medium" [disabled]="loader.loading || authForm.invalid" mode="md" type="submit"
+    (click)="login()"
+    expand="block"
+    fill="solid"
+  >
+    {{ loader.loading ? '' : 'Continue'}}
+    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+  </ion-button>
+  </div>
+
+  <!-- <div class="p-btn uk-margin-xlarge-top">
+    <ion-button mode="md" expand="block" size="medium" [disabled]="this.authForm.invalid" (click)="login()">
       Proceed
     </ion-button>
-  </div>
+  </div> -->
 
 
 

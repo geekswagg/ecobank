@@ -1,0 +1,1 @@
+export const stripOffHtmlTags = (htmlString = '<p></p>') => htmlString.replace(/(<([^>]+)>)/gi, '');

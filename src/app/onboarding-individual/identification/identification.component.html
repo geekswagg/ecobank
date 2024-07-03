@@ -3,7 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/auth" (click)="back()"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">Document Upload</ion-title>
   </ion-toolbar>
   <div class="progress-bar">
     <div class="step active"></div>
@@ -15,17 +14,29 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <div style="padding-left:10px; padding-top:30px;" >
-      <h4 class="browse" style="width: 80%;">Choose the <strong style="color: #005B82 !important; "> document </strong> you are using to create account
+  <div class="p-4">
+    <div class="" >
+      <h4 class="browse" style="width: 80%;">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
       </h4>
     </div>
 
-    <div class="uk-margin-large-left" style="font-family: Roboto-regular !important; font-size: 14px;">
-      <ion-radio-group (ionChange)="selectDocument($event)">
+    <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+      <!-- <ion-radio-group (ionChange)="selectDocument($event)">
         <ion-radio mode="md" name="radio1" value="ID" labelPlacement="end" color="secondary">National ID</ion-radio> <br>
         <ion-radio mode="md"  style="padding-top: 10px;" name="radio1" color="secondary" value="PASSPORT" labelPlacement="end">Passport</ion-radio>
-      </ion-radio-group> <br>
+      </ion-radio-group> <br> -->
+
+      <ion-radio-group (ionChange)="selectDocument($event)">
+        <ion-item class="border p-2 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+          <ion-label class="" style="font-weight: 500;">National ID</ion-label>
+          <ion-radio labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
+        </ion-item>
+        <ion-item class="border p-2" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+          <ion-label class="" style="font-weight: 500;">Passport</ion-label>
+          <ion-radio labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
     </div>
 
     <div class="uk-margin-large-top browse" style="padding-left:10px; font-family: Roboto-Regular !important; font-size: 14px;">
@@ -33,26 +44,30 @@
       <div>
         <ul>
           <li>Clear and easy to read</li>
-          <li>Valid for at lest 3 more months</li>
+          <li>Valid for atleast 3 or more months</li>
           <li>NOT a photo of a screen</li>
         </ul>
       </div>
      </div>
 
-     <div uk-grid class="uk-margin-left">
-      <div class="img-orient">
-        <img src="assets/images/id-tick.png" height="63" width="92" alt="">
-        <span>
-          <img src="assets/images/id-half.png" height="63" width="92" alt="">
+     <div>
+      <div class="flex mx-auto justfy-center gap-4"  style="display: flex; justify-content: center; flex-direction: row;" >
+        <span class="border">
+          <img ngSrc="assets/images/id-tick.png" height="63" width="92" alt="" priority>
         </span>
-        <span>
-          <img src="assets/images/id-blur.png" height="63" width="92" alt="">
+
+        <span class="border">
+          <img ngSrc="assets/images/id-half.png" height="63" width="92" alt="" priority>
+        </span>
+        <span class="border">
+          <img ngSrc="assets/images/id-blur.png" height="63" width="92" alt="" priority>
         </span>
       </div>
     </div> <br>
 
-    <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
+    <div class="uk-margin-medium-bottom uk-margin-large-top">
       <ion-button
+      type="submit"
       (click)="toIdScan()" size="small" mode="md"
        [disabled]="seletedDoc === ''"
       expand="block"

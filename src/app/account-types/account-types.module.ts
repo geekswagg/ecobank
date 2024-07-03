@@ -15,6 +15,7 @@ import { AccountTypesPage } from './account-types.page';
     IonicModule,
     AccountTypesPageRoutingModule
   ],
+  providers:[],
   declarations: [AccountTypesPage]
 })
 export class AccountTypesPageModule {}

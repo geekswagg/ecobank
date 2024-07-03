@@ -1,3 +1,10 @@
+
+ion-toolbar{
+  --background: #fff !important;
+}
+ion-content{
+  --background: #fff !important;
+}
 .content-body{
   width: 100%;
   display: flex;
@@ -5,12 +12,6 @@
   overflow: auto;
   }
 
-  .form-item{
-    // padding-left: 10%;
-    // padding-right: 10%;
-    justify-content: center;
-    margin-top: 30px;
-  }
 
   .p-btn{
     position: relative;
@@ -35,8 +36,6 @@
 
   .container {
     display: flex;
-    margin: 15px 30px;
-    // max-width: 500px;
   }
 
   label {

@@ -13,22 +13,28 @@ export interface Auth {
   currency?: any;
   accountName?: string;
   existingYN?: string;
+  key?: string;
 }
 
 export interface Identification {
   documentType?: string;
   idType?: string;
-  frontIdBase64?: string;
-  frontIdCaptured?: any;
-  backIdCaptured?: any;
   passportCaptured?: any;
   signCaptured?: any;
-  frontIdFile?: File;
-  frontIdOcrText?: string;
+  backId: {
+    backIdBase64?: string;
+    backIdFile?: File;
+    backIdCaptured?: any;
+  };
+  frontId: {
+    frontIdBase64?: string;
+    frontIdCaptured?: any;
+    frontIdFile?: File;
+    frontIdOcrText?: string;
+  };
   ocrKey?: string;
   frontSaved?: boolean;
-  backIdBase64?: string;
-  backIdFile?: File;
+
   backSaved?: boolean;
   passportBase64?: string;
   passportFile?: File;
@@ -99,4 +105,22 @@ export interface Child {
 export interface JointPrincipal {
   memberType?: String;
   customerNumber?: String;
+}
+
+export interface AccountProduct{
+  accountType: string;
+  benefits: string;
+  bundleCode?: string;
+  bundleId: string;
+  features?: string;
+  id: string;
+  initialBalance?: string;
+  monthlyFee?: string;
+  multipleAccountsAllowed?: string;
+  name: string;
+  openningBalance: string;
+  policyDecription: string;
+  policyImageName?: string;
+  policyTitle: string;
+  targetMarket?: string;
 }

@@ -94,26 +94,29 @@ export class CameraComponent  implements OnInit {
       this.base64File = webcamImage.imageAsDataUrl.split('base64,')[1];
       switch (this.side) {
         case 'id_front':
-          this.dataStore.identification.frontIdBase64 = this.base64File;
-          this.dataStore.identification.frontIdCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.frontIdFile = await this.dataUrlToFile(
-            this.dataStore.identification.frontIdBase64
+          this.dataStore.identification.frontId.frontIdBase64 = await this.base64File;
+          this.dataStore.identification.frontId.frontIdCaptured = await webcamImage.imageAsDataUrl;
+          this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFile(
+            this.dataStore.identification.frontId.frontIdBase64
           );
+
           this.modalCtrl.dismiss({
             cancelled: false,
             data: this.dataStore.identification,
           });
+          console.log("FRONT",this.dataStore.identification)
           break;
         case 'id_back':
-          this.dataStore.identification.backIdBase64 = this.base64File
-          this.dataStore.identification.backIdCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.backIdFile = await this.dataUrlToFile(
-            this.dataStore.identification.backIdBase64
+          this.dataStore.identification.backId.backIdBase64 = this.base64File
+          this.dataStore.identification.backId.backIdCaptured = webcamImage.imageAsDataUrl;
+          this.dataStore.identification.backId.backIdFile = await this.dataUrlToFile(
+            this.dataStore.identification.backId.backIdBase64
           );
           this.modalCtrl.dismiss({
             cancelled: false,
-            data: this.dataStore.identification,
+            data: this.dataStore.identification
           });
+          console.log("BACK",this.dataStore.identification)
           break;
 
         case 'passport':

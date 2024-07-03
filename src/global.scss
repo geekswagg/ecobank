@@ -9,6 +9,14 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  ul, ol {
+    list-style: revert;
+  }
+}
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -108,11 +116,11 @@ body {
 }
 
 .header-color{
-  --background: #f3f3f4 !important;
+  --background: #f3f3f4;
 }
 
 ion-content{
-  --background: #f3f3f4 !important;
+  --background: #f3f3f4;
 }
 .progress-bar {
   display: flex;
@@ -284,12 +292,11 @@ ion-label {
   color: #000 !important;
   font-size: 1em !important;
   font-size: 100% !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   padding-bottom: 5px !important;
 }
 
 ion-button[type=submit] {
-  color: #FCFCFC;
   font-size: 1rem;
   font-weight: 700;
   line-height: 150%;

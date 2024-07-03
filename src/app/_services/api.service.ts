@@ -3,41 +3,46 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
+import { MainAccountDetails, ResAccountProducts } from '../_models/business-model';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  sbgUrl = environment.sbgsUrl;
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
+  /** fetch MainAccountDetails *GET*  request*/
+  getMainAccountDetails(): Observable<MainAccountDetails> {
+    return this.http.get<MainAccountDetails>(environment.businessUrlV1 + 'fetchParentAccounts');
+  }
+
   // Get Account Types
   getAccountTypes(): Observable<any> {
-    return this.http.get(this.sbgUrl + 'accountType');
+    return this.http.get(this.baseUrl + 'accountType');
+  }
+
+   // Get account type bundle product
+   getAccountTypeBundleProduct(tagId: string): Observable<ResAccountProducts> {
+    return this.http.get<any>(environment.businessUrlV2 + 'bundleProduct?accountTag=' + tagId);
   }
 
 
   // Auth service
   login(payload: any): Observable<any> {
-    const header1= {'Content-Type':'application/json',};
-    return this.http.post(this.baseUrl + 'auth', payload,{
-      headers: header1,
-      observe: 'response',
-      responseType: 'json'
-  });
+    return this.http.post(this.baseUrl + 'auth', payload);
   }
 
   // Verify OTP
   verifyOTP(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'otp', payload);
+    return this.http.post(this.baseUrl + 'otp', payload);
   }
 
   // Verify OTP
   verifyID(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'auth', payload);
+    return this.http.post(this.baseUrl + 'auth', payload);
   }
 
 
@@ -63,7 +68,7 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.sbgUrl + 'image', formData);
+    return this.http.post(this.baseUrl + 'image', formData);
   }
 
 
@@ -72,7 +77,7 @@ export class ApiService {
 
   // Save Preferences
   savePreferences(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'preferences/sbgs-preference', payload);
+    return this.http.post(this.baseUrl + 'preferences', payload);
   }
 
   // Get branches
@@ -117,12 +122,7 @@ export class ApiService {
 
   // Save Occupation
   saveOccupation(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'occupation/sbgs-occupation', payload);
-  }
-
-  // Save Existing to bank Preferences
-  saveExistingToBankPreference(payload: any): Observable<any> {
-    return this.http.post(this.sbgUrl + 'preferences/existing-tobank-preference', payload);
+    return this.http.post(this.baseUrl + 'occupation', payload);
   }
 
 
@@ -135,12 +135,12 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.sbgUrl + 'selfie', formData);
+    return this.http.post(this.baseUrl + 'selfie', formData);
   }
 
   // Create Account
   createAccount(): Observable<any> {
-    return this.http.post(this.sbgUrl + 'confirmation', {});
+    return this.http.post(this.baseUrl + 'confirmation', {});
   }
 
   // Create Joint Account
@@ -173,7 +173,7 @@ export class ApiService {
 
   // Get Summary of user account
   getSummary(): Observable<any> {
-    return this.http.get(this.sbgUrl + 'selfie');
+    return this.http.get(this.baseUrl + 'selfie');
   }
 
   // Notification account details
@@ -182,10 +182,27 @@ export class ApiService {
   }
 
 
+  // Save selfie for business of foreign directors
+  saveImageForeignBIZ(payload: any): Observable<any> {
 
+  const formData = new FormData();
+  for (const key in payload) {
+    if (payload) {
+      formData.append(key, payload[key]);
+    }
+  }
+  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData);
+}
 
-
-
-
+  // Save Images  TODO: HACK FOR BIZ
+  saveImageBIZ(payload: any): Observable<any> {
+    const formData = new FormData();
+    for (const key in payload) {
+      if (payload) {
+        formData.append(key, payload[key]);
+      }
+    }
+    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData);
+  }
 
 }
