@@ -102,10 +102,13 @@ export class AccountProductsPage implements OnInit {
       });
     }
 
-  async onViewMore(){
+  async onViewMore(i: number){
+    const product = await this.products[i];
     const modal = await this.modalCtrl.create({
       component: ViewMoreComponent,
-      componentProps:{},
+      componentProps:{
+        data: product
+      },
     });
     await modal.present();
   }

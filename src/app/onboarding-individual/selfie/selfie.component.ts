@@ -46,6 +46,7 @@ export class SelfieComponent  implements OnInit {
     modal.onWillDismiss().then(async (data: any) => {
       if (data.data.cancelled) {
       } else {
+        this.selfie.selfieFile = data.data.data.selfieFile;
         this.uploadToRecognition(data.data.data.selfieFile);
       }
     });

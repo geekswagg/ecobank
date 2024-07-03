@@ -96,7 +96,7 @@
             },
             "development": {
               "buildTarget": "app:build:development",
-              "port": 3000
+              "port": 4200
             },
             "ci": {
               "progress": false

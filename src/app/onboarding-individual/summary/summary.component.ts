@@ -63,7 +63,7 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
   }
 
   pureSave() {
-    if (this.auth.customerCategory === "Invited") {
+    if (this.auth?.customerCategory === "Invited") {
       this.loader.loading = true;
 
       try {
@@ -72,7 +72,7 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
             this.loader.loading = false;
 
             if (result.successful) {
-              this.router.navigate(["/onboarding/complete"], {
+              this.router.navigate(["/onboarding/success"], {
                 queryParams: { success: true },
               });
             } else {

@@ -94,8 +94,8 @@ export class CameraComponent  implements OnInit {
       this.base64File = webcamImage.imageAsDataUrl.split('base64,')[1];
       switch (this.side) {
         case 'id_front':
-          this.dataStore.identification.frontId.frontIdBase64 = this.base64File;
-          this.dataStore.identification.frontId.frontIdCaptured = webcamImage.imageAsDataUrl;
+          this.dataStore.identification.frontId.frontIdBase64 = await this.base64File;
+          this.dataStore.identification.frontId.frontIdCaptured = await webcamImage.imageAsDataUrl;
           this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFile(
             this.dataStore.identification.frontId.frontIdBase64
           );
@@ -104,11 +104,7 @@ export class CameraComponent  implements OnInit {
             cancelled: false,
             data: this.dataStore.identification,
           });
-
-          this.dataStore.identification = this.dataStore.identification;
-
-
-          setTimeout(()=>{localStorage.setItem('FRONTID',JSON.stringify(this.dataStore.identification));},500)
+          console.log("FRONT",this.dataStore.identification)
           break;
         case 'id_back':
           this.dataStore.identification.backId.backIdBase64 = this.base64File
@@ -120,7 +116,7 @@ export class CameraComponent  implements OnInit {
             cancelled: false,
             data: this.dataStore.identification
           });
-          this.dataStore.identification = {...this.dataStore.identification};
+          console.log("BACK",this.dataStore.identification)
           break;
 
         case 'passport':

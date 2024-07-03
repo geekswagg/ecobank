@@ -14,17 +14,29 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <div style="padding-left:10px; padding-top:30px;" >
+  <div class="p-4">
+    <div class="" >
       <h4 class="browse" style="width: 80%;">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
       </h4>
     </div>
 
-    <div class="uk-margin-large-left" style="font-family: Roboto-regular !important; font-size: 14px;">
-      <ion-radio-group (ionChange)="selectDocument($event)">
+    <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+      <!-- <ion-radio-group (ionChange)="selectDocument($event)">
         <ion-radio mode="md" name="radio1" value="ID" labelPlacement="end" color="secondary">National ID</ion-radio> <br>
         <ion-radio mode="md"  style="padding-top: 10px;" name="radio1" color="secondary" value="PASSPORT" labelPlacement="end">Passport</ion-radio>
-      </ion-radio-group> <br>
+      </ion-radio-group> <br> -->
+
+      <ion-radio-group (ionChange)="selectDocument($event)">
+        <ion-item class="border p-2 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+          <ion-label class="" style="font-weight: 500;">National ID</ion-label>
+          <ion-radio labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
+        </ion-item>
+        <ion-item class="border p-2" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+          <ion-label class="" style="font-weight: 500;">Passport</ion-label>
+          <ion-radio labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
     </div>
 
     <div class="uk-margin-large-top browse" style="padding-left:10px; font-family: Roboto-Regular !important; font-size: 14px;">

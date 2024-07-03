@@ -83,22 +83,6 @@ export class IdScanComponent  implements OnInit {
       if (data.data.cancelled) {
       } else {
         this.identification = await data.data.data;
-        if(this.side === 'id_front'){
-          this.loader.frontCaptured = true;
-          localStorage.setItem("FRONT",this.identification.frontId?.frontIdCaptured);
-          setTimeout(()=>{
-            this.frontImage = localStorage.getItem("FRONT")
-          },200)
-        }
-        if(this.side === 'id_back'){
-          this.loader.backCaptured = true;
-          this.loader.frontCaptured = true;
-          localStorage.setItem("BACK",this.identification.backId?.backIdCaptured);
-          setTimeout(()=>{
-            this.backImage = localStorage.getItem("BACK");
-          },200)
-        }
-
         if(this.side === 'signature'){
           const formData =  new FormData();
           formData.append("file",this.identification.signatureFile);
@@ -121,145 +105,10 @@ export class IdScanComponent  implements OnInit {
           this.scanPassport();
         }
 
-        await this.scanImages();
-
       }
     });
     return await modal.present();
   }
-
-
-  scanImages() {
-    switch (this.side) {
-      case "id_front":
-        this.loader.scanningFront = true;
-
-        try {
-          this.apiService
-            .scanFrontID({
-              national_id: this.identification?.frontId.frontIdBase64,
-            })
-            .subscribe(
-              (res) => {
-                if (res.success) {
-                  this.loader.scanningFront = false;
-                  this.loader.scannedFront = true;
-                  this.identification.frontId.frontIdOcrText = res.data;
-                  this.router.navigate(["/onboarding/new/id-scan"], {
-                    replaceUrl: true,
-                  });
-                } else {
-                  this.loader.scanningFront = false;
-                  this.loader.scannedFront = false;
-                  this.scanningSolutions();
-                }
-              },
-              (error) => {
-                this.loader.scanningFront = false;
-                this.loader.scannedFront = false;
-                this.scanningSolutions();
-              }
-            ); // end api call
-        } catch (error) {
-          this.loader.scanningFront = false;
-          this.loader.scannedFront = false;
-          this.scanningSolutions();
-        }
-
-        break;
-      case "id_back":
-        if (this.loader.scannedFront) {
-          this.loader.scanningBack = true;
-          try {
-
-            this.apiService
-              .scanBackID({
-                national_id: this.identification.backId?.backIdBase64,
-                document_type: "ID",
-              })
-              .subscribe(
-                (res) => {
-                  if (res.success) {
-                    this.loader.scanningBack = false;
-                    const id = res.id.split(" ").join("");
-                    // this.identification.nationalId = parseInt(id).toString(); //TODO looks like its truncating leading zero
-                    this.identification.nationalId = id;
-                    this.identification.ocrKey = res.key;
-                    // Verify ID
-                    this.verifyID(this.identification.nationalId);
-
-                  } else {
-                    this.loader.scanningBack = false;
-                    this.scanningSolutions();
-                  }
-                },
-                (error) => {
-                  this.loader.scanningBack = false;
-                  this.scanningSolutions();
-                }
-              ); // end api call
-          } catch (error) {
-            this.loader.scanningBack = false;
-            this.scanningSolutions();
-          }
-        } else {
-          this.toastr.error(
-            "Please scan Front Of ID First",
-            "Scanning Failed!"
-          );
-        }
-
-        break;
-      default:
-        break;
-    }
-  }
-
-
-
-  // Verify that the ID scanned is for the user onboarding
-  async verifyID(nationalId: any) {
-    const alert = await this.alertCtrl.create({
-      backdropDismiss: false,
-      mode:'md',
-      cssClass: "my-custom-class",
-      header: "CONFIRM",
-      message: `<h5>Please confirm that this is your National ID Number? \n
-                Note: This number will be used to automatically fetch your KRA PIN
-                </h5> \n \n
-                <h1>${nationalId}<h1>
-                `,
-      htmlAttributes: {},
-      buttons: [
-        {
-          text: "NO",
-          role: "cancel",
-
-          cssClass: "secondary",
-          handler: (blah) => {
-            this.loader.scanningBack = false;
-          },
-        },
-        {
-          text: "YES",
-          cssClass: "primary",
-          handler: () => {
-            // Save the front id
-            this.saveBackImage({
-              file: this.identification.backId?.backIdFile,
-              idType: "NATIONAL_ID",
-              imageType: "ID_BACK",
-              match: "",
-              nationalId: this.identification.nationalId,
-              key: this.identification.ocrKey,
-            });
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-
 
 
   async scanningSolutions() {
@@ -292,111 +141,38 @@ export class IdScanComponent  implements OnInit {
     //Verify signature image before saving it
     verifySignature(payload: any){
       this.loader.scanningSignature = true;
+      this.saveImage("signature", {
+        file: this.identification.signatureFile,
+        idType: "",
+        imageType: "SIGNATURE",
+        match: "",
+        nationalId: "",
+      });
 
-      this.httpClient.post(signatureUrl, payload).subscribe({
-        next: (resp: any) => {
-          this.loader.scanningSignature = false;
-          if(resp.is_signed){
-            this.saveImage("signature", {
-              file: this.identification.signatureFile,
-              idType: "",
-              imageType: "SIGNATURE",
-              match: "",
-              nationalId: "",
-            });
-          }
-          else{
-            this.toastr.error("Ensure your signature is signed on a plain white paper");
-          }
-        },
-        error: (err: any) => {
-          this.loader.scanningSignature = false;
-          this.toastr.error("An error while verifying your signature. Please try again");
-        }
-      })
+      // this.httpClient.post(signatureUrl, payload).subscribe({
+      //   next: (resp: any) => {
+      //     this.loader.scanningSignature = false;
+      //     if(resp.is_signed){
+      //       this.saveImage("signature", {
+      //         file: this.identification.signatureFile,
+      //         idType: "",
+      //         imageType: "SIGNATURE",
+      //         match: "",
+      //         nationalId: "",
+      //       });
+      //     }
+      //     else{
+      //       this.toastr.error("Ensure your signature is signed on a plain white paper");
+      //     }
+      //   },
+      //   error: (err: any) => {
+      //     this.loader.scanningSignature = false;
+      //     this.toastr.error("An error while verifying your signature. Please try again");
+      //   }
+      // })
     }
 
 
-  // Save image
-  async saveFrontImage(payload: any) {
-    this.loader.savingFront = true;
-    this.loader.scannedFront = false;
-
-    try {
-      this.apiService.saveImage(payload).subscribe({
-        next: (res) => {
-          if (res.successful) {
-            this.loader.savingFront = false;
-            this.loader.savedFront = true;
-            this.dataStore.identification.frontSaved = true;
-            this.router.navigate(["/onboarding/new/identification"], {
-              replaceUrl: true,
-            });
-          } else {
-            this.toastr.error(res.message);
-            this.loader.savingFront = false;
-            this.loader.savedFront = false;
-
-            this.loader.savingBack = false;
-            this.loader.savedBack = false;
-          }
-        },
-        error:(err)=>{
-          this.toastr.error("Error saving image try again");
-          this.loader.savingFront = false;
-          this.loader.savedFront = false;
-
-          this.loader.savingBack = false;
-          this.loader.savedBack = false;
-        }
-      }
-
-      ); // end api call
-    } catch (error) {
-      this.toastr.error("Error saving image try again");
-      this.loader.savingFront = false;
-      this.loader.savedFront = false;
-
-      this.loader.savingBack = false;
-      this.loader.savedBack = false;
-    }
-  }
-
-  async saveBackImage(payload: any) {
-    this.loader.savingBack = true;
-
-    try {
-      this.apiService.saveImage(payload).subscribe(
-        (res) => {
-          if (res.successful) {
-            this.loader.savingBack = false;
-            this.loader.savedBack = true;
-            this.dataStore.identification.backSaved = true;
-            this.saveFrontImage({
-              file: this.identification.frontId?.frontIdFile,
-              idType: "NATIONAL_ID",
-              imageType: "ID_FRONT",
-              match: this.identification.frontId?.frontIdOcrText,
-              nationalId: "",
-            });
-          } else {
-            this.loader.savingBack = false;
-            this.loader.savedBack = false;
-            this.toastr.error(res.message);
-          }
-        },
-        (error) => {
-          this.loader.savingBack = false;
-          this.loader.savedBack = false;
-          this.toastr.error("Unable to save your document again");
-        }
-      ); // end api call
-    } catch (error) {
-      this.loader.savingBack = false;
-      this.loader.savedBack = false;
-      this.toastr.error("Unable to save your document again");
-    }
-  }
 
   toPreference(){
     this.router.navigate(['/onboarding/preferences']);
@@ -500,6 +276,7 @@ export class IdScanComponent  implements OnInit {
           break;
 
         case "signature":
+          this.loader.scanningSignature = false;
           this.loader.savingSignature = true;
           try {
             this.apiService.saveImage(payload).subscribe({
