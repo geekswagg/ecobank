@@ -28,7 +28,7 @@
        @if(( !loader.scannedFront && !loader.frontIdScanSuccess) || loader.savingFront){
           <ion-item (click)="openCamera('id_front')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
             <div class="flex flex-row center items-center gap-4">
-              <img src="assets/images/id-card.svg" height="50" width="50" alt="passport">
+              <img ngSrc="assets/images/id-card.svg" height="60" width="60" alt="passport" priority>
               <ion-label class="font-black" style="font-weight: 500;">
                 @if(loader.scanningFront && !loader.savingFront){
                   Scanning Front ID
@@ -64,7 +64,7 @@
         @if(( !loader.scannedBack && !loader.backIdScanSuccess) || loader.savingBack){
           <ion-item (click)="openCamera('id_back')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
             <div class="flex flex-row center items-center gap-4">
-              <img src="assets/images/back-id.png" height="50" width="50" alt="passport">
+              <img ngSrc="assets/images/back-id.png" height="60" width="60" alt="passport" priority>
               <ion-label class="font-black" style="font-weight: 500;">
                 @if(loader.scanningBack && !loader.savingBack){
                   Scanning Back ID

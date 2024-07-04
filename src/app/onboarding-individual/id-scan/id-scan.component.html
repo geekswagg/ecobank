@@ -23,7 +23,7 @@
       @if(selectedDocument === "ID"){
         <ion-item (click)="selectDocToScan('ID')"  class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
           <div class="flex flex-row center items-center gap-4">
-            <img src="assets/images/id_front.png" height="50" width="50" alt="passport">
+            <img ngSrc="assets/images/id-card.svg" height="60" width="60" alt="passport" priority>
             <ion-label class="font-black" style="font-weight: 500;">National ID</ion-label>
           </div>
           @if(!loader.savedBack && !loader.savedFront){
@@ -46,7 +46,7 @@
           @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
             <ion-item (click)="selectDocToScan('PASSPORT')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
               <div class="flex flex-row center items-center gap-4">
-                <img src="assets/images/open-passport.svg" height="50" width="50" alt="passport">
+                <img ngSrc="assets/images/open-passport.svg" height="60" width="60" alt="passport" priority>
                 <ion-label class="font-black" style="font-weight: 500;">
                   @if(loader.scanningPassport){
                     Scanning Passport
@@ -87,7 +87,7 @@
         @if((this.signImage.length <= 0 || loader.scanningSignature) || !loader.signatureScanSuccess){
           <ion-item (click)="selectDocToScan('SIGNATURE')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
             <div class="flex flex-row center items-center gap-4">
-              <img src="assets/images/sign.png" height="50" width="50" alt="passport">
+              <img ngSrc="assets/images/sign.png" height="60" width="60" alt="passport" priority>
               <ion-label class="font-black" style="font-weight: 500;">
                 @if(loader.scanningSignature && !loader.savingSignature){
                   Scanning Signature
@@ -116,17 +116,21 @@
         }
       </div>
     </div>
-  </div>
-  <!-- <div class="uk-margin-small-top">
-    <div class="uk-margin-medium-bottom uk-margin-small-left uk-margin-small-right uk-margin-large-top">
-      <ion-button
-      (click)="toPreference()" size="small" mode="md"
-      expand="block"
-      fill="solid"
-      >
-      {{ loader.loading ? '' : 'Continue'}}
-      <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
-    </ion-button>
+
+    <div class="uk-margin-small-top">
+      <div class="uk-margin-medium-bottom uk-margin-large-top">
+        <ion-button
+        (click)="toPreference()" size="small" mode="md"
+        expand="block"
+        fill="solid"
+        [disabled]="(!loader.savedFront || !loader.savedPassport) && !loader.savedSignature"
+        >
+        {{ loader.loading ? '' : 'Continue'}}
+        <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
+      </ion-button>
+      </div>
     </div>
-  </div> -->
+  </div>
+
+
 </ion-content>
