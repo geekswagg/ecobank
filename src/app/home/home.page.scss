@@ -94,17 +94,35 @@ ion-button{
 }
 
 .down-arrow{
-  position: absolute;
+  // position: absolute;
   display: flex;
-  left: 50%;
-  top: calc(95vh - 40px);
+  margin: 0;
+  // width: 100%;
+  // left: 50%;
+  justify-content: center;
+  align-items: center;
+  // top: calc(95vh - 40px);
 
  ion-icon{
-  font-size: 35px;
+  position: absolute;
+  font-size: 4.5rem;
   font-weight: 700;
  }
 }
 
+//The down arrow button
+.testee {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-element {
+  position: absolute;
+  font-size: 4rem;
+  top: calc(90vh - 2rem);
+}
 
 //Pulse button
 .pulseBtn {
