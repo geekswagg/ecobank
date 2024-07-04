@@ -14,11 +14,9 @@ class="mobile-content"
       <img src="assets/images/logo-white.png" alt="Logo" height="83" width="167"/>
     </div>
 
-   @if(scrollTop < 150 && !isScrolling){
-    <div class="down-arrow">
-      <div (click)="scrollToBottom()" class="arrow-icon animate__animated animate animate__bounce animate__infinite animate_slower">
-        <ion-icon slot="fixed" color="primary" name="chevron-down-circle-outline"></ion-icon>
-      </div>
+   @if(scrollTop < 200 && !isScrolling){
+    <div class="testee" (click)="scrollToBottom()">
+        <ion-icon class="centered-element animate__animated animate animate__bounce animate__infinite animate_slower" color="primary" name="chevron-down-circle-outline"></ion-icon>
     </div>
    }
 

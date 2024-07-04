@@ -7,7 +7,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="terms-content">
+<ion-content
+class="terms-content"
+[scrollEvents]="true"
+(ionScrollStart)="handleScrollStart()"
+(ionScroll)="handleScroll($any($event))"
+(ionScrollEnd)="handleScrollEnd()"
+>
+
+  @if(scrollTop < 200 && !isScrolling){
+    <div class="testee" (click)="scrollToBottom()">
+        <ion-icon class="centered-element animate__animated animate animate__bounce animate__infinite animate_slower" color="primary" name="chevron-down-circle-outline"></ion-icon>
+    </div>
+   }
   <!-- Your terms and conditions content here -->
   <div class="terms-text">
     <div>
@@ -104,7 +116,7 @@
       </p>
     </div>
 
-    <ion-item lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
+    <ion-item #scrollTarget lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
       <ion-label class="" style="font-weight: 500;">Accept Terms and Conditions</ion-label>
       <ion-checkbox [(ngModel)]="termsAccepted" labelPlacement="end" (ionChange)="checkboxChanged()"></ion-checkbox>
     </ion-item>
