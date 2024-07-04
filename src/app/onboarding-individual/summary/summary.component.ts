@@ -38,28 +38,31 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
 
   createAccount() {
     this.cleanEditLocalStorage();
-    switch (this.summary.accountCode) {
-      case "1002":
-        switch (this.summary.multipleAccountsFlag) {
-          case "Y":
-            this.jointAcc();
-            break;
-          case "N":
-            this.pureSave();
-            break;
-          default:
-            break;
-        }
-        break;
-      case "1003":
-        this.pureSave();
-        break;
-      case "6002":
-        this.childAcc();
-        break;
-      default:
-        break;
-    }
+
+    //Create Pure Save Account
+    this.pureSave();
+    // switch (this.summary.accountCode) {
+    //   case "1002":
+    //     switch (this.summary.multipleAccountsFlag) {
+    //       case "Y":
+    //         this.jointAcc();
+    //         break;
+    //       case "N":
+    //         this.pureSave();
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //     break;
+    //   case "1003":
+    //     this.pureSave();
+    //     break;
+    //   case "6002":
+    //     this.childAcc();
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   pureSave() {
