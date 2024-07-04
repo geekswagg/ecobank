@@ -55,13 +55,23 @@ export class IdScanComponent  implements OnInit {
   selectDocToScan(type: string): void {
     switch (type) {
       case "ID":
-        this.router.navigate(["/onboarding/id-sides"]);
+        if(this.loader.savedFront && this.loader.savedBack){
+          this.toastr.info("Id already uploaded");
+        }
+        else{
+          this.router.navigate(["/onboarding/id-sides"]);
+        }
         break;
       case "PASSPORT":
         this.openCamera("passport");
         break;
       case "SIGNATURE":
-        this.openCamera("signature");
+        if(this.loader.savedPassport || this.loader.savedFront){
+          this.openCamera("signature");
+        }
+        else{
+          this.toastr.info("Scan the document first");
+        }
         break;
         case "SELFIE":
           this.openCamera("selfie");
@@ -285,6 +295,13 @@ export class IdScanComponent  implements OnInit {
                     this.loader.savingSignature = false;
                     this.loader.savedSignature = true;
                     this.dataStore.identification.backSaved = true;
+
+                    this.toastr.success("Documents saved successfully","",{timeOut:1500});
+                    setTimeout(() => {
+                    //Route to Preferences
+                    this.toPreference();
+                    },1500);
+
                   } else {
                     this.loader.savingSignature = false;
                     this.toastr.error(res.message);
