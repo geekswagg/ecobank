@@ -8,48 +8,63 @@
 </ion-header>
 
 <ion-content class="terms-content">
-  <h4 class="uk-text-center uk-margin-small-top title">{{data.name}}</h4>
+  <div class="m-3">
+    <div class="rounded-xl uk-margin-small-bottom bg-[#E9EAEC]">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head font-semibold">{{data.name}}</span>
+        </div>
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <div class="clamp"><span
+            [innerHtml]="data?.policyDecription">
+          </span>
+          </div>
+        </div>
+       </div>
+      </div>
+     </div>
 
-  <div class="terms-text uk-text-center">
-    {{data?.policyDecription}}
-  </div>
+     <div class="rounded-xl uk-margin-small-bottom bg-[#E9EAEC] mb-2">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <div class="flex justify-between">
+          <span class="ion-text-center itm-head font-semibold">Features</span>
+        </div>
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <div class="clamp">
+            <span [innerHTML]="data.features"></span>
+          </div>
+        </div>
 
-  <div class="features">
-    <h5 class="uk-text-center text-[#005B82]">Features</h5>
+        <div class="pt-2">
+          <span class="itm-head font-semibold">Opening Balance</span>
+          <div class="description" [innerHtml]="data.openningBalance"></div>
+        </div>
 
-    <div class="uk-margin-small-right uk-margin-small-left">
-     <span [innerHTML]="data.features"></span>
-    </div>
-  </div>
+        <div class="pt-2">
+          <span class="itm-head font-semibold">Monthly Fees</span>
+          <div class="description" [innerHtml]="data.monthlyFee"></div>
+        </div>
 
-  <div class="features">
-    <h5 class="browse uk-text-center text-[#005B82]">Opening Balance</h5>
-    <div class="uk-text-center description" [innerHtml]="data.openningBalance"></div>
-  </div>
+        <div class="pt-2">
+          <span class="itm-head font-semibold">Target Market</span>
 
-  <div class="features">
-    <h5  class="uk-text-center text-[#005B82]">Monthly Fees</h5>
-    <div class="uk-text-center description" [innerHtml]="data.monthlyFee"></div>
+          <div class="uk-margin-small-right uk-margin-small-left">
+            <span [innerHTML]="data.targetMarket"></span>
+          </div>
+        </div>
 
-  </div>
+        <div class="pt-2">
+          <span class="itm-head font-semibold">Benefits</span>
+          <div class="uk-margin-small-right uk-margin-small-left">
+            <span [innerHTML]="data.benefits"></span>
+          </div>
+        </div>
 
-
-
-  <div class="features">
-    <h5 class="uk-text-center text-[#005B82]">Target Market</h5>
-
-    <div class="uk-margin-small-right uk-margin-small-left">
-     <span [innerHTML]="data.targetMarket"></span>
-    </div>
-  </div>
-
-  <div class="features">
-    <h5 class="uk-text-center text-[#005B82]" >Benefits</h5>
-
-    <div class="uk-margin-small-right uk-margin-small-left">
-      <span [innerHTML]="data.benefits"></span>
-    </div>
-
+       </div>
+      </div>
+     </div>
   </div>
 
   <div class="ion-margin">

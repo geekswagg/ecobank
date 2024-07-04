@@ -74,11 +74,21 @@
                 @if(i === 4){
                   <img src="assets/images/classic.png" height="1800" width="900" alt="">
                 }
+                @if(i === 5){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
+                @if(i === 6){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
               </div>
-
                 <div *ngIf="product?.policyImageName" class="image-description">
                   <h3 class="item-title">{{product?.name}}</h3>
-                  <p>{{ product?.policyDecription | slice:0:100 }}<span *ngIf="product.policyDecription.length > 100">...</span></p>
+                  <div class="clamp"><span
+                    [innerHtml]="product?.policyDecription | slice:0:100">
+                    <span *ngIf="product.policyDecription.length > 100">...</span>
+                  </span>
+
+                  </div>
                   <div *ngIf="product?.targetMarket" class="clamp"><span
                     [innerHtml]="product?.targetMarket"></span></div>
 
