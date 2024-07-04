@@ -32,7 +32,7 @@ export class AccountProductsPage implements OnInit {
   constructor(
    private modalCtrl: ModalController,
    private router: Router,
-   private loader: LoadingService,
+   public loader: LoadingService,
    private apiService: ApiService,
    private dataStore: DataStoreService
   ) {

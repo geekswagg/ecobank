@@ -16,7 +16,7 @@ export class AccountTypesPage implements OnInit {
   productDetails: ObjectMainAccountDetails[] = [];
   constructor(
     private router: Router,
-    private loader: LoadingService,
+    public loader: LoadingService,
     public apiService: ApiService,
   ) { }
 
