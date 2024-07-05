@@ -151,13 +151,16 @@ export class IdScanComponent  implements OnInit {
     //Verify signature image before saving it
     verifySignature(payload: any){
       this.loader.scanningSignature = true;
-      this.saveImage("signature", {
-        file: this.identification.signatureFile,
-        idType: "",
-        imageType: "SIGNATURE",
-        match: "",
-        nationalId: "",
-      });
+      this.loader.signatureScanSuccess = true;
+      setTimeout(() => {
+        this.saveImage("signature", {
+          file: this.identification.signatureFile,
+          idType: "",
+          imageType: "SIGNATURE",
+          match: "",
+          nationalId: "",
+        });
+      }, 2000);
 
       // this.httpClient.post(signatureUrl, payload).subscribe({
       //   next: (resp: any) => {

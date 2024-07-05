@@ -91,6 +91,12 @@
       </div>
   </div>
 
+@if(waitingToSave){
+  <div class="flex justify-center gap-2">
+    <span class="text-[#005B82] font-semibold">just wait</span><ion-spinner name="dots" color="secondary"></ion-spinner>
+  </div>
+}
+
 
   <div class="uk-margin-small-top">
     @if(loader.savingIdFailed){

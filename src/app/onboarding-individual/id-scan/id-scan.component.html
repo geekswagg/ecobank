@@ -78,13 +78,13 @@
 
       <!--SIGNATURE-->
       <div>
-        @if(this.signImage.length > 0 && !loader.scanningSignature && loader.signatureScanSuccess){
+        @if(side.length > 0 && !loader.scanningSignature && !loader.savingSignature && loader.signatureScanSuccess && !loader.savedSignature){
           <div class="uk-card-media-top">
             <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
           </div>
         }
 
-        @if((this.signImage.length <= 0 || loader.scanningSignature) || !loader.signatureScanSuccess){
+        @if((this.signImage.length <= 0 || loader.scanningSignature) || !loader.signatureScanSuccess ||loader.savingSignature || loader.savedSignature){
           <ion-item (click)="selectDocToScan('SIGNATURE')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
             <div class="flex flex-row center items-center gap-4">
               <img ngSrc="assets/images/sign.png" height="60" width="60" alt="passport" priority>
