@@ -26,6 +26,7 @@ export class SidesScanComponent  implements OnInit {
   backImage: any = '';
   signImage: any = '';
   idNumber: string = '';
+  waitingToSave: boolean = false;
 
   constructor(
     public loader: LoadingService,
@@ -194,10 +195,13 @@ export class SidesScanComponent  implements OnInit {
           handler: () => {
             this.loader.backIdScanSuccess = true;
             this.loader.scannedBack = true;
+            this.toastr.success("Back ID scanned","",{timeOut:1000});
+            this.waitingToSave = true;
 
             setTimeout(() =>{
+              this.waitingToSave = false;
               this.saveNationalId();
-            },500)
+            },2000)
 
           },
         },
