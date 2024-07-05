@@ -19,6 +19,7 @@ import { SelfieComponent } from './selfie/selfie.component';
 import { SummaryComponent } from './summary/summary.component';
 import { SuccessComponent } from './success/success.component';
 import { SidesScanComponent } from './id-scan/sides-scan/sides-scan.component';
+import { ReviewComponent } from './success/review/review.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { SidesScanComponent } from './id-scan/sides-scan/sides-scan.component';
         SelfieComponent,
         SummaryComponent,
         SuccessComponent,
+        ReviewComponent,
         SidesScanComponent
     ],
     providers: [ApiService, DataStoreService],
