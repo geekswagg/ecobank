@@ -1,0 +1,82 @@
+.reviews-section {
+  padding-block: 5rem;
+  display: grid;
+}
+
+.reviews-grid {
+  --space: clamp(1rem, 1.43vw + 0.71rem, 2rem);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: var(--space);
+  list-style: none;
+}
+
+.review-card {
+  display: grid;
+  gap: var(--space);
+  align-items: center;
+  justify-items: center;
+  /* card styles is on bottom */
+}
+
+.rating-value[rating-value="1"] { --star-rev: 1}
+.rating-value[rating-value="2"] { --star-rev: 2}
+.rating-value[rating-value="3"] { --star-rev: 3}
+.rating-value[rating-value="4"] { --star-rev: 4}
+.rating-value[rating-value="5"] { --star-rev: 5}
+
+.rating-value {
+  /* More info for the below CSS you                  */
+  /* can find on Kevin Powell Tutorial                */
+  /* https://youtu.be/oiai47goI6A?si=b2NkafopvHX3VTlb */
+
+  --_star-size: 1.4rem;
+  --_gap: var(--space);
+
+  --gap-max-size: min(var(--_gap), var(--_star-size) / 5);
+  --gap-calc: calc( (var(--star-rev, 0) - 1) * var(--gap-max-size) );
+
+  height: var(--_star-size);
+  width: calc(var(--star-rev, 0) * var(--_star-size) + var(--gap-calc));
+  background-image:
+    url(https://api.iconify.design/material-symbols:star-rounded.svg?color=%23f0ad4e);
+  background-repeat: space no-repeat;
+  background-size: var(--_star-size);
+}
+
+
+/* Second section */
+.your-review {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+
+.your-review > input {
+  display: none;
+}
+
+.your-review > label {
+  cursor: pointer;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  background-image:
+    url(https://api.iconify.design/material-symbols:star-rounded.svg?color=%23eeeeee);
+  background-repeat: space no-repeat;
+  background-position: center;
+  background-size: 76%;
+  transition: all .3s;
+}
+
+.your-review > input:checked ~ label,
+.your-review > input:checked ~ label ~ label {
+  background-image:
+    url(https://api.iconify.design/material-symbols:star-rounded.svg?color=%23f0ad4e);
+}
+
+.your-review > input:not(:checked) ~ label:hover,
+.your-review > input:not(:checked) ~ label:hover ~ label {
+  background-image:
+    url(https://api.iconify.design/material-symbols:star-rounded.svg?color=%23f0ad4e);
+}
