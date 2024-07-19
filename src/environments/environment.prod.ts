@@ -18,6 +18,7 @@ export const environment = {
   baseUrl: dev,
   businessUrlV1: dev1,
   businessUrlV2: dev2,
+  apiKey : '6a2b7f8e44d6c4efc8f3a9f5b6e9e7c2d4a8e0a1b9c3f6d7e8f5b6c7a2d1e3f4',
   firebaseConfig: {
     apiKey: "AIzaSyDhQsvEFSsVfMyfisdyin4dUraiBx1By3A",
     authDomain: "twaa-84f76.firebaseapp.com",

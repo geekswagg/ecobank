@@ -4,16 +4,13 @@
       <ion-back-button defaultHref="/auth" (click)="back()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-  </div>
 </ion-header>
 
-<ion-content>
+<ion-content class="content-body">
+  <div class="m-4 flex items-center gap-2">
+    <ion-progress-bar  [value]=".375"></ion-progress-bar>
+    <span class="text-xs">3/7</span>
+  </div>
   <div class="p-4">
     <div class="mx-auto" >
       <h4 class="browse" style="">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account

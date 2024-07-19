@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
 import { MainAccountDetails, ResAccountProducts } from '../_models/business-model';
+import { DataStoreService } from './data-store.service';
 
 
 @Injectable({
@@ -12,7 +13,9 @@ import { MainAccountDetails, ResAccountProducts } from '../_models/business-mode
 export class ApiService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private dataStore: DataStoreService,
+    private http: HttpClient) {}
 
   /** fetch MainAccountDetails *GET*  request*/
   getMainAccountDetails(): Observable<MainAccountDetails> {
@@ -51,8 +54,30 @@ export class ApiService {
   }
 
   // Scan Front ID
+  // Scan Front ID
   scanFrontID(payload: any): Observable<any> {
-    return this.http.post<any>(`${environment.devOcr}frontid`, payload);
+
+    const header1= {'API_KEY': environment.apiKey,};
+    const customExif = JSON.stringify({
+      timestamp: new Date().toISOString(),
+      customField: 'prof_nas_fcr'
+    });
+
+
+    // Convert the encryption process to an Observable
+    const encryptedExif = this.dataStore.enkript(customExif);
+    // Handle the form data and HTTP request
+
+        const formData = new FormData();
+        for (const key in payload) {
+          if (payload.hasOwnProperty(key)) {
+            formData.append('image', payload[key]);
+          }
+        }
+        formData.append('pamba', encryptedExif);
+
+        return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+
   }
 
   // Scan Back ID / Passport

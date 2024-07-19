@@ -104,7 +104,7 @@ export class CameraComponent  implements OnInit {
             cancelled: false,
             data: this.dataStore.identification,
           });
-          console.log("FRONT",this.dataStore.identification)
+
           break;
         case 'id_back':
           this.dataStore.identification.backId.backIdBase64 = this.base64File
@@ -183,6 +183,6 @@ export class CameraComponent  implements OnInit {
    async dataUrlToFile(base64: string) {
     const res: Response = await fetch(`data:image/jpeg;base64,${base64}`);
     const blob: Blob = await res.blob();
-    return new File([blob], 'filename.jpeg', { type: 'image/jpeg' });
+    return new File([blob], 'dala.jpeg', { type: 'image/jpeg' });
   }
 }
