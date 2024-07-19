@@ -1,7 +1,8 @@
 ion-content{
   --background: #f3f3f4;
 }
-.terms-text {
+
+.terms-text{
   padding: 10px;
 }
 
@@ -10,21 +11,18 @@ ion-content{
 }
 
 //The down arrow button
-.testee {
+.testee{
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.centered-element {
+.centered-element{
   position: absolute;
   font-size: 3.5rem;
-  top: calc(90vh - 2rem);
+  top: calc(90vh - 3rem);
 }
-
-
-.animate__animated.animate__bounce {
+.animate__animated.animate__bounce{
   --animate-duration: 4s;
 }
 

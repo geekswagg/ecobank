@@ -95,7 +95,7 @@ export class SidesScanComponent  implements OnInit {
         this.loader.scanningFront = true;
         this.apiService
           .scanFrontID({
-            national_id: this.identification?.frontId.frontIdBase64,
+            national_id: this.identification?.frontId.frontIdFile
           })
           .subscribe({
             next: (res) => {
