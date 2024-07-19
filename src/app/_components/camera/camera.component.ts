@@ -96,7 +96,7 @@ export class CameraComponent  implements OnInit {
         case 'id_front':
           this.dataStore.identification.frontId.frontIdBase64 = await this.base64File;
           this.dataStore.identification.frontId.frontIdCaptured = await webcamImage.imageAsDataUrl;
-          this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFile(
+          this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.frontId.frontIdBase64
           );
 
@@ -104,7 +104,6 @@ export class CameraComponent  implements OnInit {
             cancelled: false,
             data: this.dataStore.identification,
           });
-
           break;
         case 'id_back':
           this.dataStore.identification.backId.backIdBase64 = this.base64File
@@ -116,7 +115,6 @@ export class CameraComponent  implements OnInit {
             cancelled: false,
             data: this.dataStore.identification
           });
-          console.log("BACK",this.dataStore.identification)
           break;
 
         case 'passport':
@@ -185,4 +183,14 @@ export class CameraComponent  implements OnInit {
     const blob: Blob = await res.blob();
     return new File([blob], 'dala.jpeg', { type: 'image/jpeg' });
   }
+
+  async dataUrlToFileEncrypted(base64: string) {
+
+    const base64Encrypted = this.dataStore.enkript(base64);
+
+    const blob = new Blob([base64Encrypted], { type: 'text/plain' });
+    return new File([blob], 'kj', { type: 'text/plain' });
+
+  }
+
 }

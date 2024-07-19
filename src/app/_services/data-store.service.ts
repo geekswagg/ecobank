@@ -113,4 +113,17 @@ export class DataStoreService {
 
     return base64url.encode(encryptedBuffer);
   }
+
+  encryptFromPayload(payload: any): any {
+
+    const customExif = JSON.stringify({
+      timestamp: new Date().toISOString(),
+      customField: payload.choice, //prof_nas_fcr
+      file : payload.file
+    });
+
+    return this.enkript(customExif);
+
+  }
+
 }
