@@ -108,7 +108,7 @@ export class CameraComponent  implements OnInit {
         case 'id_back':
           this.dataStore.identification.backId.backIdBase64 = this.base64File
           this.dataStore.identification.backId.backIdCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.backId.backIdFile = await this.dataUrlToFile(
+          this.dataStore.identification.backId.backIdFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.backId.backIdBase64
           );
           this.modalCtrl.dismiss({
@@ -119,8 +119,9 @@ export class CameraComponent  implements OnInit {
 
         case 'passport':
           this.dataStore.identification.passportBase64 = this.base64File
+          this.dataStore.scanningPassport = true;
           this.dataStore.identification.passportCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.passportFile = await this.dataUrlToFile(
+          this.dataStore.identification.passportFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.passportBase64
           );
           this.modalCtrl.dismiss({

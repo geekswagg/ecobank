@@ -82,7 +82,45 @@ export class ApiService {
 
   // Scan Back ID / Passport
   scanBackID(payload: any): Observable<any> {
-    return this.http.post(`${environment.devOcr}ocr`, payload);
+
+    let header1;
+    let customExif;
+
+
+    if (this.dataStore.scanningPassport) { // settings for Passport
+
+      header1= {'API_KEY': environment.apiKey,};
+      customExif = JSON.stringify({
+        timestamp: new Date().toISOString(),
+        customField: 'prof_nas_pcr'
+      });
+
+
+    } else { // setting for Back ID
+
+      header1= {'API_KEY': environment.apiKey,};
+      customExif = JSON.stringify({
+        timestamp: new Date().toISOString(),
+        customField: 'prof_nas_bcr'
+      });
+
+    }
+
+
+    // Convert the encryption process to an Observable
+    const encryptedExif = this.dataStore.enkript(customExif);
+    // Handle the form data and HTTP request
+
+    const formData = new FormData();
+        for (const key in payload) {
+          if (payload.hasOwnProperty(key)) {
+            formData.append('image', payload[key]);
+          }
+        }
+        formData.append('pamba', encryptedExif);
+
+    return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+
   }
 
   // Save Images
