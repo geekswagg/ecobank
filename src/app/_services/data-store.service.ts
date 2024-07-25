@@ -44,6 +44,7 @@ export class DataStoreService {
 
 }
 
+  public scanningPassport: boolean = false;
   public selectedProducts: any = signal([]);
 
   constructor(private http: HttpClient) {}

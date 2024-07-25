@@ -198,13 +198,14 @@ export class IdScanComponent  implements OnInit {
     try {
       this.apiService
         .scanBackID({
-          national_id: this.identification.passportBase64,
+          national_id: this.identification.passportFile,
           document_type: "PASSPORT",
         })
         .subscribe({
           next: (res) => {
               if (res.success) {
                 this.loader.scanningPassport = false;
+                this.dataStore.scanningPassport = false;
                 const id = res.id.split(" ").join("");
                 this.identification.nationalId = id;
                 this.identification.ocrKey = res.key;
@@ -212,6 +213,7 @@ export class IdScanComponent  implements OnInit {
                 this.verifyPassport(this.identification.nationalId);
               } else {
                 this.loader.scanningPassport = false;
+                this.dataStore.scanningPassport = false;
                 this.scanningSolutions();
               }
             },
@@ -223,6 +225,7 @@ export class IdScanComponent  implements OnInit {
     }); // end api call
     } catch (error) {
       this.loader.scanningPassport = false;
+      this.dataStore.scanningPassport = false;
       this.scanningSolutions();
     }
   }
