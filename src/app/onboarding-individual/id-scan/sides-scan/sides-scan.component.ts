@@ -245,7 +245,6 @@ export class SidesScanComponent  implements OnInit {
     this.loader.savingFront = true;
     this.loader.scannedFront = false;
 
-    console.log("Saving front.....")
     this.apiService.saveImage(payload).subscribe({
       next: (res) => {
         if (res.successful) {
@@ -284,10 +283,9 @@ export class SidesScanComponent  implements OnInit {
             this.loader.savingIdFailed = false;
             this.dataStore.identification.backSaved = true;
 
-            console.log(this.dataStore.identification)
             //Now save the front image
             this.saveFrontImage({
-              file: this.dataStore.identification.frontId?.frontIdFile ?? "",
+              file: this.dataStore.identification.frontId?.frontIdFileNormal ?? "",
               idType: "NATIONAL_ID",
               imageType: "ID_FRONT",
               match: this.dataStore.identification.frontId?.frontIdOcrText ?? "",
@@ -313,7 +311,7 @@ export class SidesScanComponent  implements OnInit {
 
   saveNationalId(){
     const payload = {
-      file: this.identification?.backId.backIdFile,
+      file: this.identification?.backId.backIdFileNormal,
       idType: "NATIONAL_ID",
       imageType: "ID_BACK",
       match: "",
