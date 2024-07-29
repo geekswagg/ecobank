@@ -30,9 +30,9 @@ export interface Identification {
   frontId: {
     frontIdBase64?: string;
     frontIdCaptured?: any;
-    frontIdFile?: File;
+    frontIdFile?: any;
     frontIdOcrText?: string;
-    frontIdFileNormal?: File;
+    frontIdFileNormal?: any;
   };
   ocrKey?: string;
   frontSaved?: boolean;
