@@ -253,7 +253,7 @@ export class IdScanComponent  implements OnInit {
           handler: () => {
             // Save the front id
             this.saveImage("passport", {
-              file: this.identification.passportFile,
+              file: this.identification.passportFileNormal,
               idType: "PASSPORT_ID",
               imageType: "PASSPORT",
               match: "",

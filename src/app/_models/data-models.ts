@@ -25,18 +25,21 @@ export interface Identification {
     backIdBase64?: string;
     backIdFile?: File;
     backIdCaptured?: any;
+    backIdFileNormal?: File;
   };
   frontId: {
     frontIdBase64?: string;
     frontIdCaptured?: any;
     frontIdFile?: File;
     frontIdOcrText?: string;
+    frontIdFileNormal?: File;
   };
   ocrKey?: string;
   frontSaved?: boolean;
 
   backSaved?: boolean;
   passportBase64?: string;
+  passportFileNormal?: File;
   passportFile?: File;
   passportSaved?: boolean;
   signatureBase64?: string;
