@@ -27,7 +27,7 @@ export class SidesScanComponent  implements OnInit {
   signImage: any = '';
   idNumber: string = '';
   waitingToSave: boolean = false;
-
+  frontIdTemp: File | undefined;
   constructor(
     public loader: LoadingService,
     private modalCtrl: ModalController,
@@ -55,7 +55,9 @@ export class SidesScanComponent  implements OnInit {
       } else {
         this.identification = await data.data.data;
         if(this.side === 'id_front'){
+          this.frontIdTemp = this.identification.passportFileNormal;
           this.loader.frontCaptured = true;
+          this.dataStore.identification.frontId.frontIdFileNormal = this.identification.frontId.frontIdFileNormal
           this.dataStore.identification.frontId.frontIdFile = this.identification.frontId.frontIdFile;
           this.dataStore.identification.frontId.frontIdOcrText = this.identification.frontId.frontIdOcrText;
           localStorage.setItem("FRONT",this.identification?.frontId.frontIdCaptured);
@@ -285,10 +287,10 @@ export class SidesScanComponent  implements OnInit {
 
             //Now save the front image
             this.saveFrontImage({
-              file: this.dataStore.identification.frontId?.frontIdFileNormal ?? "",
+              file: this.dataStore.identification.frontId.frontIdFileNormal,
               idType: "NATIONAL_ID",
               imageType: "ID_FRONT",
-              match: this.dataStore.identification.frontId?.frontIdOcrText ?? "",
+              match: this.identification.frontId?.frontIdOcrText,
               nationalId: "",
             });
 

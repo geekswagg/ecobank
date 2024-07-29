@@ -94,15 +94,15 @@ export class CameraComponent  implements OnInit {
       this.base64File = webcamImage.imageAsDataUrl.split('base64,')[1];
       switch (this.side) {
         case 'id_front':
-          this.dataStore.identification.frontId.frontIdBase64 = await this.base64File;
-          this.dataStore.identification.frontId.frontIdCaptured = await webcamImage.imageAsDataUrl;
-          this.dataStore.identification.frontId.frontIdCaptured = await this.dataUrlToFile(
+          this.dataStore.identification.frontId.frontIdBase64 = this.base64File;
+          this.dataStore.identification.frontId.frontIdCaptured = webcamImage.imageAsDataUrl;
+          this.dataStore.identification.frontId.frontIdFileNormal= await this.dataUrlToFile(
             this.dataStore.identification.frontId.frontIdBase64
           );
           this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.frontId.frontIdBase64
           );
-          this.modalCtrl.dismiss({
+         await this.modalCtrl.dismiss({
             cancelled: false,
             data: this.dataStore.identification,
           });
@@ -120,7 +120,7 @@ export class CameraComponent  implements OnInit {
           );
           this.modalCtrl.dismiss({
             cancelled: false,
-            data: this.dataStore.identification
+            data: Object.assign(this.dataStore.identification, this.dataStore.identification),
           });
           break;
 
