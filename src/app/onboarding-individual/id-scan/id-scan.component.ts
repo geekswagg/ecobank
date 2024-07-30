@@ -162,27 +162,6 @@ export class IdScanComponent  implements OnInit {
         });
       }, 2000);
 
-      // this.httpClient.post(signatureUrl, payload).subscribe({
-      //   next: (resp: any) => {
-      //     this.loader.scanningSignature = false;
-      //     if(resp.is_signed){
-      //       this.saveImage("signature", {
-      //         file: this.identification.signatureFile,
-      //         idType: "",
-      //         imageType: "SIGNATURE",
-      //         match: "",
-      //         nationalId: "",
-      //       });
-      //     }
-      //     else{
-      //       this.toastr.error("Ensure your signature is signed on a plain white paper");
-      //     }
-      //   },
-      //   error: (err: any) => {
-      //     this.loader.scanningSignature = false;
-      //     this.toastr.error("An error while verifying your signature. Please try again");
-      //   }
-      // })
     }
 
 

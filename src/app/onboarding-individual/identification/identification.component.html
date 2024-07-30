@@ -7,14 +7,14 @@
 </ion-header>
 
 <ion-content class="content-body">
-  <div class="m-4 flex items-center gap-2">
+  <div class="mx-4 flex items-center gap-2">
     <ion-progress-bar  [value]=".375"></ion-progress-bar>
     <span class="text-xs">3/7</span>
   </div>
   <div class="p-4">
     <div class="mx-auto" >
-      <h4 class="browse" style="">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
-      </h4>
+      <h3 class="browse" style="">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
+      </h3>
     </div>
 
     <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
@@ -24,11 +24,11 @@
       </ion-radio-group> <br> -->
 
       <ion-radio-group (ionChange)="selectDocument($event)">
-        <ion-item class="border p-2 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+        <ion-item class="border p-3 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
           <ion-label class="" style="font-weight: 500;">National ID</ion-label>
           <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
         </ion-item>
-        <ion-item class="border p-2" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+        <ion-item class="border p-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
           <ion-label class="" style="font-weight: 500;">Passport</ion-label>
           <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
         </ion-item>

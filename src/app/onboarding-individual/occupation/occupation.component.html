@@ -8,11 +8,12 @@
 
 <ion-content class="content-body">
 
-  <div class="m-4 flex items-center gap-2">
+  <div class="mx-4 flex items-center gap-2">
     <ion-progress-bar  [value]=".75"></ion-progress-bar>
     <span class="text-xs">6/7</span>
   </div>
-  <div class="container mx-auto p-4 w-full">
+
+  <div class="container mx-auto pt-2 px-4 w-full">
     <div>
       <h3 class="font-medium">
         Almost there, <br />
@@ -104,7 +105,7 @@
     (click)="saveOccupation()"
     expand="block"
     fill="solid"
-    [disabled]="!occupationForm.valid"
+    [disabled]="!occupationForm.valid || this.selectedIncome === ''"
     >
     {{ loader.loading ? '' : 'Continue'}}
     <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>

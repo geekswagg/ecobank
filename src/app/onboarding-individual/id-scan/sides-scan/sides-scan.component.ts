@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { CameraComponent } from 'src/app/_components/camera/camera.component';
 import { Identification } from 'src/app/_models/data-models';
@@ -35,7 +35,8 @@ export class SidesScanComponent  implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private toastr: ToastrService,
-    private dataStore: DataStoreService
+    private dataStore: DataStoreService,
+    private loadingCtrl: LoadingController
 
   ) {}
 
@@ -88,6 +89,15 @@ export class SidesScanComponent  implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'waiting to save...',
+      duration: 2000,
+    });
+
+    loading.present();
   }
 
 
@@ -198,7 +208,9 @@ export class SidesScanComponent  implements OnInit {
             this.loader.backIdScanSuccess = true;
             this.loader.scannedBack = true;
             this.toastr.success("Back ID scanned","",{timeOut:1000});
-            this.waitingToSave = true;
+            // this.waitingToSave = true;
+            this.showLoading();
+
 
             setTimeout(() =>{
               this.waitingToSave = false;
