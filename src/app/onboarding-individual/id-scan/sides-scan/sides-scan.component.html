@@ -57,14 +57,14 @@
       <div>
         @if((this.backImage.length > 0 && !loader.scanningBack && loader.backIdScanSuccess) && !loader.savingBack && !loader.savedBack){
           <div class="uk-card-media-top mb-3">
-            <img [src]="this.frontImage" width="100%" alt="Passport" style="border: solid 3px #005B82; border-radius: 4px;">
+            <img [src]="this.frontImage" width="100%" alt="Back ID" style="border: solid 3px #005B82; border-radius: 4px;">
           </div>
         }
 
         @if(( !loader.scannedBack && !loader.backIdScanSuccess) || loader.savingBack){
           <ion-item (click)="openCamera('id_back')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
             <div class="flex flex-row center items-center gap-4">
-              <img ngSrc="assets/images/back-id.png" height="60" width="60" alt="passport" priority>
+              <img ngSrc="assets/images/back-id.png" height="60" width="60" alt="Back ID" priority>
               <ion-label class="font-black" style="font-weight: 500;">
                 @if(loader.scanningBack && !loader.savingBack){
                   Scanning Back ID
