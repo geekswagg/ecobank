@@ -1,7 +1,12 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, AlertController, LoadingController } from '@ionic/angular';
+import {
+  ModalController,
+  AlertController,
+  LoadingController,
+} from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { CameraComponent } from 'src/app/_components/camera/camera.component';
 import { Identification } from 'src/app/_models/data-models';
@@ -14,18 +19,17 @@ import { LoadingService } from 'src/app/_services/loading.service';
   templateUrl: './sides-scan.component.html',
   styleUrls: ['./sides-scan.component.scss'],
 })
-export class SidesScanComponent  implements OnInit {
-
-
+export class SidesScanComponent implements OnInit {
   identification: Identification = {
-    frontId:{},
-    backId:{}
+    frontId: {},
+    backId: {},
   };
   side: string = '';
   frontImage: any = '';
   backImage: any = '';
   signImage: any = '';
   idNumber: string = '';
+  progress: number = 0;
   waitingToSave: boolean = false;
   frontIdTemp: File | undefined;
   constructor(
@@ -37,7 +41,6 @@ export class SidesScanComponent  implements OnInit {
     private toastr: ToastrService,
     private dataStore: DataStoreService,
     private loadingCtrl: LoadingController
-
   ) {}
 
   ngOnInit() {}
@@ -46,46 +49,53 @@ export class SidesScanComponent  implements OnInit {
     this.side = side;
     const modal = await this.modalCtrl.create({
       component: CameraComponent,
-      cssClass: "my-custom-class",
+      cssClass: 'my-custom-class',
       componentProps: { side },
     });
-
 
     modal.onWillDismiss().then(async (data: any) => {
       if (data.data.cancelled) {
       } else {
         this.identification = await data.data.data;
-        if(this.side === 'id_front'){
+        if (this.side === 'id_front') {
           this.frontIdTemp = this.identification.passportFileNormal;
           this.loader.frontCaptured = true;
-          this.dataStore.identification.frontId.frontIdFileNormal = this.identification.frontId.frontIdFileNormal
-          this.dataStore.identification.frontId.frontIdFile = this.identification.frontId.frontIdFile;
-          this.dataStore.identification.frontId.frontIdOcrText = this.identification.frontId.frontIdOcrText;
-          localStorage.setItem("FRONT",this.identification?.frontId.frontIdCaptured);
-          setTimeout(()=>{
-            this.frontImage = localStorage.getItem("FRONT")
-          },200)
+          this.dataStore.identification.frontId.frontIdFileNormal =
+            this.identification.frontId.frontIdFileNormal;
+          this.dataStore.identification.frontId.frontIdFile =
+            this.identification.frontId.frontIdFile;
+          this.dataStore.identification.frontId.frontIdOcrText =
+            this.identification.frontId.frontIdOcrText;
+          localStorage.setItem(
+            'FRONT',
+            this.identification?.frontId.frontIdCaptured
+          );
+          setTimeout(() => {
+            this.frontImage = localStorage.getItem('FRONT');
+          }, 200);
         }
-        if(this.side === 'id_back'){
+        if (this.side === 'id_back') {
           this.loader.backCaptured = true;
           this.loader.frontCaptured = true;
-          localStorage.setItem("BACK",this.identification?.backId.backIdCaptured);
-          setTimeout(()=>{
-            this.backImage = localStorage.getItem("BACK");
-          },200)
+          localStorage.setItem(
+            'BACK',
+            this.identification?.backId.backIdCaptured
+          );
+          setTimeout(() => {
+            this.backImage = localStorage.getItem('BACK');
+          }, 200);
         }
 
-        if(this.side === 'signature'){
+        if (this.side === 'signature') {
           this.loader.frontCaptured = true;
           this.loader.backCaptured = true;
           this.loader.signCaptured = true;
-          localStorage.setItem("SIGN",this.identification?.signCaptured);
-          setTimeout(()=>{
-            this.signImage = localStorage.getItem("SIGN");
-          },200)
+          localStorage.setItem('SIGN', this.identification?.signCaptured);
+          setTimeout(() => {
+            this.signImage = localStorage.getItem('SIGN');
+          }, 200);
         }
         await this.scanImages();
-
       }
     });
     return await modal.present();
@@ -100,14 +110,13 @@ export class SidesScanComponent  implements OnInit {
     loading.present();
   }
 
-
   scanImages() {
     switch (this.side) {
-      case "id_front":
+      case 'id_front':
         this.loader.scanningFront = true;
         this.apiService
           .scanFrontID({
-            national_id: this.identification?.frontId.frontIdFile
+            national_id: this.identification?.frontId.frontIdFile,
           })
           .subscribe({
             next: (res) => {
@@ -116,61 +125,72 @@ export class SidesScanComponent  implements OnInit {
                 this.loader.scannedFront = true;
                 this.loader.frontIdScanSuccess = true;
                 this.identification.frontId.frontIdOcrText = res.data;
-                this.toastr.success("Front ID scanned");
+                this.toastr.success('Front ID scanned');
               } else {
                 this.loader.scanningFront = false;
                 this.loader.frontIdScanSuccess = false;
                 this.loader.scannedFront = false;
-                this.scanningSolutions();
+                this.toastr.warning(
+                  'Take a better picture of your front ID',
+                  'Take a better picture'
+                );
+                // this.scanningSolutions();
               }
             },
             error: (err) => {
               this.loader.scanningFront = false;
               this.loader.scannedFront = false;
               this.loader.frontIdScanSuccess = false;
-              this.scanningSolutions();
-            }
+              this.toastr.warning(
+                'Take a better picture of your front ID',
+                'Take a better picture'
+              );
+              // this.scanningSolutions();
+            },
           }); // end api call
         break;
-      case "id_back":
+      case 'id_back':
         if (this.loader.scannedFront) {
           this.loader.scanningBack = true;
-            this.apiService
-              .scanBackID({
-                national_id: this.identification?.backId.backIdFile,
-                document_type: "ID",
-              })
-              .subscribe({
-                next: (res) =>{
-                  if (res.success) {
-                    this.loader.scanningBack = false;
-                    const id = res.id.split(" ").join("");
-                    // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
-                    this.identification.nationalId = id;
-                    this.identification.ocrKey = res.key;
-                    this.idNumber = id;
-                    this.verifyID(this.identification.nationalId);
-
-                  } else {
-                    this.loader.scannedBack = false;
-                    this.loader.scanningBack = false;
-                    this.loader.backIdScanSuccess = false;
-                    this.scanningSolutions();
-                  }
-                },
-                error: (err) =>{
+          this.apiService
+            .scanBackID({
+              national_id: this.identification?.backId.backIdFile,
+              document_type: 'ID',
+            })
+            .subscribe({
+              next: (res) => {
+                if (res.success) {
+                  this.loader.scanningBack = false;
+                  const id = res.id.split(' ').join('');
+                  // this.identification.nationalId = parseInt(id).toString(); //Looks like its truncating leading zero
+                  this.identification.nationalId = id;
+                  this.identification.ocrKey = res.key;
+                  this.idNumber = id;
+                  this.verifyID(this.identification.nationalId);
+                } else {
                   this.loader.scannedBack = false;
                   this.loader.scanningBack = false;
                   this.loader.backIdScanSuccess = false;
-                  this.scanningSolutions();
+                  this.toastr.warning(
+                    'Take a better picture of your Back ID',
+                    'Take a better picture'
+                  );
+                  // this.scanningSolutions();
                 }
-              }); // end api call
-
+              },
+              error: (err) => {
+                this.loader.scannedBack = false;
+                this.loader.scanningBack = false;
+                this.loader.backIdScanSuccess = false;
+                this.toastr.warning(
+                  'Take a better picture of your Back ID',
+                  'Take a better picture'
+                );
+                // this.scanningSolutions();
+              },
+            }); // end api call
         } else {
-          this.toastr.error(
-            "Please scan Front Of ID First",
-            "Scanning Failed!"
-          );
+          this.toastr.error('Please scan Front Of ID First', 'Front ID First!');
         }
         break;
       default:
@@ -178,15 +198,13 @@ export class SidesScanComponent  implements OnInit {
     }
   }
 
-
-
   // Verify that the ID scanned is for the user onboarding
   async verifyID(nationalId: any) {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
       mode: 'md',
-      cssClass: "my-custom-class",
-      header: "CONFIRM",
+      cssClass: 'my-custom-class',
+      header: 'CONFIRM',
       message: `<h5>Please confirm that this is your National ID Number? \n
                 </h5> \n
                 <h1>${nationalId}<h1>
@@ -194,29 +212,27 @@ export class SidesScanComponent  implements OnInit {
       htmlAttributes: {},
       buttons: [
         {
-          text: "NO",
-          role: "cancel",
-          cssClass: "secondary",
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
           handler: (blah) => {
             this.loader.scanningBack = false;
           },
         },
         {
-          text: "YES",
+          text: 'YES',
 
           handler: () => {
             this.loader.backIdScanSuccess = true;
             this.loader.scannedBack = true;
-            this.toastr.success("Back ID scanned","",{timeOut:1000});
+            this.toastr.success('Back ID scanned', '', { timeOut: 1000 });
             // this.waitingToSave = true;
             this.showLoading();
 
-
-            setTimeout(() =>{
+            setTimeout(() => {
               this.waitingToSave = false;
               this.saveNationalId();
-            },2000)
-
+            }, 2000);
           },
         },
       ],
@@ -224,14 +240,12 @@ export class SidesScanComponent  implements OnInit {
     await alert.present();
   }
 
-
-
   async scanningSolutions() {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
-      cssClass: "my-custom-class",
+      cssClass: 'my-custom-class',
       mode: 'md',
-      header: "SCANNING FAILED",
+      header: 'SCANNING FAILED',
       message: `<h6>Take note of the following concerns as your make another scanning attempt
                 </h6> \n \n
                 <ol>
@@ -242,17 +256,15 @@ export class SidesScanComponent  implements OnInit {
                 `,
       buttons: [
         {
-          text: "OK",
+          text: 'OK',
           handler: () => {
             // Save the front id
           },
         },
-
       ],
     });
     await alert.present();
   }
-
 
   // Save image
   async saveFrontImage(payload: any) {
@@ -260,80 +272,115 @@ export class SidesScanComponent  implements OnInit {
     this.loader.scannedFront = false;
 
     this.apiService.saveImage(payload).subscribe({
-      next: (res) => {
-        if (res.successful) {
-          this.loader.savingFront = false;
-          this.loader.savedFront = true;
-          this.dataStore.identification.frontSaved = true;
-          this.router.navigate(['/onboarding/id-scan']);
-        } else {
-          this.toastr.error(res.message);
-          this.loader.savingFront = false;
-          this.loader.savedFront = false;
+      next: (event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            break;
+          case HttpEventType.ResponseHeader:
+            break;
+          case HttpEventType.UploadProgress:
+            if (event.total !== undefined) {
+              this.progress = Math.round((event.loaded / event.total) * 100);
+            } else {
+              // Handle the case where event.total is undefined
+              this.progress = 0; // or some other default value or logic
+            }
+            break;
+          case HttpEventType.Response:
+            if (event.body.successful) {
+              this.loader.savingFront = false;
+              this.loader.savedFront = true;
+              this.dataStore.identification.frontSaved = true;
+              this.router.navigate(['/onboarding/id-scan']);
+            } else {
+              this.toastr.error(event.body.message);
+              this.loader.savingFront = false;
+              this.loader.savedFront = false;
 
-          this.loader.savingBack = false;
-          this.loader.savedBack = false;
+              this.loader.savingBack = false;
+              this.loader.savedBack = false;
+            }
+            break;
         }
       },
       error: (err) => {
-        this.toastr.error("Error saving image try again");
+        this.toastr.error('Error saving image try again');
         this.loader.savingFront = false;
         this.loader.savedFront = false;
 
         this.loader.savingBack = false;
         this.loader.savedBack = false;
-      }
+      },
     });
   }
 
   async saveBackImage(payload: any) {
     this.loader.savingBack = true;
 
-      this.apiService.saveImage(payload).subscribe({
-        next:(res) =>{
-          if (res.successful) {
-            this.loader.savingBack = false;
-            this.loader.savedBack = true;
-            this.loader.savingIdFailed = false;
-            this.dataStore.identification.backSaved = true;
+    this.apiService.saveImage(payload).subscribe({
+      next: (event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            break;
+          case HttpEventType.ResponseHeader:
+            break;
+          case HttpEventType.UploadProgress:
+            if (event.total !== undefined) {
+              this.progress = Math.round((event.loaded / event.total) * 100);
+            } else {
+              // Handle the case where event.total is undefined
+              this.progress = 0; // or some other default value or logic
+            }
+            break;
+          case HttpEventType.Response:
+            if (event.body.successful) {
+              this.loader.savingBack = false;
+              this.loader.savedBack = true;
+              this.loader.savingIdFailed = false;
+              this.dataStore.identification.backSaved = true;
+              this.toastr.success('Back ID saved successfully', '', {
+                timeOut: 600,
+              });
 
-            //Now save the front image
-            this.saveFrontImage({
-              file: this.dataStore.identification.frontId.frontIdFileNormal,
-              idType: "NATIONAL_ID",
-              imageType: "ID_FRONT",
-              match: this.identification.frontId?.frontIdOcrText,
-              nationalId: "",
-            });
-
-
-          } else {
-            this.loader.savingIdFailed = true;
-            this.loader.savingBack = false;
-            this.loader.savedBack = false;
-            this.toastr.error(res.message);
-          }
-        },
-        error:(err) =>{
-          this.loader.savingBack = false;
-          this.loader.savingIdFailed = true;
-          this.loader.savedBack = false;
-          this.toastr.error("Unable to save your document. Try again");
+              //Now save the front image
+              this.saveFrontImage({
+                file: this.dataStore.identification.frontId.frontIdFileNormal,
+                idType: 'NATIONAL_ID',
+                imageType: 'ID_FRONT',
+                match: this.identification.frontId?.frontIdOcrText,
+                nationalId: '',
+              });
+            } else {
+              this.loader.savingIdFailed = true;
+              this.loader.savingBack = false;
+              this.loader.savedBack = false;
+              this.toastr.error(event.body.message);
+            }
+            // this.toastr.success('Back ID saved successfully', '');
+            // setTimeout(() => {
+            //   this.progress = 0;
+            // }, 1500);
+            break;
         }
-      }); // end api call
+      },
+      error: (err) => {
+        this.loader.savingBack = false;
+        this.loader.savingIdFailed = true;
+        this.loader.savedBack = false;
+        this.toastr.error('Unable to save your document. Try again');
+      },
+    }); // end api call
   }
 
-  saveNationalId(){
+  saveNationalId() {
     const payload = {
       file: this.identification?.backId.backIdFileNormal,
-      idType: "NATIONAL_ID",
-      imageType: "ID_BACK",
-      match: "",
+      idType: 'NATIONAL_ID',
+      imageType: 'ID_BACK',
+      match: '',
       nationalId: this.identification.nationalId,
-      key: this.identification.ocrKey
-    }
-    this.saveBackImage(payload)
+      key: this.identification.ocrKey,
+    };
+    this.saveBackImage(payload);
   }
-
-
 }

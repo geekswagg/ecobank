@@ -37,11 +37,18 @@
                     Front ID
                   }
                   @if(loader.savingFront){
-                    Saving Front of ID
+                    Saving Front of ID ... <br />
+                    <div class="flex items-center gap-2">
+                      <ion-progress-bar [value]="progress/100" color="secondary"></ion-progress-bar>
+                      <span class="text-xs">{{progress}}%</span>
+                    </div>
                   }
               </ion-label>
             </div>
-            @if(loader.scanningFront || loader.savingFront){
+            @if(loader.savingFront){
+              <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+            }
+            @if(loader.scanningFront){
               <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
             }
             @if(!loader.scanningFront && !loader.savingFront){
@@ -73,11 +80,17 @@
                     Back ID
                   }
                   @if(!loader.scanningBack && loader.savingBack){
-                    Saving Back ID...
+                    Saving Back of ID ... <br />
+                    <div class="items-center">
+                      <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
+                    </div>
                   }
               </ion-label>
             </div>
-            @if(loader.scanningBack || loader.savingBack){
+            @if(loader.savingBack){
+              <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+            }
+            @if(loader.scanningBack){
               <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
             }
             @if(!loader.scanningBack && !loader.savingBack){
