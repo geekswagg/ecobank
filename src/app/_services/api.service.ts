@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
 import { MainAccountDetails, ResAccountProducts } from '../_models/business-model';
@@ -131,9 +131,26 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.baseUrl + 'image', formData);
+    return this.http.post(this.baseUrl + 'image', formData,{
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+
+  );
   }
 
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
 
 
 

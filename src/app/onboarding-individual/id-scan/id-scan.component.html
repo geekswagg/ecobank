@@ -52,7 +52,10 @@
                     Scanning Passport
                     }
                     @if(loader.savingPassport){
-                      Saving Passport
+                      Saving Passport... <br />
+                      <div class="items-center">
+                        <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
+                      </div>
                       }
                     @if(!loader.scanningPassport && !loader.savingPassport){
                       Passport
@@ -62,7 +65,11 @@
                     }
                 </ion-label>
               </div>
-              @if(loader.scanningPassport || loader.savingPassport ){
+
+              @if(loader.savingPassport){
+                <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+              }
+              @if(loader.scanningPassport){
                 <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
               }
               @if(!loader.scanningPassport && !loader.savingPassport){
@@ -92,9 +99,14 @@
                 @if(loader.scanningSignature && !loader.savingSignature){
                   Scanning Signature
                   }
+
                   @if(loader.savingSignature){
-                    Saving Signature
-                    }
+                    Saving Signature... <br />
+                    <div class="items-center">
+                      <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
+                    </div>
+                     }
+
                   @if(!loader.scanningSignature && !loader.savingSignature && !loader.savedSignature){
                     Signature
                   }
@@ -103,7 +115,10 @@
                   }
               </ion-label>
             </div>
-            @if(loader.scanningSignature || loader.savingSignature){
+            @if(loader.savingSignature){
+              <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+            }
+            @if(loader.scanningSignature ){
               <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
             }
             @if(!loader.scanningSignature && !loader.savedSignature && !loader.savingSignature){
