@@ -1,6 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+
 const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
 const imageUrl = "https://digitalonboard.ecobank.com/self-onboarding/images-sav/kyc-data/getImage/";
 const dev = 'https://digitalonboard.ecobank.com/self-onboarding/api/v1/';

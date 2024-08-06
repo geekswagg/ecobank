@@ -131,8 +131,8 @@ export class SidesScanComponent implements OnInit {
                 this.loader.frontIdScanSuccess = false;
                 this.loader.scannedFront = false;
                 this.toastr.warning(
-                  'Take a better picture of your front ID',
-                  'Take a better picture'
+                  'Ensure the front of your ID is visible and clear in the picture.',
+                  'Take a clearer photo'
                 );
                 // this.scanningSolutions();
               }
@@ -142,8 +142,8 @@ export class SidesScanComponent implements OnInit {
               this.loader.scannedFront = false;
               this.loader.frontIdScanSuccess = false;
               this.toastr.warning(
-                'Take a better picture of your front ID',
-                'Take a better picture'
+                'Ensure the front of your ID is visible and clear in the picture.',
+                'Take a clearer photo'
               );
               // this.scanningSolutions();
             },
@@ -172,8 +172,8 @@ export class SidesScanComponent implements OnInit {
                   this.loader.scanningBack = false;
                   this.loader.backIdScanSuccess = false;
                   this.toastr.warning(
-                    'Take a better picture of your Back ID',
-                    'Take a better picture'
+                    'Ensure the back of your ID is visible and clear in the picture.',
+                    'Take a clearer photo'
                   );
                   // this.scanningSolutions();
                 }
@@ -183,8 +183,8 @@ export class SidesScanComponent implements OnInit {
                 this.loader.scanningBack = false;
                 this.loader.backIdScanSuccess = false;
                 this.toastr.warning(
-                  'Take a better picture of your Back ID',
-                  'Take a better picture'
+                  'Ensure the back of your ID is visible and clear in the picture.',
+                  'Take a clearer photo'
                 );
                 // this.scanningSolutions();
               },
