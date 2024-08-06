@@ -49,10 +49,10 @@
                 <img ngSrc="assets/images/open-passport.svg" height="60" width="60" alt="passport" priority>
                 <ion-label class="font-black" style="font-weight: 500;">
                   @if(loader.scanningPassport){
-                    Scanning Passport
+                    Scanning Passport...
                     }
                     @if(loader.savingPassport){
-                      Saving Passport... <br />
+                      Saving Passport... {{progress}}<br />
                       <div class="items-center">
                         <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
                       </div>
@@ -67,7 +67,7 @@
               </div>
 
               @if(loader.savingPassport){
-                <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+                <ion-spinner slot="end" name="dots" color="secondary"></ion-spinner>
               }
               @if(loader.scanningPassport){
                 <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
@@ -101,7 +101,7 @@
                   }
 
                   @if(loader.savingSignature){
-                    Saving Signature... <br />
+                    Saving Signature... {{progress}}%<br />
                     <div class="items-center">
                       <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
                     </div>
@@ -116,7 +116,7 @@
               </ion-label>
             </div>
             @if(loader.savingSignature){
-              <ion-chip slot="end" color="secondary">{{progress}}%</ion-chip>
+              <ion-spinner slot="end" name="dots" color="secondary"></ion-spinner>
             }
             @if(loader.scanningSignature ){
               <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>

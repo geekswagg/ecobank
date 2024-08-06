@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { EventType, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { CameraComponent } from 'src/app/_components/camera/camera.component';
@@ -15,13 +15,13 @@ import { LoadingService } from 'src/app/_services/loading.service';
   templateUrl: './selfie.component.html',
   styleUrls: ['./selfie.component.scss'],
 })
-export class SelfieComponent  implements OnInit {
-
+export class SelfieComponent implements OnInit {
   selfie: Selfie = {};
   side: string = 'selfie';
   loading: boolean = false;
+  progress: number = 0;
 
-  url = "https://wanpas.ai/mikayi/check_liveness";
+  url = 'https://wanpas.ai/mikayi/check_liveness';
 
   constructor(
     private router: Router,
@@ -31,7 +31,7 @@ export class SelfieComponent  implements OnInit {
     private apiService: ApiService,
     private httpClient: HttpClient,
     private dataStore: DataStoreService
-  ) { }
+  ) {}
 
   ngOnInit() {}
 
@@ -39,7 +39,7 @@ export class SelfieComponent  implements OnInit {
     this.side = side;
     const modal = await this.modalCtrl.create({
       component: CameraComponent,
-      cssClass: "my-custom-class",
+      cssClass: 'my-custom-class',
       componentProps: { side },
     });
 
@@ -54,215 +54,211 @@ export class SelfieComponent  implements OnInit {
     return await modal.present();
   }
 
-    // Save Selfie
-    saveSelfie(payload: any) {
-      this.loader.loading = true;
-      this.loader.savingSelfie = true;
+  // Save Selfie
+  saveSelfie(payload: any) {
+    this.loader.loading = true;
+    this.loader.savingSelfie = true;
 
-      if (localStorage.getItem("business-selfie")) {
-        // save selfie for business
+    if (localStorage.getItem('business-selfie')) {
+      // save selfie for business
 
-        if (localStorage.getItem('foreign-data')) {
+      if (localStorage.getItem('foreign-data')) {
+        this.foreignDirectorSelfie();
+      } else {
+        this.localDirectorSelfie();
+      }
+    } else {
+      this.apiService.saveSelfie(payload).subscribe({
+        next: (event: HttpEvent<any>) => {
+          console.log('======EVENT TYPE====',event.type,HttpEventType.UploadProgress,event);
+          switch (event.type) {
+            case HttpEventType.Sent:
+              break;
+            case HttpEventType.ResponseHeader:
+              break;
+            case HttpEventType.UploadProgress:
+              if (event.total !== undefined) {
+                this.progress = Math.round((event.loaded / event.total) * 100);
+              } else {
+                // Handle the case where event.total is undefined
+                this.progress = 0; // or some other default value or logic
+              }
+              break;
+            case HttpEventType.Response:
+              if (event.body.successful) {
+                this.loader.loading = false;
+                this.loader.savingSelfie = false;
+                this.toastr.success(event.body.message);
+                setTimeout(() => {
+                  this.router.navigate(['/onboarding/summary']);
+                }, 500);
+              } else {
+                this.loader.loading = false;
+                this.loader.savingSelfie = false;
+                this.toastr.warning('Error saving selfie try again');
+              }
+              break;
+          }
+        },
+        error: (err) => {
+          // this.router.navigate(["/onboarding/summary"]);
+          this.loader.loading = false;
+          this.loader.savingSelfie = false;
+          this.toastr.warning('Error saving selfie try again');
+        },
+      });
+    }
+  }
 
-          this.foreignDirectorSelfie();
+  uploadToRecognition(file: File) {
+    this.loader.detectingFace = true;
+    this.loader.loading = true;
+    const formData = new FormData();
+    formData.append('key', file); // giktek server
+    this.httpClient.post<any>(this.url, formData).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.loader.detectingFace = false;
+          this.loader.loading = false;
 
-        } else {
+          let error_message = '';
+          switch (res.error_code) {
+            case 'FACE_IS_OCCLUDED':
+              error_message =
+                "It's difficult to see your face. Be in a well lit room with no background lighting and your face  uncovered";
+              break;
+            case 'FACE_NOT_FOUND':
+              error_message =
+                'Please move closer to the camera. Ensure you are in a well-lit room with no background lighting';
+              break;
+            case 'FACE_TOO_SMALL':
+              error_message =
+                'Please move closer to the camera. Ensure you are in a well-lit room with no background lighting';
+              break;
+            case 'FACE_ANGLE_TOO_LARGE':
+              error_message =
+                'Please move closer to the camera. Ensure you are in a well-lit room with no background lighting';
+              break;
+            case 'INVALID_FUSE_MODE':
+              error_message = 'System error try again later';
+              break;
+            case 'LICENSE_ERROR':
+              error_message = 'System error try again later';
+              break;
 
-          this.localDirectorSelfie();
+            default:
+              // error_message = res.error;
+              error_message = 'Kindly take a better selfie';
+          }
 
+          this.toastr.error(error_message);
         }
 
+        if (res.probability > 0.49) {
+          this.toastr.success('Your selfie has been accepted',"");
+          this.loader.detectingFace = false;
 
-      } else {
-          this.apiService.saveSelfie(payload).subscribe({
-            next: (res) => {
-               if (res.successful) {
-                this.loader.loading = false;
-                this.loader.savingSelfie = false;
-                this.toastr.success(res.message);
-                setTimeout(() =>{
-                  this.router.navigate(["/onboarding/summary"]);
-                },500);
-              }
-              else{
-                this.loader.loading = false;
-                this.loader.savingSelfie = false;
-                this.toastr.warning("Error saving selfie try again");
-              }
-            },
-            error: (err) => {
-              // this.router.navigate(["/onboarding/summary"]);
-              this.loader.loading = false;
-              this.loader.savingSelfie = false;
-              this.toastr.warning("Error saving selfie try again");
-            }
-          }
-         );
-      }
-    }
+          this.saveSelfie({ file: this.selfie.selfieFile });
+        }
 
-    uploadToRecognition(file: File) {
-      this.loader.detectingFace = true;
-      this.loader.loading = true;
-      const formData = new FormData();
-      formData.append("key", file);  // giktek server
-        this.httpClient
-          .post<any>(this.url, formData)
-          .subscribe({
-            next:(res) => {
-              if (res.error) {
-                this.loader.detectingFace = false;
-                this.loader.loading = false;
+        if (res.probability < 0.5) {
+          this.toastr.warning('Please take a clearer photo');
+          this.loader.detectingFace = false;
+          this.loader.loading = false;
+        }
+      },
+      error: (err) => {
+        this.toastr.error('Error processing image try again');
+        this.loader.detectingFace = false;
+        this.loader.loading = false;
+      },
+    }); // end of API call
+  }
 
-                let error_message = "";
-                switch (res.error_code) {
-                  case "FACE_IS_OCCLUDED":
-                    error_message =
-                      "It's difficult to see your face. Be in a well lit room with no background lighting and your face  uncovered";
-                    break;
-                  case "FACE_NOT_FOUND":
-                    error_message =
-                      "Please move closer to the camera. Ensure you are in a well-lit room with no background lighting";
-                    break;
-                  case "FACE_TOO_SMALL":
-                    error_message =
-                      "Please move closer to the camera. Ensure you are in a well-lit room with no background lighting";
-                    break;
-                  case "FACE_ANGLE_TOO_LARGE":
-                    error_message =
-                      "Please move closer to the camera. Ensure you are in a well-lit room with no background lighting";
-                    break;
-                  case "INVALID_FUSE_MODE":
-                    error_message = "System error try again later";
-                    break;
-                  case "LICENSE_ERROR":
-                    error_message = "System error try again later";
-                    break;
-
-                  default:
-                    // error_message = res.error;
-                    error_message = "Kindly take a better selfie";
-                }
-
-                this.toastr.error(error_message);
-              }
-
-              if (res.probability > 0.49) {
-                this.toastr.success("This is a live photo");
-                this.loader.detectingFace = false;
-
-                this.saveSelfie({ file: this.selfie.selfieFile });
-              }
-
-              if (res.probability < 0.5) {
-                this.toastr.error("This is not a live photo");
-                this.loader.detectingFace = false;
-                this.loader.loading = false;
-              }
-            },
-            error: (err) => {
-              this.toastr.error("Error processing image try again");
-              this.loader.detectingFace = false;
-              this.loader.loading = false;
-            }
-          }); // end of API call
-    }
-
-    /** Save selfie of the local director */
+  /** Save selfie of the local director */
   localDirectorSelfie() {
     const payload = {
       file: this.selfie.selfieFile,
-      idType: "NATIONAL_ID",
-      imageType: "SELFIE",
-      match: "",
+      idType: 'NATIONAL_ID',
+      imageType: 'SELFIE',
+      match: '',
       nationalId: this.dataStore.identification.nationalId,
     };
 
     try {
       this.apiService.saveImageBIZ(payload).subscribe(
         (response: any) => {
-
           this.loader.loading = false;
 
           if (response.successful) {
-
             this.loader.loading = false;
             this.loader.savingSelfie = false;
             this.toastr.success(response.message);
-            this.router.navigate(["/invitee-business/finish"]);
+            this.router.navigate(['/invitee-business/finish']);
 
             localStorage.removeItem('business-selfie');
-
           }
-
         },
 
         (error: any) => {
           this.loader.loading = false;
           this.loader.savingSelfie = false;
-          this.toastr.warning("Error saving selfie try again");
+          this.toastr.warning('Error saving selfie try again');
         }
       );
     } catch (error) {
       this.loader.loading = false;
       this.loader.savingSelfie = false;
-      this.toastr.warning("Error saving selfie try again");
+      this.toastr.warning('Error saving selfie try again');
     }
-
   }
-
 
   /** Save selfie of foreign director */
   foreignDirectorSelfie() {
-
-    let foreignPayload = JSON.parse(localStorage.getItem('foreign-data') as string);
+    let foreignPayload = JSON.parse(
+      localStorage.getItem('foreign-data') as string
+    );
 
     const payload = {
       file: this.selfie.selfieFile,
-      idType: "NATIONAL_ID",
-      imageType: "SELFIE",
-      match: "",
+      idType: 'NATIONAL_ID',
+      imageType: 'SELFIE',
+      match: '',
       nationalId: this.dataStore.identification.nationalId,
-      firstName : foreignPayload.firstName,
-      surname : foreignPayload.surname,
-      otherName : foreignPayload.otherName,
-      gender : foreignPayload.gender.genderCode,
-      dateOfBirth : foreignPayload.dateOfBirth,
-      documentDateOfExpiry : foreignPayload.documentDateOfExpiry
+      firstName: foreignPayload.firstName,
+      surname: foreignPayload.surname,
+      otherName: foreignPayload.otherName,
+      gender: foreignPayload.gender.genderCode,
+      dateOfBirth: foreignPayload.dateOfBirth,
+      documentDateOfExpiry: foreignPayload.documentDateOfExpiry,
     };
 
     try {
       this.apiService.saveImageForeignBIZ(payload).subscribe(
         (response: any) => {
-
           this.loader.loading = false;
 
           if (response.successful) {
-
             this.loader.loading = false;
             this.loader.savingSelfie = false;
             this.toastr.success(response.message);
-            this.router.navigate(["/invitee-business/finish"]);
+            this.router.navigate(['/invitee-business/finish']);
 
             localStorage.removeItem('business-selfie');
-            localStorage.removeItem('foreign-data')
-
+            localStorage.removeItem('foreign-data');
           }
-
         },
 
         (error: any) => {
           this.loader.loading = false;
           this.loader.savingSelfie = false;
-          this.toastr.warning("Error saving selfie try again");
+          this.toastr.warning('Error saving selfie try again');
         }
       );
     } catch (error) {
       this.loader.loading = false;
       this.loader.savingSelfie = false;
-      this.toastr.warning("Error saving selfie try again");
+      this.toastr.warning('Error saving selfie try again');
     }
-
   }
-
 }

@@ -215,7 +215,10 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.baseUrl + 'selfie', formData);
+    return this.http.post(this.baseUrl + 'selfie', formData,{
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   // Create Account
@@ -271,7 +274,13 @@ export class ApiService {
       formData.append(key, payload[key]);
     }
   }
-  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData);
+  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData,{
+    reportProgress: true,
+    observe: 'events'
+  }).pipe(
+    catchError(this.errorMgmt)
+
+);
 }
 
   // Save Images  TODO: HACK FOR BIZ
@@ -282,7 +291,13 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData);
+    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData,{
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+
+  );
   }
 
 }

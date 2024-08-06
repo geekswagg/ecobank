@@ -15,5 +15,5 @@ build_image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - docker build -t pwa:dev .
-    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.18
-    - docker push giktekio/ecobank-pwa:dev.v1.0.18
+    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.19
+    - docker push giktekio/ecobank-pwa:dev.v1.0.19
