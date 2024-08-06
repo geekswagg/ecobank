@@ -188,16 +188,16 @@ export class IdScanComponent implements OnInit {
               this.loader.scanningPassport = false;
               this.dataStore.scanningPassport = false;
               this.toastr.warning(
-                'Take a better picture of your passport',
-                'Take a better picture'
+                'Ensure that your Passport is visible and clear in the picture.',
+                'Take a clearer photo'
               );
               // this.scanningSolutions();
             }
           },
           error: (err) => {
             this.toastr.warning(
-              'Take a better picture of your passport',
-              'Take a better picture'
+                'Ensure that your Passport is visible and clear in the picture.',
+                'Take a clearer photo'
             );
             this.loader.passportScanSuccess = false;
           },
