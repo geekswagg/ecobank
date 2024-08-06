@@ -43,8 +43,11 @@
         <p>Find a bright spot so your selfie shines!</p>
         <div class="uk-text-center">
           <ion-button mode="md"  class="actionBtn" (click)="openCamera('selfie')" >
-            @if(loader.loading) {
-              Wait...
+            @if(loader.detectingFace){
+              Detecting Face...
+            }
+            @if(loader.savingSelfie) {
+              Saving Selfie... {{progress}}%
             }
             @if(!loader.loading) {
              Open Camera

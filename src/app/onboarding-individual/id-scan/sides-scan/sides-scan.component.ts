@@ -342,6 +342,8 @@ export class SidesScanComponent implements OnInit {
                 timeOut: 600,
               });
 
+              this.progress = 0;
+
               //Now save the front image
               this.saveFrontImage({
                 file: this.dataStore.identification.frontId.frontIdFileNormal,
