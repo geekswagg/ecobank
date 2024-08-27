@@ -4,6 +4,7 @@ const dev = 'https://digitalonboard.ecobank.com/self-onboarding/api/v1/';
 const dev1 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v1/';
 const dev2 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v2/';
 
+
 // const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
 // const dev1 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v1/';
 // const dev2 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v2/';
@@ -18,20 +19,5 @@ export const environment = {
   baseUrl: dev,
   businessUrlV1: dev1,
   businessUrlV2: dev2,
-  apiKey : '6a2b7f8e44d6c4efc8f3a9f5b6e9e7c2d4a8e0a1b9c3f6d7e8f5b6c7a2d1e3f4',
-  firebaseConfig: {
-    apiKey: "AIzaSyDhQsvEFSsVfMyfisdyin4dUraiBx1By3A",
-    authDomain: "twaa-84f76.firebaseapp.com",
-    databaseURL: "https://twaa-84f76-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "twaa-84f76",
-    storageBucket: "twaa-84f76.appspot.com",
-    messagingSenderId: "636258380194",
-    appId: "1:636258380194:web:a714b6d8d527c9d30b2afb",
-    measurementId: "G-CD1GE11142",
-  },
-  appleConfigs: {
-    clientId: 'io.twaa.twaa',
-    redirectURI: 'https://twaa-84f76.firebaseapp.com/__/auth/handler',
-    nonce: 'mysupersecretnonce'
-  },
+  apiKey : '6a2b7f8e44d6c4efc8f3a9f5b6e9e7c2d4a8e0a1b9c3f6d7e8f5b6c7a2d1e3f4'
 };

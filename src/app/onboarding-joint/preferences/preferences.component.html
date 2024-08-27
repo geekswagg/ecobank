@@ -1,0 +1,323 @@
+<ion-header class="ion-no-border head" mode="md">
+  <ion-toolbar class="header-color">
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/onboarding/joint/members"
+      ></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-body">
+  <div class="mx-4 flex items-center gap-2">
+    <ion-progress-bar [value]="0.625"></ion-progress-bar>
+    <span class="text-xs">5/7</span>
+  </div>
+  <div class="container mx-auto pt-2 px-4 w-full">
+    <div>
+      <h3 class="font-medium">
+        Finish by filling the
+        <span class="text-[#005B82]">Joint Account</span> details
+      </h3>
+    </div>
+  </div>
+
+  <div class="form-item">
+    <form [formGroup]="myForm" style="">
+      <!--Account Name-->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Account Name <span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input
+            name="accountName"
+            maxlength="35"
+            type="text"
+            formControlName="accountName"
+            label=""
+          >
+          </ion-input>
+        </ion-item>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="f['accountName'].hasError('required') && f['accountName'].dirty"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Account name
+            is required
+          </small>
+        </div>
+      </div>
+
+      <!--Branch-->
+      <div
+        class="uk-margin-small-bottom"
+        style="
+          margin-left: 15px;
+          margin-right: 15px !important;
+          margin-top: 15px;
+        "
+      >
+        <ion-label
+          position="stacked"
+          class="labels"
+          style="font-size: 15px !important"
+          >Phone Number <span class="uk-text-danger">*</span></ion-label
+        >
+        <ngx-intl-tel-input
+          [cssClass]="'custom'"
+          formControlName="phoneNumber"
+          [preferredCountries]="[
+            CountryISO.Kenya,
+            CountryISO.Uganda,
+            CountryISO.Rwanda
+          ]"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [customPlaceholder]="'0700 000 000'"
+          [searchCountryFlag]="true"
+          [separateDialCode]="false"
+          [selectedCountryISO]="CountryISO.Kenya"
+        ></ngx-intl-tel-input>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="
+              f['phoneNumber'].hasError('required') &&
+              f['phoneNumber'].dirty &&
+              f['phoneNumber'].touched
+            "
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Phone number
+            is required
+          </small>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Email Address <span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input
+            name="emailAddress"
+            maxlength="35"
+            type="text"
+            formControlName="emailAddress"
+            label=""
+          >
+          </ion-input>
+        </ion-item>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="f['emailAddress'].hasError('required') && f['emailAddress'].dirty"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Last name is
+            required
+          </small>
+        </div>
+      </div>
+      <!-- Purpose -->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Purpose of the Account <span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input
+            name="purpose"
+            maxlength="35"
+            type="text"
+            formControlName="purpose"
+            label=""
+          >
+          </ion-input>
+        </ion-item>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="f['purpose'].hasError('required') && f['purpose'].dirty"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Account purpose is
+            required
+          </small>
+        </div>
+      </div>
+
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Relation to the Account<span class="uk-text-danger">*</span>
+          </ion-label>
+          <ionic-selectable
+            formControlName="relation"
+            [items]="relations"
+            itemValueField="code"
+            [hasInfiniteScroll]="true"
+            placeholder="Select"
+            [isEnabled]="true"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="mandateChange($event)"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </div>
+
+
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Account Currency<span class="uk-text-danger">*</span>
+          </ion-label>
+          <ionic-selectable
+            formControlName="currency"
+            [items]="currencies"
+            itemValueField="currencyCode"
+            [hasInfiniteScroll]="true"
+            placeholder="Select"
+            [isEnabled]="true"
+            itemTextField="currencyName"
+            [canSearch]="true"
+            (onChange)="mandateChange($event)"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </div>
+
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Bank Branch<span class="uk-text-danger">*</span>
+          </ion-label>
+          <ionic-selectable
+            formControlName="branch"
+            [items]="branches"
+            itemValueField="branchCode"
+            [hasInfiniteScroll]="true"
+            placeholder="Select"
+            [isEnabled]="true"
+            itemTextField="branchName"
+            [canSearch]="true"
+            (onChange)="mandateChange($event)"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </div>
+      <!--Mandates-->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Account Mandate<span class="uk-text-danger">*</span>
+          </ion-label>
+          <ionic-selectable
+            formControlName="mandate"
+            [items]="mandates"
+            itemValueField="code"
+            [hasInfiniteScroll]="true"
+            placeholder="Select"
+            [isEnabled]="true"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="mandateChange($event)"
+          >
+          </ionic-selectable>
+        </ion-item>
+      </div>
+      @if (selectedMandateType === 'select_signatories') {
+      <div class="id_no uk-margin-small-top uk-margin-large-bottom">
+        <div class="tool-section ion-padding">
+         <div class="item-left">
+          <span class="ion-text-center itm-head">Account Members</span><br>
+
+          <div>
+            <ion-item
+            class="border"
+            lines="none"
+            style="
+              border: 1px #005b82 solid;
+              border-radius: 5px;
+            "
+            >
+              <ion-toggle class="font-normal text-lg" mode="ios" justify="space-between">test&#64;gmail.com</ion-toggle>
+            </ion-item>
+          </div>
+         </div>
+         <div>
+          <span>
+
+          </span>
+         </div>
+        </div>
+       </div>
+      }
+      <br />
+      <div class="p-4">
+        <ion-button
+          class="text-[#000]"
+          type="submit"
+          size="medium"
+          mode="md"
+          (click)="savePreference()"
+          expand="block"
+          fill="solid"
+          [disabled]="!myForm.valid"
+        >
+          {{ loader.loading ? "" : "Create Account" }}
+          <ion-spinner
+            *ngIf="loader.loading"
+            name="circular"
+            color="secondary"
+          ></ion-spinner>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>
