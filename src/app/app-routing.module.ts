@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'onboarding',
     loadChildren: () => import('./onboarding-individual/onboarding-individual.module').then( m => m.OnboardingIndividualModule)
   },
+  {
+    path: 'onboarding/joint',
+    loadChildren: () => import('./onboarding-joint/onboarding-joint.module').then( m => m.OnboardingJointModule)
+  },
 ];
 
 @NgModule({
