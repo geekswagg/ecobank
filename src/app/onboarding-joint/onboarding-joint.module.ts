@@ -11,10 +11,14 @@ import { JointMembersComponent } from './joint-members/joint-members.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { MandateComponent } from './mandate/mandate.component';
 import { NewJointMemberComponent } from './joint-members/new-joint-member/new-joint-member.component';
+import { InviteeWelcomeComponent } from './invitee-welcome/invitee-welcome.component';
+import { OtpModalComponent } from './invitee-welcome/otp-modal/otp-modal.component';
 
 
 @NgModule({
   declarations: [
+    InviteeWelcomeComponent,
+    OtpModalComponent,
     JointMembersComponent,PreferencesComponent,MandateComponent,NewJointMemberComponent
   ],
   imports: [

@@ -1,0 +1,70 @@
+<ion-content class="content-body">
+  <div class="flex items-center justify-end p-3 bg-primaryBlue-300">
+    <ion-img class="h-[65px]" src="assets/images/logo-white.png" alt="Logo"></ion-img>
+  </div>
+  <div class="mt-2 p-4">
+    <div>
+      <p>
+        <strong>Welcome!</strong>
+      </p>
+      <p>
+        You have been invited by <strong>{{inviter?.principalMemberDetails?.nameOfPrincipal}}</strong> to open a <strong>Joint Account</strong>.
+        Verify account details below & continue
+      </p>
+    </div>
+    <table class="uk-table uk-table-striped">
+      <!-- <thead>
+          <tr>
+            <th class="header"><strong>IDENTIFICATION</strong></th>
+          </tr>
+        </thead> -->
+      <tbody>
+        <tr>
+          <td class="uk-width-small"><strong>Account name</strong></td>
+          <td class="uk-table-shrink">{{inviter?.jointAccountDetails?.accountName}}</td>
+        </tr>
+        <tr>
+          <td class="uk-width-small"><strong>Principal owner</strong></td>
+          <td class="uk-table-shrink">{{inviter?.principalMemberDetails?.nameOfPrincipal}}</td>
+        </tr>
+        <tr>
+          <td class="uk-width-small"><strong>Branch</strong></td>
+          <td class="uk-table-shrink">{{inviter?.jointAccountDetails?.preferredBranch}}</td>
+        </tr>
+        <tr>
+          <td class="uk-width-small"><strong>Signatories</strong></td>
+          <td class="uk-table-shrink">
+            <span *ngIf="inviter?.jointAccountDetails?.signatoryOption === 'any'">Any To Sign</span>
+            <span *ngIf="inviter?.jointAccountDetails?.signatoryOption === 'all'">All To Sign</span>
+            <span *ngIf="inviter?.jointAccountDetails?.signatoryOption === 'select_signatories'">
+              <ul>
+                <li *ngFor="let signatory of inviter?.jointAccountDetails?.signatoriesList.split(',')">
+                  {{signatory}}
+                </li>
+              </ul>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="uk-width-small"><strong>Members</strong></td>
+          <td class="uk-table-shrink">
+            <ul>
+              <li *ngFor="let item of inviter?.jointAccountDetails?.accountMembers.split(',')">
+                {{item}}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="uk-grid-divider uk-margin-bottom uk-text-center uk-child-width-1-2" uk-grid>
+      <div>
+        <ion-button size="small" mode="ios" color="secondary" fill="outline" (click)="declineInvitation()">Cancel</ion-button>
+      </div>
+      <div>
+        <ion-button size="small" mode="ios" color="secondary"  class="" (click)="acceptInvitation()">Accept <ion-icon class="pl-2" color="" name="arrow-forward"></ion-icon></ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
