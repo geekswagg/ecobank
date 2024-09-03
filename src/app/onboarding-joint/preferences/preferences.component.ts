@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
+import { trimPayload } from 'src/app/_helpers/payload-trimmer';
 import { Branch, Currency } from 'src/app/_models/types';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
@@ -17,6 +18,7 @@ import { LoadingService } from 'src/app/_services/loading.service';
 export class PreferencesComponent implements OnInit {
   currencies: Currency[] = [];
   branches:Branch[] = [];
+  members: any[] = [];
   mandates = [
     { code: 'all', name: 'All to Sign' },
     { code: 'any', name: 'Any to Sign' },
@@ -27,7 +29,6 @@ export class PreferencesComponent implements OnInit {
     { code: 'Member', name: 'Member' },
     { code: 'Signatory', name: 'Signatory' }
   ];
-  members = [];
 
   myForm: FormGroup;
   CountryISO = CountryISO;
@@ -132,5 +133,70 @@ export class PreferencesComponent implements OnInit {
     this.selectedMandateType = event.value.code;
   }
 
-  savePreference() {}
+  saveJointAccount() {
+
+    const {accountName,emailAddress, phoneNumber,purpose,relation,mandate,branch,currency} = this.myForm.value;
+    this.loader.loading = true;
+    const accountMembers: any[] = [];
+    const membrs: any[] = [];
+    const signatories: any[] = [];
+    this.members.forEach((member: any) => {
+      accountMembers.push(member.email);
+      membrs.push({
+        emailAddress: member.email,
+        phoneNumber: member.phoneNumber,
+      });
+      if (
+        mandate.code === 'select_signatories' &&
+        member.selected
+      ) {
+        signatories.push(member.email);
+      } else if (
+        mandate.code === 'any' ||
+        mandate.code === 'all'
+      ) {
+        signatories.push(member.email);
+      }
+    });
+    const payload = {
+      members: membrs,
+      phoneNumbers: 'test',
+      accountMembers: accountMembers.toString(),
+      accountName: accountName,
+      preferredBranch: branch.branchCode,
+      preferredCurrency: currency.currencyCode,
+      preferredEmail: emailAddress,
+      purposeOfAccount : purpose,
+      relationship : relation.code,
+      preferredPhone: phoneNumber.e164Number.replace("+", ""),
+      principalMember: this.members[0]?.email,
+      signatoriesList: signatories.toString(),
+      signatoryOption: mandate.code,
+      memberType: this.dataStore.jointPrincipal.memberType,
+      customerNumber: this.dataStore.jointPrincipal.customerNumber
+    };
+
+    trimPayload(payload);
+
+      this.apiService.createJointAcc(payload).subscribe(
+        {
+        next: (res) => {
+        if (res.successful) {
+          this.loader.loading = false;
+          this.toastr.success(res.message);
+          this.router.navigate(['/onboarding/success']);
+        } else {
+          this.loader.loading = false;
+          this.toastr.error(res.message);
+        }
+      },
+      error:(error) =>{
+        this.loader.loading = false;
+        this.toastr.error('Error creating account try again');
+      }}); // end of API Call
+
+
+
+
+  }
 }

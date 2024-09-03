@@ -38,7 +38,7 @@
             test&#64;gmail.com <br />
             0729176560
           </ion-label>
-          <!-- <ion-icon mode="md" color="secondary" slot="end" name="trash-outline"></ion-icon> -->
+          <ion-icon (click)="removeMember('email')" mode="md" color="secondary" slot="end" name="trash-outline"></ion-icon>
         </ion-item>
       </div>
 
@@ -57,9 +57,10 @@
           size="medium"
           type="submit"
           mode="md"
-          (click)="saveOccupation()"
+          (click)="sendInvites()"
           expand="block"
           fill="solid"
+          *ngIf="members.length > 0"
           >
           {{ loader.loading ? "" : "Continue" }}
           <ion-spinner
