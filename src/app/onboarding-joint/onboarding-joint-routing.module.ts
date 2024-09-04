@@ -14,6 +14,7 @@ const routes: Routes = [
     path: 'members',
     component: JointMembersComponent
   },
+
   {
     path: 'mandates',
     component: MandateComponent
