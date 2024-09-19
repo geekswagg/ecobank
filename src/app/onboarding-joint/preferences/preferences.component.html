@@ -164,6 +164,12 @@
             <ion-icon name="information-circle-outline"></ion-icon>Account purpose is
             required
           </small>
+          <small
+          class="error-message"
+          *ngIf="f['purpose'].hasError('pattern') && f['purpose'].dirty"
+        >
+          <ion-icon name="information-circle-outline"></ion-icon>Special characters not allowed
+        </small>
         </div>
       </div>
 
@@ -272,21 +278,34 @@
         </ion-item>
       </div>
       @if (selectedMandateType === 'select_signatories') {
+        <ion-item-divider
+        class="uk-margin-top"
+        style="
+          color: #0033aa !important;
+          background-color: #c3c7c7;
+          font-weight: 500;
+        "
+      >
+        <ion-label class="fatca uk-padding-top">
+          <strong>Choose Signatorie(s) from Account Members below</strong>
+        </ion-label>
+      </ion-item-divider>
       <div class="id_no uk-margin-small-top uk-margin-large-bottom">
         <div class="tool-section ion-padding">
          <div class="item-left">
-          <span class="ion-text-center itm-head">Account Members</span><br>
-
-          <div>
+           <div formArrayName="memberss">
             <ion-item
-            class="border"
+            class="border mb-3"
             lines="none"
             style="
               border: 1px #005b82 solid;
               border-radius: 5px;
             "
+
+            *ngFor="let memberCtrl of membersFormArray.controls; let i = index"
+            [formGroupName]="i"
             >
-              <ion-toggle class="font-normal text-lg" mode="ios" justify="space-between">test&#64;gmail.com</ion-toggle>
+              <ion-toggle formControlName="selected" class="font-normal text-lg" mode="ios" justify="space-between">{{ memberCtrl.get('email')?.value }}</ion-toggle>
             </ion-item>
           </div>
          </div>

@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border head" mode="md">
   <ion-toolbar class="header-color">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/onboarding/next-of-kin"></ion-back-button>
+      <ion-back-button defaultHref="/onboarding/summary"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,6 @@
 <ion-content class="content-body relative z-0" fullscreen>
   <div class="mx-4 flex items-center gap-2">
     <ion-progress-bar [value]="0.75"></ion-progress-bar>
-    <span class="text-xs">6/7</span>
   </div>
 
   <div class="container mx-auto pt-2 px-4 w-full">
@@ -17,7 +16,7 @@
       <h3 class="font-medium">
         You can now provide the details <br />
         of your
-        <span class="text-[#005B82]">Joint Account</span> holders
+        <span class="text-[#005B82]">Joint Account</span> member(s)
       </h3>
     </div>
   </div>
@@ -25,20 +24,23 @@
   <div class="mx-4 flex flex-col">
     <form [formGroup]="occupationForm" class="flex flex-col">
       <div>
-        <ion-item
+
+          <ion-item
+          *ngFor="let member of this.jointMember; let i = index"
           class="border p-2 mb-3"
           lines="none"
           style="
-            background: rgba(var(--ion-color-primary-rgb, 0, 84, 233), 0.3);
             border: 1px #005b82 solid;
             border-radius: 5px;
           "
         >
-          <ion-label class="font-medium text-xl">
-            test&#64;gmail.com <br />
-            0729176560
+          <ion-label class="font-medium">
+            {{member.email}}<br />
+            {{member.phoneNumber}}
           </ion-label>
-          <ion-icon (click)="removeMember('email')" mode="md" color="secondary" slot="end" name="trash-outline"></ion-icon>
+          @if(i > 0){
+            <ion-icon (click)="removeMember(i)" mode="md" color="secondary" slot="end" name="trash-outline"></ion-icon>
+          }
         </ion-item>
       </div>
 
@@ -60,7 +62,7 @@
           (click)="sendInvites()"
           expand="block"
           fill="solid"
-          *ngIf="members.length > 0"
+          *ngIf="this.jointMember.length > 1"
           >
           {{ loader.loading ? "" : "Continue" }}
           <ion-spinner

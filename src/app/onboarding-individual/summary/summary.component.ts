@@ -39,7 +39,7 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
     this.cleanEditLocalStorage();
 
     //Create Pure Save Account
-    this.pureSave();
+    // this.pureSave();
     switch (this.summary.accountCode) {
       case '1002':
         switch (this.summary.multipleAccountsFlag) {
@@ -118,12 +118,22 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
         email: this.summary.emailAddress,
         phoneNumber: this.summary.phoneNumber,
       };
-      if (this.dataStore.joint.accountMembers.length > 0) {
+      let members = [];
+      members.push(accountMember);
+      localStorage.setItem('jointMember', JSON.stringify(members));
+      setTimeout(()=>{
         this.router.navigate(['/onboarding/joint/members']);
-      } else {
-        this.dataStore.joint.accountMembers.push(accountMember);
-        this.router.navigate(['/onboarding/joint/members']);
-      }
+      },200)
+
+      // if (this.dataStore.joint.length > 0) {
+      //   console.log('LEN', this.dataStore.joint)
+      //   this.router.navigate(['/onboarding/joint/members']);
+      // } else {
+      //   console.log('EMPTY', this.dataStore.joint)
+      //   this.dataStore.joint.push(accountMember);
+      //   this.router.navigate(['/onboarding/joint/members']);
+      //   localStorage.setItem('jointMember', JSON.stringify(accountMember));
+      // }
     }
   }
 
@@ -137,9 +147,12 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
           this.fetchSummary = true;
           if (res.successful) {
             this.summary = res.object;
-            this.dataStore.jointPrincipal.customerNumber =
-              this.summary.customerNumber;
-            this.dataStore.jointPrincipal.memberType = 'PRINCIPAL';
+
+            const principalMember ={
+              customerNumber: this.summary.customerNumber,
+              memberType: 'PRINCIPAL'
+            }
+            localStorage.setItem('principalMember', JSON.stringify(principalMember));
           }
       },
       error: (error) => {
@@ -195,4 +208,15 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
     this.fetchSummary = false;
     localStorage.removeItem('summary_edit_flag');
   }
+
+containsObject(obj: any, list: any[]){
+    var x;
+    for (x in list) {
+        if (list.hasOwnProperty(x) && list[x] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
 }

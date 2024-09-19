@@ -45,7 +45,9 @@ export class InviteeWelcomeComponent  implements OnInit {
     });
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getInviterDetails();
+  }
 
   getInviterDetails() {
     this.loader.loading = true;
@@ -55,6 +57,7 @@ export class InviteeWelcomeComponent  implements OnInit {
           if (res.successful) {
             this.loader.loading = false;
             this.inviter = res.object;
+            localStorage.setItem('inviter', JSON.stringify(this.inviter));
           } else {
             this.loader.loading = false;
             this.toastr.error(res.message);

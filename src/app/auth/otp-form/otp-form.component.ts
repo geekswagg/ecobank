@@ -39,7 +39,6 @@ export class OtpFormComponent  implements OnInit {
     .pipe(take(this.counter))
     .subscribe(() => {
       --this.counter;
-      // console.log(this.counter);
       if (this.counter == 0) {
         this.countDown.unsubscribe();
         this.resend = true;

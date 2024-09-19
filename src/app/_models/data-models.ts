@@ -75,7 +75,7 @@ export interface Preferences {
   dividendDisposal?: string;
   phoneNumber?: string;
   taxBracket?: string;
-  accountProduct?: []
+  accountProduct?: [];
 }
 
 export interface Occupation {
@@ -110,7 +110,7 @@ export interface JointPrincipal {
   customerNumber?: String;
 }
 
-export interface AccountProduct{
+export interface AccountProduct {
   accountType: string;
   benefits: string;
   bundleCode?: string;
@@ -126,4 +126,13 @@ export interface AccountProduct{
   policyImageName?: string;
   policyTitle: string;
   targetMarket?: string;
+}
+
+export interface AccountMember {
+  custNumber?: string;
+  email?: string;
+  idNumber?: string;
+  name?: string;
+  phoneNumber?: string;
+  selected?: boolean;
 }

@@ -10,7 +10,7 @@ import { LoadingService } from 'src/app/_services/loading.service';
 import { OtpFormComponent } from 'src/app/auth/otp-form/otp-form.component';
 import { NewJointMemberComponent } from './new-joint-member/new-joint-member.component';
 import { DataStoreService } from 'src/app/_services/data-store.service';
-import { Auth } from 'src/app/_models/data-models';
+import { AccountMember, Auth } from 'src/app/_models/data-models';
 
 @Component({
   selector: 'app-joint-members',
@@ -29,13 +29,14 @@ export class JointMembersComponent implements OnInit {
 
   occupations = [];
   industries = [];
-  members = [];
+  members: AccountMember[] = [];
   incomes: any = [];
   filteredIndustry = [];
   showOther: boolean = false;
   otherValid: boolean = false;
   selectedIncome: string = '';
   auth: Auth = {}
+  jointMember: AccountMember[] = [];
 
   get f() {
     return this.occupationForm.controls;
@@ -48,14 +49,17 @@ export class JointMembersComponent implements OnInit {
     private apiService: ApiService,
     public loader: LoadingService,
     private modalCtrl: ModalController,
-    private dataStore: DataStoreService
+    public dataStore: DataStoreService
   ) {
     this.occupationForm = this.fb.group({
       occupation: ['', Validators.required],
       industry: ['', Validators.required],
       employerName: ['', [Validators.required]],
     });
-    this.members = dataStore.joint.accountMembers;
+    this.jointMember=JSON.parse(
+      localStorage.getItem('jointMember') as string
+    );
+
     this.occupations = JSON.parse(
       localStorage.getItem('occupations') as string
     );
@@ -63,7 +67,9 @@ export class JointMembersComponent implements OnInit {
     this.industries = JSON.parse(localStorage.getItem('industries') as string);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   checkboxChanged() {}
 
@@ -83,22 +89,26 @@ export class JointMembersComponent implements OnInit {
       breakpoints: [0.65, 0.8],
       cssClass: 'message-modal',
     });
+
+    modal.onWillDismiss().then(async (data: any) => {
+      this.jointMember.push(data?.data?.data);
+      localStorage.setItem('jointMember',JSON.stringify(this.jointMember));
+    })
+
     await modal.present();
   }
 
 
   async sendInvites() {
-    this.dataStore.joint.accountMembers = await [];
-    this.dataStore.joint.accountMembers = await this.members;
+    this.dataStore.joint = await [];
+    this.dataStore.joint = await this.members;
     this.router.navigate(['/onboarding/joint/preferences']);
   }
 
     /** delete some members from the list */
-    removeMember(email: string) {
-      if (this.auth.emailAddress !== email)  {
-        this.members = this.members.filter((value: any) => {
-          return value.email !== email;
-        })
+    removeMember(index: number) {
+      if (index > -1) {
+        this.jointMember.splice(index, 1);
       }
     }
 

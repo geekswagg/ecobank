@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import * as aesjs from 'aes-js';
 import base64url from 'base64url';
 import {
+  AccountMember,
   Auth,
   Child,
   Identification,
@@ -89,10 +90,7 @@ export class DataStoreService {
 
   public incomes = [];
 
-  public joint: any ={
-    accountMembers: [],
-  };
-
+  public joint: AccountMember[] = [];
   public jointPrincipal: JointPrincipal = {}
 
   public child: Child = {};

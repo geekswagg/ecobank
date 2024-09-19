@@ -37,7 +37,7 @@ export class NewJointMemberComponent implements OnInit {
       emailAddress: ['', [Validators.required, Validators.email]],
     });
 
-    this.members = dataStore.joint.accountMembers;
+    this.members = dataStore.joint;
   }
 
   ngOnInit() {}
@@ -66,9 +66,11 @@ export class NewJointMemberComponent implements OnInit {
       this.contact_already_added_flag = false;
       this.memberForm.reset();
       this.toastr.success('Member added successfully');
-      this.modalCtrl.dismiss();
+      this.modalCtrl.dismiss({
+        data: member
+      });
     } else {
-      this.toastr.warning('Member already added');
+      this.toastr.warning('Member with this email or phone number exists');
       this.contact_already_added_flag = true;
     }
   }

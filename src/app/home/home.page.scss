@@ -224,4 +224,53 @@ ion-button{
     .dektop-btn:hover{
       transform: scale(1.1);
     }
+
+    .steps-section{
+      background-color: #f0f0f0;
+
+      // li::marker {
+      //   color: hotpink;
+      // }
+
+      // li:first-child::marker {
+      //   font-size: 2rem;
+      // }
+
+
+      .custom-list {
+        list-style: none;
+        padding-left: 1rem; /* Adjust for the left border */
+        border-left: 3px dashed #3498db; /* Left border for the list */
+        margin-top: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .custom-list li {
+        position: relative;
+        padding-left: .8rem; /* Space for the bullet and ring */
+        margin-bottom: 0.4rem;
+      }
+
+      .custom-list li::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #3498db; /* Blue ring color */
+        border-radius: 50%;
+        background-color: #bed600; /* Green bullet color */
+        position: absolute;
+        left: -1.5rem; /* Position of the bullet ring */
+        top: 0.3rem;
+      }
+
+
+      // .custom-list li:first-child::before {
+      //   width: 24px;
+      //   height: 24px;
+      //   top: 0rem;
+      //   border-width: 3px; /* Thicker border for the first item */
+      // }
+
+    }
   }

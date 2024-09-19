@@ -124,9 +124,9 @@ export class PreferencesComponent  implements OnInit {
     if(event.detail.checked) this.enableChequebook = true;
   }
 
-  changeOnlineBanking(event: any){
-    if(event.detail.checked) this.enableOnlineBanking = true;
-  }
+  // changeOnlineBanking(event: any){
+  //   if(event.detail.checked) this.enableOnlineBanking = true;
+  // }
 
   toNextOfKin(){
     this.loader.loading = true;
@@ -134,22 +134,16 @@ export class PreferencesComponent  implements OnInit {
       this.loader.loading = false;
       const {residence, branch, address, building} = this.dataForm.value;
       let debitCard = "N";
-      let onlineBanking = "N";
-      let chequeBook = "N";
       if(this.enableDebitCard) debitCard = "Y";
-      if(this.enableOnlineBanking) onlineBanking = "Y";
-      if(this.enableChequebook) chequeBook = "Y";
 
       const preference = {
         residence: residence.countryCode ?? "",
         branch: branch?.branchCode ?? "",
         physicalAddress: `${address}#${building}`,
         orderDebitCard: this.enableDebitCard,
-        onlineBankingYN: this.enableOnlineBanking,
-        chequeBookYN: this.enableChequebook,       
         employeeIdentificationNumber: "",
         promoCode: "",
-        rmCode: "",  
+        rmCode: "",
         systemTenantId: "",
         usMailingAddress: "",
         usPostalCode: "",
@@ -157,7 +151,7 @@ export class PreferencesComponent  implements OnInit {
         wpfFormString:"",
         accountBundle: this.dataStore.preferences.accountBundle ?? "",
       }
-      
+
       sessionStorage.setItem('preference', JSON.stringify(preference));
       this.toastr.success("Preference details saved");
       this.router.navigate(['/onboarding/next-of-kin'])

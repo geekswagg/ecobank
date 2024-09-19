@@ -38,7 +38,7 @@ export class OtpModalComponent  implements OnInit {
   }
 
   ngOnInit() {
-
+    this.inviter = JSON.parse(localStorage.getItem('inviter') as string);
   }
 
 
@@ -80,7 +80,7 @@ export class OtpModalComponent  implements OnInit {
 
       this.apiService
         .verifyOTP({
-          phoneNumber: this.inviter.principalMemberDetails.phoneNumber,
+          phoneNumber: this.inviter?.principalMemberDetails?.phoneNumber,
           smsCode: this.f['smsCode'].value,
         })
         .subscribe({
