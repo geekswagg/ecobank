@@ -17,8 +17,8 @@ build_image:
 
   script:
     - docker build -t pwa:dev .
-    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.20
-    - docker push giktekio/ecobank-pwa:dev.v1.0.20
+    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.21
+    - docker push giktekio/ecobank-pwa:dev.v1.0.21
 
 
 ## NEW CI COMMAND

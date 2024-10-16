@@ -109,7 +109,9 @@ export class PreferencesComponent  implements OnInit {
   countryChange(event: {
     component: IonicSelectableComponent,
     value: any
-  }) {}
+  }) {
+    if(event.value.countryCode === 'US') this.fatca = true;
+  }
 
   branchChange(event: {
     component: IonicSelectableComponent,
@@ -132,7 +134,7 @@ export class PreferencesComponent  implements OnInit {
     this.loader.loading = true;
     setTimeout(()=>{
       this.loader.loading = false;
-      const {residence, branch, address, building} = this.dataForm.value;
+      const {residence, branch, address, building, usPostalCode, usSocialSecurityNumber, usMailingAddress} = this.dataForm.value;
       let debitCard = "N";
       if(this.enableDebitCard) debitCard = "Y";
 
@@ -145,9 +147,9 @@ export class PreferencesComponent  implements OnInit {
         promoCode: "",
         rmCode: "",
         systemTenantId: "",
-        usMailingAddress: "",
-        usPostalCode: "",
-        usSocialSecurityNumber: "",
+        usMailingAddress: usMailingAddress ?? "",
+        usPostalCode: usPostalCode ?? "",
+        usSocialSecurityNumber: usSocialSecurityNumber ?? "",
         wpfFormString:"",
         accountBundle: this.dataStore.preferences.accountBundle ?? "",
       }
@@ -159,22 +161,20 @@ export class PreferencesComponent  implements OnInit {
   }
 
   formatSSN() {
-    let val = this.dataForm.value.usSocialSecurityNumber.replace(
-      /\D/g,
-      ""
-    );
-    let newVal = "";
+    console.log("formatSSN");
+    let val = this.dataForm.value.usSocialSecurityNumber.replace(/\D/g, '');
+    let newVal = '';
 
     if (val.length > 4) {
       this.dataForm.patchValue({ usSocialSecurityNumber: val });
     }
     if (val.length > 3 && val.length < 6) {
-      newVal += val.substr(0, 3) + "-";
+      newVal += val.substr(0, 3) + '-';
       val = val.substr(3);
     }
     if (val.length > 5) {
-      newVal += val.substr(0, 3) + "-";
-      newVal += val.substr(3, 2) + "-";
+      newVal += val.substr(0, 3) + '-';
+      newVal += val.substr(3, 2) + '-';
       val = val.substr(5);
     }
     newVal += val;

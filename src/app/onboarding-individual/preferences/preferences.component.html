@@ -106,26 +106,26 @@
     <!-- SSN -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Social Security Number <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Social Security Number <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="ssn" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
-          (ionChange)="formatSSN()"></ion-input>
+        <ion-input name="usSocialSecurityNumber" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
+          (input)="formatSSN()"></ion-input>
       </ion-item>
     </div>
     <!-- US Postal Code -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Postal Code <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Postal Code <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="postalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
+        <ion-input name="usPostalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
       </ion-item>
     </div>
     <!-- US Mailing Address -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Mailing Address <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Mailing Address <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="mailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
+        <ion-input name="usMailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
         </ion-input>
       </ion-item>
     </div>
@@ -173,15 +173,29 @@
 
   <br>
   <div style="margin-top: 30px;" class="p-4">
-    <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
-    (click)="toNextOfKin()"
-    expand="block"
-    fill="solid"
-    [disabled]="!dataForm.valid"
-    >
-    {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
-  </ion-button>
+    @if (fatca) {
+      <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
+      (click)="toNextOfKin()"
+      expand="block"
+      fill="solid"
+      [disabled]="!dataForm.valid"
+      >
+      {{ loader.loading ? '' : 'Continue'}}
+      <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+    </ion-button>
+    }
+
+    @if(!fatca){
+      <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
+      (click)="toNextOfKin()"
+      expand="block"
+      fill="solid"
+      [disabled]="!dataForm.valid"
+      >
+      {{ loader.loading ? '' : 'Continue'}}
+      <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+    </ion-button>
+    }
   </div>
 
   </form>
