@@ -136,13 +136,17 @@ export class PreferencesComponent  implements OnInit {
       this.loader.loading = false;
       const {residence, branch, address, building, usPostalCode, usSocialSecurityNumber, usMailingAddress} = this.dataForm.value;
       let debitCard = "N";
+      let chequeBook = 'N';
+
       if(this.enableDebitCard) debitCard = "Y";
+      if(this.enableChequebook) chequeBook = "Y";
 
       const preference = {
         residence: residence.countryCode ?? "",
         branch: branch?.branchCode ?? "",
         physicalAddress: `${address}#${building}`,
-        orderDebitCard: this.enableDebitCard,
+        orderDebitCard: debitCard,
+        orderChequeBook: chequeBook,
         employeeIdentificationNumber: "",
         promoCode: "",
         rmCode: "",
