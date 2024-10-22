@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
 import { LoadingService } from 'src/app/_services/loading.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-summary',
@@ -16,6 +17,7 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
   fetchSummary: boolean = false;
   summary: any = null;
   auth: any;
+  imageUrl: string = '';
 
   constructor(
     private router: Router,
@@ -23,7 +25,9 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
     private dataStore: DataStoreService,
     public loader: LoadingService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.imageUrl = environment.imageUrl
+  }
 
   ngOnInit() {}
 
@@ -39,29 +43,29 @@ export class SummaryComponent implements OnInit, AfterViewChecked {
     this.cleanEditLocalStorage();
 
     //Create Pure Save Account
-    // this.pureSave();
-    switch (this.summary.accountCode) {
-      case '1002':
-        switch (this.summary.multipleAccountsFlag) {
-          case 'Y':
-            this.jointAcc();
-            break;
-          case 'N':
-            this.pureSave();
-            break;
-          default:
-            break;
-        }
-        break;
-      case '1003':
-        this.pureSave();
-        break;
-      case '6002':
-        this.childAcc();
-        break;
-      default:
-        break;
-    }
+    this.pureSave();
+    // switch (this.summary.accountCode) {
+    //   case '1002':
+    //     switch (this.summary.multipleAccountsFlag) {
+    //       case 'Y':
+    //         this.jointAcc();
+    //         break;
+    //       case 'N':
+    //         this.pureSave();
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //     break;
+    //   case '1003':
+    //     this.pureSave();
+    //     break;
+    //   case '6002':
+    //     this.childAcc();
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   pureSave() {

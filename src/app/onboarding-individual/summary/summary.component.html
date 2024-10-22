@@ -186,10 +186,63 @@
               </tr>
               <tr>
                 <td>Cheque Book:</td>
-                <td><strong>{{summary?.orderChequeBook}}</strong></td>
+                <td><strong>{{summary?.chequeBook}}</strong></td>
               </tr>
             </tbody>
           </table>
+        </div>
+       </div>
+       <div>
+        <span>
+
+        </span>
+       </div>
+      </div>
+     </div>
+
+     <!--IMAGES-->
+     <div class="id_no uk-margin-small-top uk-margin-small-bottom">
+      <div class="tool-section ion-padding">
+       <div class="item-left">
+        <div class="flex justify-between w-full">
+          <span class=" itm-head">Customer Images</span>
+          <!-- <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span> -->
+        </div>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <h6>Front Id</h6>
+          <div class="uk-card-media-top mb-3">
+            <img
+              src="{{this.imageUrl + summary?.frontImageLink}}"
+              width="100%"
+              alt="Front Id"
+              style="border: solid 3px #005b82; border-radius: 4px"
+            />
+          </div>
+        </div>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <h6>Back Id</h6>
+          <div class="uk-card-media-top mb-3">
+            <img
+              src="{{this.imageUrl + summary?.backImageLink}}"
+              width="100%"
+              alt="Back Id"
+              style="border: solid 3px #005b82; border-radius: 4px"
+            />
+          </div>
+        </div>
+
+        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+          <h6>Signature</h6>
+          <div class="uk-card-media-top mb-3">
+            <img
+              src="{{this.imageUrl + summary?.signatureLink}}"
+              width="100%"
+              alt="Signature"
+              style="border: solid 3px #005b82; border-radius: 4px"
+            />
+          </div>
         </div>
        </div>
        <div>
