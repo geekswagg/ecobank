@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import * as aesjs from 'aes-js';
+import base64url from 'base64url';
 import {
+  AccountMember,
   Auth,
   Child,
   Identification,
@@ -42,6 +45,7 @@ export class DataStoreService {
 
 }
 
+  public scanningPassport: boolean = false;
   public selectedProducts: any = signal([]);
 
   constructor(private http: HttpClient) {}
@@ -86,11 +90,39 @@ export class DataStoreService {
 
   public incomes = [];
 
-  public joint: any ={
-    accountMembers: [],
-  };
-
+  public joint: AccountMember[] = [];
   public jointPrincipal: JointPrincipal = {}
 
   public child: Child = {};
+
+  enkript(msg: string): string {
+    const key = '$EM8-NAYA?>#9xd2';
+    const iv = 'B0l!nG-4L6TXSwB5';
+
+    const keyBytes = aesjs.utils.utf8.toBytes(key);
+    const ivBytes = aesjs.utils.utf8.toBytes(iv);
+
+    const aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes);
+    const textBytes = aesjs.utils.utf8.toBytes(msg);
+    const padded = aesjs.padding.pkcs7.pad(textBytes);
+    const encryptedBytes = aesCbc.encrypt(padded);
+
+    // Convert Uint8Array to Buffer
+    const encryptedBuffer = Buffer.from(encryptedBytes);
+
+    return base64url.encode(encryptedBuffer);
+  }
+
+  encryptFromPayload(payload: any): any {
+
+    const customExif = JSON.stringify({
+      timestamp: new Date().toISOString(),
+      customField: payload.choice, //prof_nas_fcr
+      file : payload.file
+    });
+
+    return this.enkript(customExif);
+
+  }
+
 }

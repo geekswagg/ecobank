@@ -5,18 +5,19 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
 import { LoadingService } from 'src/app/_services/loading.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss'],
 })
-export class SummaryComponent  implements OnInit, AfterViewChecked {
-
+export class SummaryComponent implements OnInit, AfterViewChecked {
   loading: boolean = false;
   fetchSummary: boolean = false;
   summary: any = null;
   auth: any;
+  imageUrl: string = '';
 
   constructor(
     private router: Router,
@@ -24,7 +25,9 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
     private dataStore: DataStoreService,
     public loader: LoadingService,
     private toastr: ToastrService
-  ) { }
+  ) {
+    this.imageUrl = environment.imageUrl
+  }
 
   ngOnInit() {}
 
@@ -38,85 +41,77 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
 
   createAccount() {
     this.cleanEditLocalStorage();
-    switch (this.summary.accountCode) {
-      case "1002":
-        switch (this.summary.multipleAccountsFlag) {
-          case "Y":
-            this.jointAcc();
-            break;
-          case "N":
-            this.pureSave();
-            break;
-          default:
-            break;
-        }
-        break;
-      case "1003":
-        this.pureSave();
-        break;
-      case "6002":
-        this.childAcc();
-        break;
-      default:
-        break;
-    }
+
+    //Create Pure Save Account
+    this.pureSave();
+    // switch (this.summary.accountCode) {
+    //   case '1002':
+    //     switch (this.summary.multipleAccountsFlag) {
+    //       case 'Y':
+    //         this.jointAcc();
+    //         break;
+    //       case 'N':
+    //         this.pureSave();
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //     break;
+    //   case '1003':
+    //     this.pureSave();
+    //     break;
+    //   case '6002':
+    //     this.childAcc();
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   pureSave() {
-    if (this.auth?.customerCategory === "Invited") {
+    if (this.auth?.customerCategory === 'Invited') {
       this.loader.loading = true;
+      this.apiService.triggerJointAccount().subscribe({
+        next: (response) => {
+          this.loader.loading = false;
 
-      try {
-        this.apiService.triggerJointAccount().subscribe(
-          (result: any) => {
-            this.loader.loading = false;
-
-            if (result.successful) {
-              this.router.navigate(["/onboarding/success"], {
-                queryParams: { success: true },
-              });
-            } else {
-              this.toastr.show("Error creating joint account");
-            }
-          },
-          (error) => {
-            this.loader.loading = false;
-            this.toastr.show("Error creating joint account");
+          if (response.successful) {
+            this.router.navigate(['/onboarding/success'], {
+              queryParams: { success: true },
+            });
+          } else {
+            this.toastr.show('Error creating joint account');
           }
-        );
-      } catch (error) {
-        this.loader.loading = false;
-        this.toastr.show("Error creating joint account");
-      }
+        },
+        error: (error) => {
+          this.loader.loading = false;
+          this.toastr.show('Error creating joint account');
+        },
+      });
     } else {
       this.loader.loading = true;
-
-      try {
-        this.apiService.createAccount().subscribe(
-          (res) => {
-            if (res.successful) {
-              this.loader.loading = false;
-              this.router.navigate(['/onboarding/success'], {
-                queryParams: { success: res.successful },
-              });
-            } else {
-              this.router.navigate(['/onboarding/success'], {
-                queryParams: { success: res.successful },
-              });
-            }
-          },
-          (error) => {
+      this.apiService.createAccount().subscribe({
+        next: (res) => {
+          if (res.successful) {
             this.loader.loading = false;
+            this.router.navigate(['/onboarding/success'], {
+              queryParams: { success: res.successful },
+            });
+          } else {
+            this.router.navigate(['/onboarding/success'], {
+              queryParams: { success: res.successful },
+            });
           }
-        );
-      } catch (error) {
-        this.loader.loading = false;
-      }
+        },
+        error: (err) => {
+          this.loader.loading = false;
+        },
+      });
     }
   }
 
   async jointAcc() {
-    if (this.dataStore.auth.customerCategory === "Invited") {
+    if (this.dataStore.auth.customerCategory === 'Invited') {
       this.pureSave();
     } else {
       const accountMember = {
@@ -127,78 +122,86 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
         email: this.summary.emailAddress,
         phoneNumber: this.summary.phoneNumber,
       };
-      if (this.dataStore.joint.accountMembers.length > 0) {
-        this.router.navigate(["/onboarding/invitations"]);
-      } else {
-        this.dataStore.joint.accountMembers.push(accountMember);
-        this.router.navigate(["/onboarding/invitations"]);
-      }
+      let members = [];
+      members.push(accountMember);
+      localStorage.setItem('jointMember', JSON.stringify(members));
+      setTimeout(()=>{
+        this.router.navigate(['/onboarding/joint/members']);
+      },200)
+
+      // if (this.dataStore.joint.length > 0) {
+      //   console.log('LEN', this.dataStore.joint)
+      //   this.router.navigate(['/onboarding/joint/members']);
+      // } else {
+      //   console.log('EMPTY', this.dataStore.joint)
+      //   this.dataStore.joint.push(accountMember);
+      //   this.router.navigate(['/onboarding/joint/members']);
+      //   localStorage.setItem('jointMember', JSON.stringify(accountMember));
+      // }
     }
   }
 
   childAcc() {
-    this.router.navigate(["/onboarding/child"]);
+    this.router.navigate(['/onboarding/child']);
   }
 
   getSummary() {
-    try {
-      this.apiService.getSummary().subscribe(
-        (res) => {
+    this.apiService.getSummary().subscribe({
+      next: (res) => {
           this.fetchSummary = true;
-
           if (res.successful) {
             this.summary = res.object;
-            this.dataStore.jointPrincipal.customerNumber =
-              this.summary.customerNumber;
-            this.dataStore.jointPrincipal.memberType = "PRINCIPAL";
+
+            const principalMember ={
+              customerNumber: this.summary.customerNumber,
+              memberType: 'PRINCIPAL'
+            }
+            localStorage.setItem('principalMember', JSON.stringify(principalMember));
           }
-        },
-        (error) => {
-          this.fetchSummary = true;
-        }
-      );
-    } catch (error) {
-      this.fetchSummary = true;
-    }
+      },
+      error: (error) => {
+        this.fetchSummary = true;
+      }
+    });
   }
 
   /** make flag on local storage to return the user back to this page  */
   editSection(selection: String) {
     switch (selection) {
-      case "IDENTIFICATION": // no need for flag .. page has resume capability
+      case 'IDENTIFICATION': // no need for flag .. page has resume capability
         this.fetchSummary = false;
-        this.router.navigateByUrl("/onboarding/auth", { replaceUrl: false });
+        this.router.navigateByUrl('/onboarding/auth', { replaceUrl: false });
         break;
-      case "ACCOUNT PREFERENCES":
+      case 'ACCOUNT PREFERENCES':
         this.fetchSummary = false;
         this.router
-          .navigateByUrl("/onboarding/preferences", { replaceUrl: false })
+          .navigateByUrl('/onboarding/preferences', { replaceUrl: false })
           .then(() => {
             localStorage.setItem(
-              "summary_edit_flag",
-              "/onboarding/preferences"
+              'summary_edit_flag',
+              '/onboarding/preferences'
             );
           });
 
         break;
-      case "NEXT OF KIN":
+      case 'NEXT OF KIN':
         this.fetchSummary = false;
         this.router
-          .navigateByUrl("/onboarding/preferences", { replaceUrl: false })
+          .navigateByUrl('/onboarding/preferences', { replaceUrl: false })
           .then(() => {
             localStorage.setItem(
-              "summary_edit_flag",
-              "/onboarding/preferences"
+              'summary_edit_flag',
+              '/onboarding/preferences'
             );
           });
 
         break;
-      case "OCCUPATION":
+      case 'OCCUPATION':
         this.fetchSummary = false;
         this.router
-          .navigateByUrl("/onboarding/occupation", { replaceUrl: false })
+          .navigateByUrl('/onboarding/occupation', { replaceUrl: false })
           .then(() => {
-            localStorage.setItem("summary_edit_flag", "/onboarding/occupation");
+            localStorage.setItem('summary_edit_flag', '/onboarding/occupation');
           });
 
         break;
@@ -207,7 +210,17 @@ export class SummaryComponent  implements OnInit, AfterViewChecked {
 
   cleanEditLocalStorage() {
     this.fetchSummary = false;
-    localStorage.removeItem("summary_edit_flag");
+    localStorage.removeItem('summary_edit_flag');
   }
 
+containsObject(obj: any, list: any[]){
+    var x;
+    for (x in list) {
+        if (list.hasOwnProperty(x) && list[x] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
 }

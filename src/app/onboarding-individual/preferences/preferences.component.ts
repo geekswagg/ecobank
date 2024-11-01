@@ -109,7 +109,9 @@ export class PreferencesComponent  implements OnInit {
   countryChange(event: {
     component: IonicSelectableComponent,
     value: any
-  }) {}
+  }) {
+    if(event.value.countryCode === 'US') this.fatca = true;
+  }
 
   branchChange(event: {
     component: IonicSelectableComponent,
@@ -124,40 +126,38 @@ export class PreferencesComponent  implements OnInit {
     if(event.detail.checked) this.enableChequebook = true;
   }
 
-  changeOnlineBanking(event: any){
-    if(event.detail.checked) this.enableOnlineBanking = true;
-  }
+  // changeOnlineBanking(event: any){
+  //   if(event.detail.checked) this.enableOnlineBanking = true;
+  // }
 
   toNextOfKin(){
     this.loader.loading = true;
     setTimeout(()=>{
       this.loader.loading = false;
-      const {residence, branch, address, building} = this.dataForm.value;
+      const {residence, branch, address, building, usPostalCode, usSocialSecurityNumber, usMailingAddress} = this.dataForm.value;
       let debitCard = "N";
-      let onlineBanking = "N";
-      let chequeBook = "N";
+      let chequeBook = 'N';
+
       if(this.enableDebitCard) debitCard = "Y";
-      if(this.enableOnlineBanking) onlineBanking = "Y";
       if(this.enableChequebook) chequeBook = "Y";
 
       const preference = {
         residence: residence.countryCode ?? "",
         branch: branch?.branchCode ?? "",
         physicalAddress: `${address}#${building}`,
-        orderDebitCard: this.enableDebitCard,
-        onlineBankingYN: this.enableOnlineBanking,
-        chequeBookYN: this.enableChequebook,       
+        orderDebitCard: debitCard,
+        orderChequeBook: chequeBook,
         employeeIdentificationNumber: "",
         promoCode: "",
-        rmCode: "",  
+        rmCode: "",
         systemTenantId: "",
-        usMailingAddress: "",
-        usPostalCode: "",
-        usSocialSecurityNumber: "",
+        usMailingAddress: usMailingAddress ?? "",
+        usPostalCode: usPostalCode ?? "",
+        usSocialSecurityNumber: usSocialSecurityNumber ?? "",
         wpfFormString:"",
         accountBundle: this.dataStore.preferences.accountBundle ?? "",
       }
-      
+
       sessionStorage.setItem('preference', JSON.stringify(preference));
       this.toastr.success("Preference details saved");
       this.router.navigate(['/onboarding/next-of-kin'])
@@ -165,22 +165,20 @@ export class PreferencesComponent  implements OnInit {
   }
 
   formatSSN() {
-    let val = this.dataForm.value.usSocialSecurityNumber.replace(
-      /\D/g,
-      ""
-    );
-    let newVal = "";
+    console.log("formatSSN");
+    let val = this.dataForm.value.usSocialSecurityNumber.replace(/\D/g, '');
+    let newVal = '';
 
     if (val.length > 4) {
       this.dataForm.patchValue({ usSocialSecurityNumber: val });
     }
     if (val.length > 3 && val.length < 6) {
-      newVal += val.substr(0, 3) + "-";
+      newVal += val.substr(0, 3) + '-';
       val = val.substr(3);
     }
     if (val.length > 5) {
-      newVal += val.substr(0, 3) + "-";
-      newVal += val.substr(3, 2) + "-";
+      newVal += val.substr(0, 3) + '-';
+      newVal += val.substr(3, 2) + '-';
       val = val.substr(5);
     }
     newVal += val;

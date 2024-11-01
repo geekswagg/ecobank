@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { environment } from 'src/environments/environment';
 import { MainAccountDetails, ResAccountProducts } from '../_models/business-model';
+import { DataStoreService } from './data-store.service';
 
 
 @Injectable({
@@ -12,7 +13,9 @@ import { MainAccountDetails, ResAccountProducts } from '../_models/business-mode
 export class ApiService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private dataStore: DataStoreService,
+    private http: HttpClient) {}
 
   /** fetch MainAccountDetails *GET*  request*/
   getMainAccountDetails(): Observable<MainAccountDetails> {
@@ -51,13 +54,73 @@ export class ApiService {
   }
 
   // Scan Front ID
+  // Scan Front ID
   scanFrontID(payload: any): Observable<any> {
-    return this.http.post<any>(`${environment.devOcr}frontid`, payload);
+
+    const header1= {'API_KEY': environment.apiKey,};
+    const customExif = JSON.stringify({
+      timestamp: new Date().toISOString(),
+      customField: 'prof_nas_fcr'
+    });
+
+
+    // Convert the encryption process to an Observable
+    const encryptedExif = this.dataStore.enkript(customExif);
+    // Handle the form data and HTTP request
+
+        const formData = new FormData();
+        for (const key in payload) {
+          if (payload.hasOwnProperty(key)) {
+            formData.append('image', payload[key]);
+          }
+        }
+        formData.append('pamba', encryptedExif);
+
+        return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+
   }
 
   // Scan Back ID / Passport
   scanBackID(payload: any): Observable<any> {
-    return this.http.post(`${environment.devOcr}ocr`, payload);
+
+    let header1;
+    let customExif;
+
+
+    if (this.dataStore.scanningPassport) { // settings for Passport
+
+      header1= {'API_KEY': environment.apiKey,};
+      customExif = JSON.stringify({
+        timestamp: new Date().toISOString(),
+        customField: 'prof_nas_pcr'
+      });
+
+
+    } else { // setting for Back ID
+
+      header1= {'API_KEY': environment.apiKey,};
+      customExif = JSON.stringify({
+        timestamp: new Date().toISOString(),
+        customField: 'prof_nas_bcr'
+      });
+
+    }
+
+
+    // Convert the encryption process to an Observable
+    const encryptedExif = this.dataStore.enkript(customExif);
+    // Handle the form data and HTTP request
+
+    const formData = new FormData();
+        for (const key in payload) {
+          if (payload.hasOwnProperty(key)) {
+            formData.append('image', payload[key]);
+          }
+        }
+        formData.append('pamba', encryptedExif);
+
+    return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+
   }
 
   // Save Images
@@ -68,9 +131,26 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.baseUrl + 'image', formData);
+    return this.http.post(this.baseUrl + 'image', formData,{
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+
+  );
   }
 
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
 
 
 
@@ -135,7 +215,10 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(this.baseUrl + 'selfie', formData);
+    return this.http.post(this.baseUrl + 'selfie', formData,{
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   // Create Account
@@ -191,7 +274,13 @@ export class ApiService {
       formData.append(key, payload[key]);
     }
   }
-  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData);
+  return this.http.post(environment.businessUrlV2 + 'foreignerDetails', formData,{
+    reportProgress: true,
+    observe: 'events'
+  }).pipe(
+    catchError(this.errorMgmt)
+
+);
 }
 
   // Save Images  TODO: HACK FOR BIZ
@@ -202,7 +291,13 @@ export class ApiService {
         formData.append(key, payload[key]);
       }
     }
-    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData);
+    return this.http.post(environment.businessUrlV1 + 'identityDocument', formData,{
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+
+  );
   }
 
 }

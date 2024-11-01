@@ -9,16 +9,16 @@
 
 <ion-content [fullscreen]="true">
   <div class="uk-margin-small-top">
-    <div  class="uk-margin-large-left ">
+    <div  class="mx-4">
       <div>
-        <h4 class="browse" style="width: 80%;">Let's complete the application by taking a <strong style="color: #005B82 !important; "> Selfie </strong>
-        </h4>
+        <h3 class="font-medium">Let's complete the application by taking a <strong style="color: #a32a29 !important; "> Selfie </strong>
+        </h3>
       </div>
     </div>
 
     <div class="uk-flex uk-justify-between ion-padding">
       <div>
-        <img src="assets/images/mask-1.png" alt="">
+        <img ngSrc="assets/images/mask-1.png" width="187" height="236" alt="" priority>
       </div>
       <div class="ion-padding">
         <p>Please clear your face of any coverings for a nice, clear selfie.</p>
@@ -31,20 +31,23 @@
         <p>Glasses off please. Let's avoid glare and make sure we can see your eyes.</p>
       </div>
       <div>
-        <img src="assets/images/mask.png" alt="">
+        <img ngSrc="assets/images/mask.png" width="187" height="236" alt="" priority>
       </div>
     </div>
 
     <div class="uk-flex uk-justify-between ion-padding">
       <div>
-        <img src="assets/images/selfie-ok.png" alt="">
+        <img ngSrc="assets/images/selfie-ok.png" width="187" height="236" alt="" priority>
       </div>
       <div class="ion-padding">
         <p>Find a bright spot so your selfie shines!</p>
         <div class="uk-text-center">
           <ion-button mode="md"  class="actionBtn" (click)="openCamera('selfie')" >
-            @if(loader.loading) {
-              Wait...
+            @if(loader.detectingFace){
+              Detecting Face...
+            }
+            @if(loader.savingSelfie) {
+              Saving Selfie... {{progress}}%
             }
             @if(!loader.loading) {
              Open Camera

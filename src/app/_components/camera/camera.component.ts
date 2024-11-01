@@ -94,35 +94,44 @@ export class CameraComponent  implements OnInit {
       this.base64File = webcamImage.imageAsDataUrl.split('base64,')[1];
       switch (this.side) {
         case 'id_front':
-          this.dataStore.identification.frontId.frontIdBase64 = await this.base64File;
-          this.dataStore.identification.frontId.frontIdCaptured = await webcamImage.imageAsDataUrl;
-          this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFile(
+          this.dataStore.identification.frontId.frontIdBase64 = this.base64File;
+          this.dataStore.identification.frontId.frontIdCaptured = webcamImage.imageAsDataUrl;
+          this.dataStore.identification.frontId.frontIdFileNormal= await this.dataUrlToFile(
             this.dataStore.identification.frontId.frontIdBase64
           );
-
-          this.modalCtrl.dismiss({
+          this.dataStore.identification.frontId.frontIdFile = await this.dataUrlToFileEncrypted(
+            this.dataStore.identification.frontId.frontIdBase64
+          );
+         await this.modalCtrl.dismiss({
             cancelled: false,
             data: this.dataStore.identification,
           });
-          console.log("FRONT",this.dataStore.identification)
+
           break;
+
         case 'id_back':
           this.dataStore.identification.backId.backIdBase64 = this.base64File
           this.dataStore.identification.backId.backIdCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.backId.backIdFile = await this.dataUrlToFile(
+          this.dataStore.identification.backId.backIdFileNormal = await this.dataUrlToFile(
+            this.dataStore.identification.backId.backIdBase64
+          );
+          this.dataStore.identification.backId.backIdFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.backId.backIdBase64
           );
           this.modalCtrl.dismiss({
             cancelled: false,
-            data: this.dataStore.identification
+            data: Object.assign(this.dataStore.identification, this.dataStore.identification),
           });
-          console.log("BACK",this.dataStore.identification)
           break;
 
         case 'passport':
           this.dataStore.identification.passportBase64 = this.base64File
+          this.dataStore.scanningPassport = true;
           this.dataStore.identification.passportCaptured = webcamImage.imageAsDataUrl;
-          this.dataStore.identification.passportFile = await this.dataUrlToFile(
+          this.dataStore.identification.passportFileNormal = await this.dataUrlToFile(
+            this.dataStore.identification.passportBase64
+          );
+          this.dataStore.identification.passportFile = await this.dataUrlToFileEncrypted(
             this.dataStore.identification.passportBase64
           );
           this.modalCtrl.dismiss({
@@ -183,6 +192,13 @@ export class CameraComponent  implements OnInit {
    async dataUrlToFile(base64: string) {
     const res: Response = await fetch(`data:image/jpeg;base64,${base64}`);
     const blob: Blob = await res.blob();
-    return new File([blob], 'filename.jpeg', { type: 'image/jpeg' });
+    return new File([blob], 'dala.jpeg', { type: 'image/jpeg' });
   }
+
+  async dataUrlToFileEncrypted(base64: string) {
+    const base64Encrypted = this.dataStore.enkript(base64);
+    const blob = new Blob([base64Encrypted], { type: 'text/plain' });
+    return new File([blob], 'kj', { type: 'text/plain' });
+  }
+
 }

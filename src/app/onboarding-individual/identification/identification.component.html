@@ -4,20 +4,16 @@
       <ion-back-button defaultHref="/auth" (click)="back()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-  </div>
 </ion-header>
 
-<ion-content>
+<ion-content class="content-body">
+  <div class="mx-4 flex items-center gap-2">
+    <ion-progress-bar  [value]=".375"></ion-progress-bar>
+  </div>
   <div class="p-4">
-    <div class="" >
-      <h4 class="browse" style="width: 80%;">Choose the <span class="text-[#005B82]"> document type</span> you are using to create account
-      </h4>
+    <div class="mx-auto" >
+      <h3 class="browse" style="">Choose the <span class="text-[#a32a29]"> document</span> you are using to create account
+      </h3>
     </div>
 
     <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
@@ -27,20 +23,20 @@
       </ion-radio-group> <br> -->
 
       <ion-radio-group (ionChange)="selectDocument($event)">
-        <ion-item class="border p-2 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+        <ion-item class="border p-3 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
           <ion-label class="" style="font-weight: 500;">National ID</ion-label>
-          <ion-radio labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
+          <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
         </ion-item>
-        <ion-item class="border p-2" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+        <ion-item class="border p-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
           <ion-label class="" style="font-weight: 500;">Passport</ion-label>
-          <ion-radio labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
+          <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
         </ion-item>
       </ion-radio-group>
 
     </div>
 
     <div class="uk-margin-large-top browse" style="padding-left:10px; font-family: Roboto-Regular !important; font-size: 14px;">
-      <h4 style="font-weight: 700; font-size: 14px; text-rendering: optimizeLegibility;">Make sure your document is:</h4>
+      <h4 style="font-weight: 700; font-size: 14px;">Make sure your document is:</h4>
       <div>
         <ul>
           <li>Clear and easy to read</li>

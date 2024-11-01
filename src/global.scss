@@ -292,19 +292,17 @@ ion-label {
   color: #000 !important;
   font-size: 1em !important;
   font-size: 100% !important;
-  font-weight: 400 !important;
+  font-weight: 400;
   padding-bottom: 5px !important;
 }
 
 ion-button[type=submit] {
   font-size: 1rem;
   font-weight: 700;
-  line-height: 150%;
+  // line-height: 53rem;
   margin-top: 30px;
   margin-bottom: 10px;
-  height: 3rem;
-  margin-left: 15px;
-  margin-right: 15px;
+  height: 3.5rem;
 }
 
 .otp-input{
@@ -330,5 +328,25 @@ Design element restricted to DESKTOP SCREEN only
   .mobile-content {
     display: none;
     min-width: 80vw !important;
+  }
+}
+
+.message-modal {
+  // --backdrop-opacity: 1;
+  // backdrop-filter: blur(3px);
+
+  &::part(backdrop) {
+      background: #000;
+  }
+
+  &::part(handle) {
+      background: var(--ion-color-primary);
+      width: 30px;
+      height: 6px;
+  }
+
+  &::part(content) {
+      border-radius: 10px; // Here the border radius
+      box-shadow: 0px 0px 20px 5px rgb(0 0 0 / 32%);
   }
 }

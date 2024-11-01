@@ -1,0 +1,115 @@
+<ion-content>
+  <div class="m-4">
+    <div class="container mx-auto pt-2 px-4 w-full">
+      <div>
+        <h5 class="font-medium text-xl">
+          Now add the details of your
+          <span class="text-[#005B82]">Joint</span> Account member
+        </h5>
+      </div>
+    </div>
+
+    <form [formGroup]="memberForm">
+      <div
+        class="uk-margin-small-bottom"
+        style="
+          margin-left: 15px;
+          margin-right: 15px !important;
+          margin-top: 15px;
+        "
+      >
+        <ion-label
+          position="stacked"
+          class="labels"
+          style="font-size: 15px !important"
+          >Phone Number <span class="uk-text-danger">*</span></ion-label
+        >
+        <ngx-intl-tel-input
+          [cssClass]="'custom'"
+          formControlName="phoneNumber"
+          [preferredCountries]="[
+            CountryISO.Kenya,
+            CountryISO.Uganda,
+            CountryISO.Rwanda
+          ]"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [customPlaceholder]="'0700 000 000'"
+          [searchCountryFlag]="true"
+          [separateDialCode]="false"
+          [selectedCountryISO]="CountryISO.Kenya"
+        ></ngx-intl-tel-input>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="
+              f['phoneNumber'].hasError('required') &&
+              f['phoneNumber'].dirty &&
+              f['phoneNumber'].touched
+            "
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Phone number
+            is required
+          </small>
+        </div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Email Adress <span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input
+            name="emailAddress"
+            maxlength="35"
+            type="text"
+            formControlName="emailAddress"
+            label=""
+          >
+          </ion-input>
+        </ion-item>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="f['emailAddress'].hasError('required') && f['emailAddress'].dirty"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Email is
+            required
+          </small>
+        </div>
+      </div>
+
+      <br />
+      <div class="mt-2">
+        <ion-button
+          class="text-[#000]"
+          type="submit"
+          size="medium"
+          mode="md"
+          (click)="addMember()"
+          expand="block"
+          fill="solid"
+          [disabled]="!memberForm.valid"
+        >
+          {{ loader.loading ? "" : "Continue" }}
+          <ion-spinner
+            *ngIf="loader.loading"
+            name="circular"
+            color="secondary"
+          ></ion-spinner>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

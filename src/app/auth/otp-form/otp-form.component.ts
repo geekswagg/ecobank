@@ -25,6 +25,7 @@ export class OtpFormComponent  implements OnInit {
   counter = 56;
   tick = 1000;
   smsCode: string = '';
+  public progress = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -38,12 +39,13 @@ export class OtpFormComponent  implements OnInit {
     .pipe(take(this.counter))
     .subscribe(() => {
       --this.counter;
-      // console.log(this.counter);
       if (this.counter == 0) {
         this.countDown.unsubscribe();
         this.resend = true;
       }
     });
+
+    this.progress =34
   }
 
   ngOnInit() {

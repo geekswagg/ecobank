@@ -16,11 +16,11 @@
     </div>
 
     <div class="flex justify-between mx-auto w-[60%] text-[#fff]">
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center" (click)="review()">
         <span class="bg-[#bed600] p-3 rounded"><ion-icon name="share" color="secondary" size="medium"></ion-icon></span>
         <span>Review</span>
       </div>
-      <div class="flex flex-col items-center ion-activatable ripple-parent" (click)="share()">
+      <div class="flex flex-col items-center" (click)="share()">
         <span class="bg-[#bed600] p-3 rounded"><ion-icon name="share-social" color="secondary" size="medium"></ion-icon></span>
         <span>Share</span>
         <ion-ripple-effect></ion-ripple-effect>

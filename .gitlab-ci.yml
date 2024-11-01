@@ -1,4 +1,3 @@
-
 stages:
   - package
   - deploy
@@ -12,10 +11,66 @@ build_image:
 
   only:
     - main
+
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
   script:
     - docker build -t pwa:dev .
-    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.8
-    - docker push giktekio/ecobank-pwa:dev.v1.0.8
+    - docker tag pwa:dev giktekio/ecobank-pwa:dev.v1.0.23
+    - docker push giktekio/ecobank-pwa:dev.v1.0.23
+
+
+## NEW CI COMMAND
+
+# stages:
+#   - package
+#   - deploy
+
+# build_image:
+#   stage: package
+#   image: docker:stable
+
+#   services:
+#     - docker:dind
+
+#   only:
+#     - main
+
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+#   script:
+#   # Build the Docker image
+#     - docker build -t pwa:dev .
+#     # Extract the /app/www/ folder from the Docker image and save it as an artifact
+#     - mkdir -p output
+#     - docker create --name extract pwa:dev
+#     - docker cp extract:/app/www/. output/
+#     - docker rm -f extract
+#     # List the contents of the output directory for debugging purposes
+#     - ls -la output/
+
+#   artifacts:
+#     paths:
+#       - output/
+#     expire_in: 1 week
+
+# deploy:
+#   stage: deploy
+#   script:
+#     # Deploy the built files to the target GitLab repository
+#     - git config --global user.email "issac.mrongo@giktek.io"
+#     - git config --global user.name "Rabin_Mrongo"
+#     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/ice-team/ext-dev-cesa1-cluster/giktek/Giktek-AccountOpening/frontend/client-application.git deploy-repo
+#    - cd deploy-repo
+#     # Remove old files and copy the new build files
+#     - rm -rf *
+#     # Copy the extracted files from the output directory
+#     - cp -r ../output/* .
+#     # Add, commit, and push the changes
+#     - git add .
+#     - git commit -m "Deploy built application files from pipeline"
+#     - git push origin main
+
 

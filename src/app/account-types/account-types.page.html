@@ -7,40 +7,75 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="body-content" >
-  <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-  </div>
   <div class="container mx-auto p-4 w-full">
     <div class="font-semibold">
       <h3 class="font-medium">{{getGreeting()}}, <br>
-        Let's begin by choosing the <strong class="text-[#005B82]">Account Type</strong>
+        Let's begin by choosing the <strong class="text-[#a32a29]">Account Type</strong>
       </h3>
     </div>
   </div>
 
-  <div class="indiv-section">
-    <div class="indiv-content">
-      <h3 class="acc-title">{{productDetails[0]?.shortDescription}}</h3>
-      <p>{{productDetails[0]?.longDescription}}</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">Select {{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+  @if(!loader.loading){
+    <div class="indiv-section">
+      <div class="indiv-content">
+        <!-- <h3 class="acc-title">{{productDetails[0]?.shortDescription}}</h3> -->
+        <h3 class="acc-title">Personal Account</h3>
+        <p>Opening an Equity Bank Account ensures safety and security for your finances.</p>
+        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">Select {{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      </div>
     </div>
-  </div>
+  }
 
-  <div class="joint-section uk-flex uk-flex-right">
-    <div class="indiv-content ">
-      <h3 class="acc-title">{{productDetails[1]?.shortDescription}}</h3>
-      <p>{{productDetails[1]?.longDescription}}</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">Select {{productDetails[1]?.shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+  @if(loader.loading){
+    <div class="indiv-section">
+      <div class="indiv-content">
+        <h3 class="acc-title">
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1.2rem;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1rem;"></ion-skeleton-text>
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1rem;"></ion-skeleton-text>
+        </p>
+        <ion-skeleton-text [animated]="true" style="width: 60%; height: 1.6rem;"></ion-skeleton-text>
+      </div>
     </div>
-  </div>
+  }
+
+  @if(!loader.loading){
+    <div class="joint-section uk-flex uk-flex-right">
+      <div class="indiv-content ">
+        <!-- <h3 class="acc-title">{{productDetails[1]?.shortDescription}}</h3> -->
+        <h3 class="acc-title">Joint/Chama Account</h3>
+        <!-- <p>{{productDetails[1]?.longDescription}}</p> -->
+         <p>Opening an Equity Bank Account ensures safety and security for your finances.</p>
+        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">Select {{productDetails[1]?.shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      </div>
+    </div>
+  }
+
+  @if(loader.loading){
+    <div class="joint-section uk-flex uk-flex-right">
+      <div class="indiv-content ">
+        <h3 class="acc-title">
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1.2rem;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1rem;"></ion-skeleton-text>
+          <ion-skeleton-text [animated]="true" style="width: 80%; height: 1rem;"></ion-skeleton-text>
+        </p>
+        <ion-skeleton-text [animated]="true" style="width: 60%; height: 1.6rem;"></ion-skeleton-text>
+      </div>
+    </div>
+  }
+
+
+
   <div class="bus-section">
     <div class="indiv-content">
-      <h3 class="acc-title">{{productDetails[2]?.shortDescription}}</h3>
-      <p>{{productDetails[2]?.longDescription}}</p>
+      <!-- <h3 class="acc-title">{{productDetails[2]?.shortDescription}}</h3> -->
+      <h3 class="acc-title">Business Account</h3>
+      <!-- <p>{{productDetails[2]?.longDescription}}</p> -->
+      <p>Opening an Equity Bank Account ensures safety and security for your finances.</p>
       <ion-button color="primary" mode="md" (click)="onSelectAccoutType(2)">Select {{productDetails[2]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>

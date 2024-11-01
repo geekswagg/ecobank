@@ -1,43 +1,43 @@
 
 
-<div class="uk-padding content-body">
-  <!-- <ion-header class="ion-no-border" mode="md">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home"></ion-back-button>
-      </ion-buttons>
-      <ion-title size="large" class="ion-text-center"></ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-  <div>
-    <img src="assets/images/logo_blue.png" alt="">
+<div class="content-body p-8 bg-gray-100 h-screen overflow-y-auto flex justify-center">
+  <div class="bg-lady"></div>
+  <div class="text-2xl cursor-pointer" routerLink="/home">
+    <ion-icon name="arrow-back" color="light"></ion-icon>
+    <!-- <img src="assets/images/logo_blue.png" alt=""> -->
   </div>
-  <div class="uk-text-center">
-    <h4 class="start-title">Get Started with Your Phone</h4>
-    <p>Scan the QR code below and follow the steps from your mobile phone to complete account creation.</p>
-  </div>
-  <div class="uk-flex uk-flex-center">
-    <div class="qr-section">
-      <div class="uk-padding">
-        <h5>How to proceed</h5>
-        <ol>
-          <li>Open the camera app on your phone.</li>
-          <li>Scan the QR code to the right.</li>
-          <li>Follow the steps from your phone to complete.</li>
-        </ol>
-      </div>
-    </div>
-    <div class="qr-item uk-margin-small-left">
-      <div class="scan-code uk-padding">
-        <qrcode class="qcode" [qrdata]="'https://digitalonboard.ecobank.com/pwa'" [width]="140" [errorCorrectionLevel]="'M'"></qrcode>
-      </div>
-    </div>
-  </div>
+  <div class="flex align-middle items-center">
+    <div class="flex justify-center">
+      <div class="bg-white w-[60%]  p-4 rounded-2xl">
+        <div class="uk-text-center">
+          <h4 class="start-title">Get Started with Your Phone</h4>
+          <p>Scan the QR code below and follow the steps from your mobile phone to complete account creation.</p>
+        </div>
+        <div class="uk-flex uk-flex-center">
+          <div class="qr-section">
+            <div class="uk-padding">
+              <h5>How to proceed</h5>
+              <ol>
+                <li>Open the camera app on your phone.</li>
+                <li>Scan the QR code to the right.</li>
+                <li>Follow the steps from your phone to complete.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="qr-item uk-margin-small-left">
+            <div class="scan-code uk-padding">
+              <qrcode class="qcode" [qrdata]="'https://digitalonboard.ecobank.com/pwa'" [width]="140" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+          </div>
+        </div>
 
-  <div class="uk-text-center uk-padding">
-    <div class="qr-note ">
-      <span><strong>Note:</strong> The account creation process will require you to take photos of your <strong>Kenyan national ID/Passport </strong>, <strong>Your signature</strong> and <strong>Passport</strong>.<br>
-         For a better experience, scan this code and complete these actions from your mobile device</span>
+        <div class=" uk-padding">
+          <div class="qr-note p-2">
+            <span><strong>Note:</strong> The account creation process will require you to take photos of your <strong>Kenyan national ID/Passport </strong>, <strong>Your signature</strong> and <strong>Selfie</strong>.
+               For a better experience, scan this code and complete these actions from your mobile device</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

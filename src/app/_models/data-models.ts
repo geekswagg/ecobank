@@ -25,18 +25,21 @@ export interface Identification {
     backIdBase64?: string;
     backIdFile?: File;
     backIdCaptured?: any;
+    backIdFileNormal?: File;
   };
   frontId: {
     frontIdBase64?: string;
     frontIdCaptured?: any;
-    frontIdFile?: File;
+    frontIdFile?: any;
     frontIdOcrText?: string;
+    frontIdFileNormal?: any;
   };
   ocrKey?: string;
   frontSaved?: boolean;
 
   backSaved?: boolean;
   passportBase64?: string;
+  passportFileNormal?: File;
   passportFile?: File;
   passportSaved?: boolean;
   signatureBase64?: string;
@@ -72,7 +75,7 @@ export interface Preferences {
   dividendDisposal?: string;
   phoneNumber?: string;
   taxBracket?: string;
-  accountProduct?: []
+  accountProduct?: [];
 }
 
 export interface Occupation {
@@ -107,7 +110,7 @@ export interface JointPrincipal {
   customerNumber?: String;
 }
 
-export interface AccountProduct{
+export interface AccountProduct {
   accountType: string;
   benefits: string;
   bundleCode?: string;
@@ -123,4 +126,13 @@ export interface AccountProduct{
   policyImageName?: string;
   policyTitle: string;
   targetMarket?: string;
+}
+
+export interface AccountMember {
+  custNumber?: string;
+  email?: string;
+  idNumber?: string;
+  name?: string;
+  phoneNumber?: string;
+  selected?: boolean;
 }

@@ -2,11 +2,13 @@
 
 #container{
   position: relative;
-  background-image: url(../../assets/images/home-bg.png);
+  background-image: url(../../assets/images/eqty-bg.jpg);
   background-attachment: scroll;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size:contain;
   margin-top: 0 !important;
+  height: 883px !important;
+  // height: 393px !important;
 }
 
 .logo-img{
@@ -94,17 +96,35 @@ ion-button{
 }
 
 .down-arrow{
-  position: absolute;
+  // position: absolute;
   display: flex;
-  left: 50%;
-  top: calc(95vh - 40px);
+  margin: 0;
+  // width: 100%;
+  // left: 50%;
+  justify-content: center;
+  align-items: center;
+  // top: calc(95vh - 40px);
 
  ion-icon{
-  font-size: 35px;
+  position: absolute;
+  font-size: 4.5rem;
   font-weight: 700;
  }
 }
 
+//The down arrow button
+.testee {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-element {
+  position: absolute;
+  font-size: 4rem;
+  top: calc(90vh - 2rem);
+}
 
 //Pulse button
 .pulseBtn {
@@ -143,12 +163,13 @@ ion-button{
 
   .desktop-content{
     position: relative;
-    background-image: url(../../assets/images/web-bg.png);
+    background-image: url(../../assets/images/eqty-bg.jpg);
     height: 100%;
     width: 100%;
-    z-index: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    // z-index: 0;
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    padding: 2rem 4rem;
 
     .bg-lady{
       position: absolute;
@@ -163,30 +184,27 @@ ion-button{
       background-repeat: no-repeat;
     }
 
-    .steps-section{
-      position: absolute;
-      background-image: url(../../assets/images/description.png);
-      z-index: 20;
-      height: 425px;
-      width: 300px;
-      // margin-top: 13%;
-      // top: 5;
-      margin-left: 72%;
-      // position: fixed;
-      background-size: contain;
-      background-position: fixed;
-      background-repeat: no-repeat;
-      transform: translateY(35%);
+    .gradient-text {
+      background-image: linear-gradient(90deg, #ffffff, #fd7e14);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
+    .home-left{
+      position: relative !important;
     }
 
     .home-title{
       // transform: translateY(50%);
-      margin-top: 30vh;
+      // margin-top: 30vh;
+      position: relative;
+      // margin-top: 10rem;
+      // position: absolute;
       h5{
         font-family: "Roboto", sans-serif !important;
-        font-size: 32px !important;
-        line-height: 32px;
+        font-size: 3.4rem;
+        // line-height: 32px;
         font-weight: 900;
         color: #fff;
       }
@@ -201,10 +219,60 @@ ion-button{
     }
 
     .body-element{
-      transform: translateX(5%);
+      // transform: translateX(5%);
+      // position: relative;
     }
 
     .dektop-btn:hover{
       transform: scale(1.1);
+    }
+
+    .steps-section{
+      background-color: #f0f0f0;
+
+      // li::marker {
+      //   color: hotpink;
+      // }
+
+      // li:first-child::marker {
+      //   font-size: 2rem;
+      // }
+
+
+      .custom-list {
+        list-style: none;
+        padding-left: 1rem; /* Adjust for the left border */
+        border-left: 3px dashed #3498db; /* Left border for the list */
+        margin-top: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .custom-list li {
+        position: relative;
+        padding-left: .8rem; /* Space for the bullet and ring */
+        margin-bottom: 0.4rem;
+      }
+
+      .custom-list li::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #3498db; /* Blue ring color */
+        border-radius: 50%;
+        background-color: #fd7e14; /* Green bullet color */
+        position: absolute;
+        left: -1.5rem; /* Position of the bullet ring */
+        top: 0.3rem;
+      }
+
+
+      // .custom-list li:first-child::before {
+      //   width: 24px;
+      //   height: 24px;
+      //   top: 0rem;
+      //   border-width: 3px; /* Thicker border for the first item */
+      // }
+
     }
   }

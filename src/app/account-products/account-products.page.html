@@ -18,13 +18,13 @@
   <div class="container mx-auto p-4 w-full">
     <div>
       <h3 class="font-medium">
-        Now proceed to select the <strong class="text-[#005B82]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
+        Now proceed to select the <strong class="text-[#a32a29]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
       </h3>
     </div>
   </div>
 
   <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider finite="true">
-    @if(loading){
+    @if(loader.loading){
       <div class="ion-text-center img-skeleton">
         <div>
           <ion-skeleton-text [animated]="true" style="width: 80%; height: 400px; margin-left: 10%;"></ion-skeleton-text>
@@ -74,11 +74,21 @@
                 @if(i === 4){
                   <img src="assets/images/classic.png" height="1800" width="900" alt="">
                 }
+                @if(i === 5){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
+                @if(i === 6){
+                  <img src="assets/images/student.png" height="1800" width="900" alt="">
+                }
               </div>
-
                 <div *ngIf="product?.policyImageName" class="image-description">
                   <h3 class="item-title">{{product?.name}}</h3>
-                  <p>{{ product?.policyDecription | slice:0:100 }}<span *ngIf="product.policyDecription.length > 100">...</span></p>
+                  <div class="clamp"><span
+                    [innerHtml]="product?.policyDecription | slice:0:100">
+                    <span *ngIf="product.policyDecription.length > 100">...</span>
+                  </span>
+
+                  </div>
                   <div *ngIf="product?.targetMarket" class="clamp"><span
                     [innerHtml]="product?.targetMarket"></span></div>
 

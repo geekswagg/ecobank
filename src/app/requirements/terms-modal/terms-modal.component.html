@@ -1,24 +1,36 @@
 <ion-header class="ion-no-border" mode="ios">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">Terms and Conditions</ion-title>
+  <ion-toolbar class="new-background-color">
+    <ion-title class="ion-text-center" color="light">Terms and Conditions</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="close()">Close</ion-button>
+      <!-- <ion-button (click)="close()">Close</ion-button> -->
+      <ion-icon (click)="close()" name="close-outline" class="text-2xl font-semibold" color="light"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="terms-content">
+<ion-content
+class="terms-content"
+[scrollEvents]="true"
+(ionScrollStart)="handleScrollStart()"
+(ionScroll)="handleScroll($any($event))"
+(ionScrollEnd)="handleScrollEnd()"
+>
+  @if(scrollTop < 200 && !isScrolling){
+    <div class="testee" (click)="scrollToBottom()">
+        <ion-icon class="centered-element animate__animated animate animate__bounce animate__infinite animate_slower" color="secondary" name="chevron-down-circle-outline"></ion-icon>
+    </div>
+   }
   <!-- Your terms and conditions content here -->
-  <div class="terms-text">
+  <div class="terms-text text-xs mx-auto rounded-xl uk-margin-small-bottom bg-[#E9EAEC]">
     <div>
-      <h5><strong>1. Introduction</strong></h5>
+      <h6><strong>1. Introduction</strong></h6>
       <p>
         1.1 By opening and using a bank account with <strong>EcoBank</strong>, you agree to comply with these Terms and Conditions.
       </p>
     </div>
 
     <div>
-      <h5><strong>2. Account Opening</strong></h5>
+      <h6><strong>2. Account Opening</strong></h6>
       <p>
         2.1  To open an account, you must provide valid identification and any other information required by the Bank.
       </p>
@@ -28,7 +40,7 @@
     </div>
 
     <div>
-      <h5><strong>3. Deposits</strong></h5>
+      <h6><strong>3. Deposits</strong></h6>
       <p>
         3.1 Deposits can be made via cash, cheque, electronic transfer, or any other method accepted by the Bank.
       </p>
@@ -38,7 +50,7 @@
     </div>
 
     <div>
-      <h5><strong>4. Security and Confidentiality</strong></h5>
+      <h6><strong>4. Security and Confidentiality</strong></h6>
       <p>
         4.1 The Bank will implement reasonable security measures to protect account information.
       </p>
@@ -49,7 +61,7 @@
 
 
     <div>
-      <h5><strong>5. Account Statements</strong></h5>
+      <h6><strong>5. Account Statements</strong></h6>
       <p>
         5.1 Account statements will be provided periodically in the manner agreed upon at account opening.
       </p>
@@ -59,7 +71,7 @@
     </div>
 
     <div>
-      <h5><strong>6. Interest and Fees</strong></h5>
+      <h6><strong>6. Interest and Fees</strong></h6>
       <p>
         6.1 Interest rates on accounts are subject to change at the Bank’s discretion and will be communicated to the Account Holder.
       </p>
@@ -69,7 +81,7 @@
     </div>
 
     <div>
-      <h5><strong>7. Account Maintenance</strong></h5>
+      <h6><strong>7. Account Maintenance</strong></h6>
       <p>
         7.1 The Account Holder is responsible for maintaining a minimum balance as specified by the Bank.
       </p>
@@ -79,7 +91,7 @@
     </div>
 
     <div>
-      <h5><strong>8. Amendments</strong></h5>
+      <h6><strong>8. Amendments</strong></h6>
       <p>
         8.1  The Bank reserves the right to amend these Terms at any time, and such amendments will be communicated to the Account Holder.
       </p>
@@ -88,7 +100,7 @@
     </div>
 
     <div>
-      <h5><strong>9. Governing Law</strong></h5>
+      <h6><strong>9. Governing Law</strong></h6>
       <p>
         9.1  These Terms are governed by and construed in accordance with the laws of Kenya.
       </p>
@@ -98,16 +110,18 @@
     </div>
 
     <div>
-      <h5><strong>10. Liability</strong></h5>
+      <h6><strong>10. Liability</strong></h6>
       <p>
         10.1  The Account Holder is responsible for any losses resulting from the misuse of account information.
       </p>
     </div>
 
-    <ion-item lines="none" style="background: #c0e6f0; border-radius: 5px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
-      <ion-label class="uk-text-primary" style="font-weight: 500;">Accept Terms and Conditions</ion-label>
-      <ion-checkbox [(ngModel)]="termsAccepted" labelPlacement="end" (ionChange)="checkboxChanged()"></ion-checkbox>
-    </ion-item>
+    <div #scrollTarget>
+      <ion-item  lines="none" class="p-3" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px; margin-bottom: 10px; margin-right: 10px; margin-left: 10px;">
+        <ion-label class="" style="font-weight: 500;">Accept Terms and Conditions</ion-label>
+        <ion-checkbox mode="md" color="secondary" [(ngModel)]="termsAccepted" labelPlacement="end" (ionChange)="checkboxChanged()"></ion-checkbox>
+      </ion-item>
+    </div>
     <!-- <ion-item lines="none" style="background: #0033aa; margin-top: 3px;">
       <ion-label style="color: #fff !important; font-weight: 500;">Accept Privacy Policy</ion-label>
       <ion-checkbox [(ngModel)]="termsAccepted" (ionChange)="checkboxChanged()"></ion-checkbox>

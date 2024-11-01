@@ -1,0 +1,74 @@
+<ion-content>
+  <div class="m-4">
+    <div class="container mx-auto pt-2 px-4 w-full">
+      <div>
+        <h5 class="font-medium text-xl">
+          Please enter the SMS Code sent to your phone
+        </h5>
+      </div>
+    </div>
+
+    <form [formGroup]="otpForm">
+      <!-- OTP -->
+      <div class="uk-margin-small-bottom">
+        <ion-item lines="none" mode="md">
+          <ion-label
+            position="stacked"
+            class="labels"
+            style="
+              transform: translateY(30%) scale(0.75) !important;
+              font-size: 20px !important;
+            "
+            >Enter the 6-digit code here <span class="uk-text-danger">*</span>
+          </ion-label>
+          <ion-input
+            name="smsCode"
+            maxlength="7"
+            minlength="6"
+            type="text"
+            formControlName="smsCode"
+            label=""
+          >
+          </ion-input>
+        </ion-item>
+        <div class="validation-error uk-text-danger">
+          <small
+            class="error-message"
+            *ngIf="f['smsCode'].hasError('required') && f['smsCode'].dirty"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>OTP is
+            required
+          </small>
+        </div>
+      </div>
+      <br />
+      <p class="otp-resend uk-text-center text-primaryBlue-300 font-bold">
+        <span (click)="resendCode()">Resend Code</span>
+      </p>
+
+      <br />
+      <div class="mt-2">
+        <ion-button
+          class="text-[#000]"
+          type="submit"
+          size="medium"
+          color="secondary"
+          mode="md"
+          (click)="verifyOtp()"
+          expand="block"
+          fill="solid"
+          [disabled]="!otpForm.valid"
+        >
+        Continue
+          <!-- {{ loader.loading ? "" : "Continue" }} -->
+          <ion-spinner
+            *ngIf="loader.loading"
+            name="circular"
+            color="light"
+            class="p-2"
+          ></ion-spinner>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

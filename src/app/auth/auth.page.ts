@@ -33,7 +33,7 @@ export class AuthPage implements OnInit {
   public captchaSuccess = false;
   public captchaIsExpired = false;
   public captchaResponse?: string;
-
+  public progress = 0;
   auth: Auth = {}
 
   get f() {
@@ -62,9 +62,23 @@ export class AuthPage implements OnInit {
         ],
       ],
     });
+
+    setInterval(() => {
+      this.progress += 0.01;
+
+      // Reset the progress bar when it reaches 100%
+      // to continuously show the demo
+      if (this.progress > 1) {
+        setTimeout(() => {
+          this.progress = 0;
+        }, 1000);
+      }
+    }, 50);
+
   }
 
   ngOnInit() {
+    this.dataStore.auth = JSON.parse(localStorage.getItem("auth") ?? '');
   }
 
   verifyUser(){
@@ -101,15 +115,15 @@ export class AuthPage implements OnInit {
      // Get the form values
      this.auth.phoneNumber = phone.e164Number.replace("+", "");
      this.auth.emailAddress = emailAddress;
-     this.auth.userType = this.dataStore.auth.userType ?? "NORMAL";
-     this.auth.accountType = this.dataStore.auth.accountType ?? "28";
+     this.auth.userType = this.dataStore.auth.userType ?? "";
+     this.auth.accountType = this.dataStore.auth.accountType ?? "";
      this.auth.customerCategory = "";
      this.auth.country = phone.countryCode
-     this.auth.bundleCode = this.dataStore.auth.bundleCode ?? "1007";
+     this.auth.bundleCode = this.dataStore.auth.bundleCode ?? "";
      this.auth.multipleAccountsAllowed =
-      this.dataStore.auth.multipleAccountsAllowed ?? "N";
+      this.dataStore.auth.multipleAccountsAllowed ?? "";
      this.auth.currency = this.dataStore.auth.currency ?? "KES";
-     this.auth.name = this.dataStore.auth.name ?? "Smart Direct";
+     this.auth.name = this.dataStore.auth.name ?? "";
      this.auth.key = encrypt(phone.e164Number.replace("+", ""));
 
      trimPayload(this.auth);

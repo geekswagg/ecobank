@@ -8,17 +8,15 @@
 
 <ion-content class="content-body">
 
-  <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-    <div class="step"></div>
+  <div class="mx-4  flex items-center gap-2">
+    <ion-progress-bar  [value]=".5"></ion-progress-bar>
+
   </div>
-  <div class="container mx-auto p-4 w-full">
+
+  <div class="container mx-auto pt-2 px-4 w-full">
     <div>
       <h3 class="font-medium">
-        Now add your account <span class="text-[#005B82]">preference details</span> and  account services
+        Now add your account <span class="text-[#a32a29]">preference details</span> and  account services
       </h3>
     </div>
   </div>
@@ -108,26 +106,26 @@
     <!-- SSN -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Social Security Number <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Social Security Number <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="ssn" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
-          (ionChange)="formatSSN()"></ion-input>
+        <ion-input name="usSocialSecurityNumber" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
+          (input)="formatSSN()"></ion-input>
       </ion-item>
     </div>
     <!-- US Postal Code -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Postal Code <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Postal Code <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="postalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
+        <ion-input name="usPostalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
       </ion-item>
     </div>
     <!-- US Mailing Address -->
     <div>
       <ion-item lines="none" mode="md">
-        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Mailing Address <span class="uk-text-danger"></span>
+        <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Mailing Address <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="mailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
+        <ion-input name="usMailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
         </ion-input>
       </ion-item>
     </div>
@@ -139,8 +137,8 @@
     </ion-label>
   </ion-item-divider>
 
-
-   <div class="id_no uk-margin-small-top">
+<!--= Internet Banking Feature Currently Disabled ==-->
+   <!-- <div class="id_no uk-margin-small-top">
     <div class="tool-section ion-padding">
      <div class="item-left">
       <span class="ion-text-center itm-head">Online Banking</span><br>
@@ -148,6 +146,14 @@
      </div>
      <div>
       <span><strong><ion-toggle (ionChange)="changeOnlineBanking($event)" mode="ios" color="secondary"></ion-toggle></strong></span>
+     </div>
+    </div>
+   </div> -->
+   <div class="id_no uk-margin-small-top">
+    <div class="tool-section ion-padding">
+     <div class="item-left">
+      <span class="ion-text-center itm-head">Mobile Banking</span><br>
+      <span>You will be automatically onboarded onto Mobile Banking once the account has been successfully opened.</span>
      </div>
     </div>
    </div>
@@ -168,24 +174,39 @@
     <div class="tool-section ion-padding">
      <div class="item-left">
       <span class="ion-text-center itm-head">Cheque Book</span><br>
-      <span>Traditional, secure payments with a book of checks.</span>
+      <span>Order cheque book.</span>
      </div>
      <div>
       <span><strong><ion-toggle (ionChange)="changeChequeBook($event)" mode="ios" color="secondary"></ion-toggle></strong></span>
      </div>
     </div>
    </div>
+
   <br>
   <div style="margin-top: 30px;" class="p-4">
-    <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
-    (click)="toNextOfKin()"
-    expand="block"
-    fill="solid"
-    [disabled]="!dataForm.valid"
-    >
-    {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
-  </ion-button>
+    @if (fatca) {
+      <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
+      (click)="toNextOfKin()"
+      expand="block"
+      fill="solid"
+      [disabled]="!dataForm.valid"
+      >
+      {{ loader.loading ? '' : 'Continue'}}
+      <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+    </ion-button>
+    }
+
+    @if(!fatca){
+      <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
+      (click)="toNextOfKin()"
+      expand="block"
+      fill="solid"
+      [disabled]="!dataForm.valid"
+      >
+      {{ loader.loading ? '' : 'Continue'}}
+      <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
+    </ion-button>
+    }
   </div>
 
   </form>
