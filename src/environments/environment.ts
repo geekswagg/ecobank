@@ -1,14 +1,14 @@
-// const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
-// const imageUrl = "https://digitalonboard.ecobank.com/self-onboarding/images-sav/kyc-data/getImage/";
-// const dev = 'https://digitalonboard.ecobank.com/self-onboarding/api/v1/';
-// const dev1 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v1/';
-// const dev2 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v2/';
-
-const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
-const dev1 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v1/';
-const dev2 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v2/';
 const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
-const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/getImage/";
+const imageUrl = "https://digitalonboard.ecobank.com/self-onboarding/images-sav/kyc-data/getImage/";
+const dev = 'https://digitalonboard.ecobank.com/self-onboarding/api/v1/';
+const dev1 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v1/';
+const dev2 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v2/';
+
+// const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
+// const dev1 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v1/';
+// const dev2 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v2/';
+// const devOcr = 'https://uat-onboarding.stanbicbank.co.ke/';
+// const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/getImage/";
 
 
 export const environment = {
