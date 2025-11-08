@@ -27,7 +27,7 @@
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/share": "^6.0.1",
     "@capacitor/status-bar": "6.0.0",
-    "@ionic/angular": "^8.0.0",
+    "@ionic/angular": "^8.7.7",
     "@ngrx/effects": "^18.0.2",
     "@ngrx/store": "^18.0.2",
     "aes-js": "^3.1.2",
