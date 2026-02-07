@@ -8,6 +8,6 @@ RUN yarn install
 COPY . .
 RUN  npm run build --configuration=production
 
-FROM nginx:alpine
+FROM nginx:1.29.5-alpine3.23
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/www/ /usr/share/nginx/html
